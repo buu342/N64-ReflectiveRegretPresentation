@@ -2,6 +2,10 @@
 #define _PRESENTATION_TEXT_H
 
     #define EMPTYCHARDEF {0, 0, 0, 0, NULL, 0} 
+    #define BULLET1 "["
+    #define BULLET2 "]"
+    #define BULLET3 "^"
+    #define BOLD    "\\"
     
     typedef enum {
         ALIGN_LEFT,
@@ -23,7 +27,7 @@
         u8      h;
         u8      spacesize;
         u8      packed;
-        charDef ch[128-33];
+        charDef ch[90];
     } fontDef;
     
     typedef struct {

@@ -1,7 +1,15 @@
 /***************************************************************
                              text.c
                              
-Renders text using optimized texture loads
+Renders text using optimized texture loads. Not every character
+is available for every font, since I didn't need them for the 
+presentation.
+If using the default font, the following characters will perform
+special effects:
+[ = Bullet point level 1
+] = Bullet point level 2
+^ = Bullet point level 3
+\ = Toggle bold text
 ***************************************************************/
 
 #include <nusys.h>
@@ -10,6 +18,7 @@ Renders text using optimized texture loads
 #include "debug.h"
 #include "assets/font_title.h"
 #include "assets/font_default.h"
+#include "assets/font_default_bold.h"
 #include "assets/font_small.h"
 
 #define SPACESIZE 8
@@ -41,6 +50,7 @@ void text_create(char* str, u16 x, u16 y)
     int i;
     int charcount = 0;
     int hsize = 0, xreal;
+    u8 bold = FALSE;
     
     // Iterate through all characters in the string to calculate the text size and create table keys
     for (i=0; str[i] != '\0'; i++) 
@@ -52,16 +62,26 @@ void text_create(char* str, u16 x, u16 y)
         // Handle special characters
         switch (str[i])
         {
-            case ' ': hsize += textrender_font->spacesize;   continue; // Skip spaces
-            case '[': hsize += textrender_font->spacesize;   break;    // Bullet point 1
-            case ']': hsize += textrender_font->spacesize*3; break;    // Bullet point 2
-            case '^': hsize += textrender_font->spacesize*6; break;    // Bullet point 3
+            case ' ':  hsize += textrender_font->spacesize;   continue; // Skip spaces
+            case '[':  hsize += textrender_font->spacesize;   break;    // Bullet point 1
+            case ']':  hsize += textrender_font->spacesize*3; break;    // Bullet point 2
+            case '^':  hsize += textrender_font->spacesize*6; break;    // Bullet point 3
+            case '\\': 
+                bold = !bold;
+                if (bold)
+                    textrender_font = &font_default_bold;
+                else
+                    textrender_font = &font_default;
+                continue;
         }
             
         // Check if the current font's texture has been added to the dictionary (that maps font definition addresses to a key)
-        cdef = &textrender_font->ch[str[i]-33];
+        cdef = &textrender_font->ch[str[i]-'!'];
         if (cdef->tex == NULL)
+        {
+            debug_printf("Warning, unsupported character '%c'\n", str[i]);
             continue;
+        }
         texaddr = (int)cdef->tex;
         hsize += cdef->w + cdef->xpadding;
         node = dict_get(&textrender_addressmap, texaddr);
@@ -84,6 +104,7 @@ void text_create(char* str, u16 x, u16 y)
     }
     
     // Iterate through all characters in the string again, allocating memory for the letters to render
+    bold = FALSE;
     for (i=0; str[i] != '\0'; i++)
     {
         int texaddr, texkey;
@@ -94,14 +115,26 @@ void text_create(char* str, u16 x, u16 y)
         // Handle special characters
         switch (str[i])
         {
-            case ' ': xreal += textrender_font->spacesize;   continue; // Skip spaces
-            case '[': xreal += textrender_font->spacesize;   break;    // Bullet point 1
-            case ']': xreal += textrender_font->spacesize*3; break;    // Bullet point 2
-            case '^': xreal += textrender_font->spacesize*6; break;    // Bullet point 3
+            case ' ':  xreal += textrender_font->spacesize;   continue; // Skip spaces
+            case '[':  xreal += textrender_font->spacesize;   break;    // Bullet point 1
+            case ']':  xreal += textrender_font->spacesize*3; break;    // Bullet point 2
+            case '^':  xreal += textrender_font->spacesize*6; break;    // Bullet point 3
+            case '\\': 
+                bold = !bold;
+                if (bold)
+                    textrender_font = &font_default_bold;
+                else
+                    textrender_font = &font_default;
+                continue;
         }
             
         // Get this character's info
-        cdef = &textrender_font->ch[str[i]-33];
+        cdef = &textrender_font->ch[str[i]-'!'];
+        if (cdef->tex == NULL)
+        {
+            debug_printf("Warning, unsupported character '%c'\n", str[i]);
+            continue;
+        }
         texaddr = (int)cdef->tex;
         node = dict_get(&textrender_addressmap, texaddr);
         

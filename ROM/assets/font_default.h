@@ -256,7 +256,7 @@ u8 font_default_tex7[] = {
 };
 
 fontDef font_default = {
-    128, 32, 8, FALSE,
+    128, 32, 6, FALSE,
     { 
         { 3, 18,  97,  1, font_default_tex5, 1}, // !
         { 7,  7,  36,  1, font_default_tex6, 1}, // "

@@ -78,18 +78,18 @@ u8 font_small_tex2[] = {
 fontDef font_small = {
     128, 32, 4, TRUE,
     { 
-        EMPTYCHARDEF,                            // !
-        EMPTYCHARDEF,                            // "
-        EMPTYCHARDEF,                            // #
-        EMPTYCHARDEF,                            // $
-        EMPTYCHARDEF,                            // %
-        EMPTYCHARDEF,                            // &
-        EMPTYCHARDEF,                            // '
-        EMPTYCHARDEF,                            // (
-        EMPTYCHARDEF,                            // )
-        EMPTYCHARDEF,                            // *
-        EMPTYCHARDEF,                            // +
-        EMPTYCHARDEF,                            // ,
+        EMPTYCHARDEF,                          // !
+        EMPTYCHARDEF,                          // "
+        EMPTYCHARDEF,                          // #
+        EMPTYCHARDEF,                          // $
+        EMPTYCHARDEF,                          // %
+        EMPTYCHARDEF,                          // &
+        EMPTYCHARDEF,                          // '
+        EMPTYCHARDEF,                          // (
+        EMPTYCHARDEF,                          // )
+        EMPTYCHARDEF,                          // *
+        EMPTYCHARDEF,                          // +
+        EMPTYCHARDEF,                          // ,
         { 4,  2, 100, 23, font_small_tex1, 1}, // -
         { 3,  3,  97, 26, font_small_tex1, 1}, // .
         { 6, 15,  88, 16, font_small_tex1, 1}, // /
@@ -104,12 +104,12 @@ fontDef font_small = {
         { 8, 12, 106, 18, font_small_tex2, 1}, // 8
         { 8, 12, 114, 18, font_small_tex2, 1}, // 9
         { 3,  9,  94, 20, font_small_tex1, 1}, // :
-        EMPTYCHARDEF,                            // ;
-        EMPTYCHARDEF,                            // <
-        EMPTYCHARDEF,                            // =
-        EMPTYCHARDEF,                            // >
-        EMPTYCHARDEF,                            // ?
-        EMPTYCHARDEF,                            // @
+        EMPTYCHARDEF,                          // ;
+        EMPTYCHARDEF,                          // <
+        EMPTYCHARDEF,                          // =
+        EMPTYCHARDEF,                          // >
+        EMPTYCHARDEF,                          // ?
+        EMPTYCHARDEF,                          // @
         { 9, 11,   0,  1, font_small_tex1, 1}, // A
         { 8, 11,   9,  1, font_small_tex1, 1}, // B
         { 8, 11,  17,  1, font_small_tex1, 1}, // C
@@ -136,12 +136,12 @@ fontDef font_small = {
         { 8, 11,  65, 17, font_small_tex1, 1}, // X
         { 7, 11,  73, 17, font_small_tex1, 1}, // Y
         { 8, 11,  80, 17, font_small_tex1, 1}, // Z
-        EMPTYCHARDEF,                            // [
-        EMPTYCHARDEF,                            // \ 
-        EMPTYCHARDEF,                            // ]
-        EMPTYCHARDEF,                            // ^
-        EMPTYCHARDEF,                            // _
-        EMPTYCHARDEF,                            // `
+        EMPTYCHARDEF,                          // [
+        EMPTYCHARDEF,                          // \ 
+        EMPTYCHARDEF,                          // ]
+        EMPTYCHARDEF,                          // ^
+        EMPTYCHARDEF,                          // _
+        EMPTYCHARDEF,                          // `
         { 7,  9,   0,  4, font_small_tex2, 1}, // a
         { 8, 12,   7,  1, font_small_tex2, 1}, // b
         { 7,  9,  15,  4, font_small_tex2, 1}, // c
