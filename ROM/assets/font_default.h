@@ -255,95 +255,98 @@ u8 font_default_tex7[] = {
     0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 
 };
 
-fontDef font_default = {{ 
-    { 3, 18,  97,  1, font_default_tex5, 1}, // !
-    { 7,  7,  36,  1, font_default_tex6, 1}, // "
-    { 7,  7,  36,  1, font_default_tex6, 1}, // #
-    {12, 17,  64,  2, font_default_tex6, 1}, // $
-    {16, 17,  87,  2, font_default_tex6, 1}, // %
-    {14, 17, 103,  2, font_default_tex6, 1}, // &
-    { 3,  7,  40,  1, font_default_tex6, 1}, // '
-    { 5, 21, 117,  1, font_default_tex6, 1}, // (
-    { 5, 21, 122,  1, font_default_tex6, 1}, // )
-    { 9, 10,  18,  1, font_default_tex6, 1}, // *
-    {11, 12,   0,  5, font_default_tex6, 1}, // +
-    { 5,  7, 113, 15, font_default_tex5, 1}, // ,
-    { 7,  2,  11, 11, font_default_tex6, 1}, // -
-    { 3,  4, 110, 15, font_default_tex5, 1}, // .
-    { 9, 22,  27,  0, font_default_tex5, 1}, // /
-    {11, 17,  93,  2, font_default_tex7, 1}, // 0
-    { 9, 16,   0,  2, font_default_tex7, 1}, // 1
-    {10, 16,   9,  2, font_default_tex7, 1}, // 2
-    {10, 17,  19,  2, font_default_tex7, 1}, // 3
-    {12, 17,  29,  2, font_default_tex7, 1}, // 4
-    {10, 17,  41,  2, font_default_tex7, 1}, // 5
-    {10, 17,  51,  2, font_default_tex7, 1}, // 6
-    {11, 17,  61,  2, font_default_tex7, 1}, // 7
-    {10, 17,  72,  2, font_default_tex7, 1}, // 8
-    {11, 17,  82,  2, font_default_tex7, 1}, // 9
-    { 4, 12, 118,  7, font_default_tex5, 1}, // :
-    { 5, 15, 122,  7, font_default_tex5, 1}, // ;
-    {11, 12,  76,  5, font_default_tex5, 1}, // <
-    {11,  7,  65,  8, font_default_tex5, 1}, // =
-    {10, 12,  87,  5, font_default_tex5, 1}, // >
-    { 9, 17, 100,  2, font_default_tex5, 1}, // ?
-    {18, 19,  47,  2, font_default_tex5, 1}, // @
-    {14, 17,   0,  2, font_default_tex1, 1}, // A
-    {11, 16,  14,  2, font_default_tex1, 1}, // B
-    {11, 17,  25,  2, font_default_tex1, 1}, // C
-    {12, 16,  36,  2, font_default_tex1, 1}, // D
-    { 9, 16,  48,  2, font_default_tex1, 1}, // E
-    { 9, 17,  57,  2, font_default_tex1, 1}, // F
-    {13, 17,  66,  2, font_default_tex1, 1}, // G
-    {12, 17,  79,  2, font_default_tex1, 1}, // H
-    { 3, 17,  91,  2, font_default_tex1, 1}, // I
-    { 6, 17,  94,  2, font_default_tex1, 1}, // J
-    {11, 17, 100,  2, font_default_tex1, 1}, // K
-    { 8, 16, 111,  2, font_default_tex1, 1}, // L
-    {18, 17,   0,  2, font_default_tex2, 1}, // M
-    {13, 17,  18,  2, font_default_tex2, 1}, // N
-    {15, 17,  31,  2, font_default_tex2, 1}, // O
-    {11, 17,  46,  2, font_default_tex2, 1}, // P
-    {17, 19,  57,  2, font_default_tex2, 1}, // Q
-    {11, 17,  74,  2, font_default_tex2, 1}, // R
-    {10, 17,  85,  2, font_default_tex2, 1}, // S
-    {12, 17,  95,  2, font_default_tex2, 1}, // T
-    {12, 17, 107,  2, font_default_tex2, 1}, // U
-    {14, 17,   0,  2, font_default_tex3, 1}, // V
-    {20, 17,  14,  2, font_default_tex3, 1}, // W
-    {12, 17,  34,  2, font_default_tex3, 1}, // X
-    {11, 17,  46,  2, font_default_tex3, 1}, // Y
-    {11, 16,  57,  2, font_default_tex3, 1}, // Z
-    { 6,  7, 104,  7, font_default_tex7, 1}, // [ (Bullet point level 1)
-    {},                                      // \ 
-    {11, 12, 111,  4, font_default_tex7, 1}, // ] (Bullet point level 2)
-    { 6,  7, 122,  7, font_default_tex7, 1}, // ^ (Bullet point level 3)
-    {11,  3,  53, 20, font_default_tex6, 1}, // _
-    {10,  3,  43, 11, font_default_tex6, 1}, // ` (Longer dash)
-    { 9, 13, 119,  6, font_default_tex1, 1}, // a
-    {11, 18,  68,  1, font_default_tex3, 1}, // b
-    { 9, 13, 119,  6, font_default_tex2, 1}, // c
-    {11, 18,  79,  1, font_default_tex3, 1}, // d
-    {11, 13,  90,  6, font_default_tex3, 1}, // e
-    { 8, 18, 101,  1, font_default_tex3, 1}, // f
-    {11, 17, 109,  6, font_default_tex3, 1}, // g
-    {10, 18,   0,  1, font_default_tex4, 1}, // h
-    { 3, 17,  10,  2, font_default_tex4, 1}, // i
-    { 6, 21,  13,  2, font_default_tex4, 1}, // j
-    { 9, 18,  19,  1, font_default_tex4, 1}, // k
-    { 3, 18,  28,  1, font_default_tex4, 1}, // l
-    {17, 13,  31,  6, font_default_tex4, 1}, // m
-    {10, 13,  48,  6, font_default_tex4, 1}, // n
-    {11, 13,  58,  6, font_default_tex4, 1}, // o
-    {10, 17,  69,  6, font_default_tex4, 1}, // p
-    {11, 17,  79,  6, font_default_tex4, 1}, // q
-    { 7, 13, 120,  6, font_default_tex3, 1}, // r
-    { 8, 13,  90,  6, font_default_tex4, 1}, // s
-    { 8, 15,  98,  4, font_default_tex4, 1}, // t
-    {10, 13, 106,  6, font_default_tex4, 1}, // u
-    {11, 13, 116,  6, font_default_tex4, 1}, // v
-    {17, 13,   0,  6, font_default_tex5, 1}, // w
-    {10, 13,  17,  6, font_default_tex5, 1}, // x
-    {11, 17,  27,  6, font_default_tex5, 1}, // y
-    { 9, 12,  38,  6, font_default_tex5, 1}, // z
-}};
+fontDef font_default = {
+    128, 32, 8, FALSE,
+    { 
+        { 3, 18,  97,  1, font_default_tex5, 1}, // !
+        { 7,  7,  36,  1, font_default_tex6, 1}, // "
+        { 7,  7,  36,  1, font_default_tex6, 1}, // #
+        {12, 17,  64,  2, font_default_tex6, 1}, // $
+        {16, 17,  87,  2, font_default_tex6, 1}, // %
+        {14, 17, 103,  2, font_default_tex6, 1}, // &
+        { 3,  7,  40,  1, font_default_tex6, 1}, // '
+        { 5, 21, 117,  1, font_default_tex6, 1}, // (
+        { 5, 21, 122,  1, font_default_tex6, 1}, // )
+        { 9, 10,  18,  1, font_default_tex6, 1}, // *
+        {11, 12,   0,  5, font_default_tex6, 1}, // +
+        { 5,  7, 113, 15, font_default_tex5, 1}, // ,
+        { 7,  2,  11, 11, font_default_tex6, 1}, // -
+        { 3,  4, 110, 15, font_default_tex5, 1}, // .
+        { 9, 22,  27,  0, font_default_tex5, 1}, // /
+        {11, 17,  93,  2, font_default_tex7, 1}, // 0
+        { 9, 16,   0,  2, font_default_tex7, 1}, // 1
+        {10, 16,   9,  2, font_default_tex7, 1}, // 2
+        {10, 17,  19,  2, font_default_tex7, 1}, // 3
+        {12, 17,  29,  2, font_default_tex7, 1}, // 4
+        {10, 17,  41,  2, font_default_tex7, 1}, // 5
+        {10, 17,  51,  2, font_default_tex7, 1}, // 6
+        {11, 17,  61,  2, font_default_tex7, 1}, // 7
+        {10, 17,  72,  2, font_default_tex7, 1}, // 8
+        {11, 17,  82,  2, font_default_tex7, 1}, // 9
+        { 4, 12, 118,  7, font_default_tex5, 1}, // :
+        { 5, 15, 122,  7, font_default_tex5, 1}, // ;
+        {11, 12,  76,  5, font_default_tex5, 1}, // <
+        {11,  7,  65,  8, font_default_tex5, 1}, // =
+        {10, 12,  87,  5, font_default_tex5, 1}, // >
+        { 9, 17, 100,  2, font_default_tex5, 1}, // ?
+        {18, 19,  47,  2, font_default_tex5, 1}, // @
+        {14, 17,   0,  2, font_default_tex1, 1}, // A
+        {11, 16,  14,  2, font_default_tex1, 1}, // B
+        {11, 17,  25,  2, font_default_tex1, 1}, // C
+        {12, 16,  36,  2, font_default_tex1, 1}, // D
+        { 9, 16,  48,  2, font_default_tex1, 1}, // E
+        { 9, 17,  57,  2, font_default_tex1, 1}, // F
+        {13, 17,  66,  2, font_default_tex1, 1}, // G
+        {12, 17,  79,  2, font_default_tex1, 1}, // H
+        { 3, 17,  91,  2, font_default_tex1, 1}, // I
+        { 6, 17,  94,  2, font_default_tex1, 1}, // J
+        {11, 17, 100,  2, font_default_tex1, 1}, // K
+        { 8, 16, 111,  2, font_default_tex1, 1}, // L
+        {18, 17,   0,  2, font_default_tex2, 1}, // M
+        {13, 17,  18,  2, font_default_tex2, 1}, // N
+        {15, 17,  31,  2, font_default_tex2, 1}, // O
+        {11, 17,  46,  2, font_default_tex2, 1}, // P
+        {17, 19,  57,  2, font_default_tex2, 1}, // Q
+        {11, 17,  74,  2, font_default_tex2, 1}, // R
+        {10, 17,  85,  2, font_default_tex2, 1}, // S
+        {12, 17,  95,  2, font_default_tex2, 1}, // T
+        {12, 17, 107,  2, font_default_tex2, 1}, // U
+        {14, 17,   0,  2, font_default_tex3, 1}, // V
+        {20, 17,  14,  2, font_default_tex3, 1}, // W
+        {12, 17,  34,  2, font_default_tex3, 1}, // X
+        {11, 17,  46,  2, font_default_tex3, 1}, // Y
+        {11, 16,  57,  2, font_default_tex3, 1}, // Z
+        { 6,  7, 104,  7, font_default_tex7, 1}, // [ (Bullet point level 1)
+        EMPTYCHARDEF,                            // \ (Bold text toggle)
+        {11, 12, 111,  4, font_default_tex7, 1}, // ] (Bullet point level 2)
+        { 6,  7, 122,  7, font_default_tex7, 1}, // ^ (Bullet point level 3)
+        {11,  3,  53, 20, font_default_tex6, 1}, // _
+        {10,  3,  43, 11, font_default_tex6, 1}, // ` (Longer dash)
+        { 9, 13, 119,  6, font_default_tex1, 1}, // a
+        {11, 18,  68,  1, font_default_tex3, 1}, // b
+        { 9, 13, 119,  6, font_default_tex2, 1}, // c
+        {11, 18,  79,  1, font_default_tex3, 1}, // d
+        {11, 13,  90,  6, font_default_tex3, 1}, // e
+        { 8, 18, 101,  1, font_default_tex3, 1}, // f
+        {11, 17, 109,  6, font_default_tex3, 1}, // g
+        {10, 18,   0,  1, font_default_tex4, 1}, // h
+        { 3, 17,  10,  2, font_default_tex4, 1}, // i
+        { 6, 21,  13,  2, font_default_tex4, 1}, // j
+        { 9, 18,  19,  1, font_default_tex4, 1}, // k
+        { 3, 18,  28,  1, font_default_tex4, 1}, // l
+        {17, 13,  31,  6, font_default_tex4, 1}, // m
+        {10, 13,  48,  6, font_default_tex4, 1}, // n
+        {11, 13,  58,  6, font_default_tex4, 1}, // o
+        {10, 17,  69,  6, font_default_tex4, 1}, // p
+        {11, 17,  79,  6, font_default_tex4, 1}, // q
+        { 7, 13, 120,  6, font_default_tex3, 1}, // r
+        { 8, 13,  90,  6, font_default_tex4, 1}, // s
+        { 8, 15,  98,  4, font_default_tex4, 1}, // t
+        {10, 13, 106,  6, font_default_tex4, 1}, // u
+        {11, 13, 116,  6, font_default_tex4, 1}, // v
+        {17, 13,   0,  6, font_default_tex5, 1}, // w
+        {10, 13,  17,  6, font_default_tex5, 1}, // x
+        {11, 17,  27,  6, font_default_tex5, 1}, // y
+        { 9, 12,  38,  6, font_default_tex5, 1}, // z
+    }
+};

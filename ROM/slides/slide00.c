@@ -31,6 +31,13 @@ void slide00_init()
     text_create("Reflective Regret", SCREEN_WD_HD/2, 64);
     text_setfont(&font_default);
     text_create("Adventures in Nintendo 64 homebrew development", SCREEN_WD_HD/2, 64+32);
+    text_setfont(&font_small);
+    text_create("This font is very small", SCREEN_WD_HD/2, 64+64);
+    text_setfont(&font_default);
+    text_setalign(ALIGN_LEFT);
+    text_create("[ Bullet point 1", 64, 64+96+0 );
+    text_create("] Bullet point 2", 64, 64+96+32);
+    text_create("^ Bullet point 3", 64, 64+96+64);
 }
 
 void slide00_update()

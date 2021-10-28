@@ -255,95 +255,98 @@ u8 font_title_tex7[] = {
     0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 
 };
 
-fontDef font_title = {{ 
-    { 5, 23, 122,  1, font_title_tex5, 1}, // !
-    {},                                    // "
-    {},                                    // #
-    {},                                    // $
-    {},                                    // %
-    {},                                    // &
-    { 4,  9,   0,  1, font_title_tex7, 1}, // '
-    {},                                    // (
-    {},                                    // )
-    {},                                    // *
-    {15, 16,  28,  5, font_title_tex7, 1}, // +
-    { 7, 10,  21, 18, font_title_tex7, 1}, // ,
-    {},                                    // -
-    { 5,  6,  16, 18, font_title_tex7, 1}, // .
-    {},                                    // /
-    {},                                    // 0
-    {13, 21,  42,  2, font_title_tex7, 1}, // 1
-    {},                                    // 2
-    {},                                    // 3
-    {},                                    // 4
-    {},                                    // 5
-    {},                                    // 6
-    {},                                    // 7
-    {},                                    // 8
-    {},                                    // 9
-    { 5, 16,  43,  8, font_title_tex7, 1}, // :
-    {},                                    // ;
-    {},                                    // <
-    {},                                    // =
-    {},                                    // >
-    {12, 23,   4,  1, font_title_tex7, 1}, // ?
-    {},                                    // @
-    {19, 22,   0,  2, font_title_tex1, 1}, // A
-    {16, 21,  19,  2, font_title_tex1, 1}, // B
-    {15, 22,  35,  2, font_title_tex1, 1}, // C
-    {17, 21,  50,  2, font_title_tex1, 1}, // D
-    {13, 21,  67,  2, font_title_tex1, 1}, // E
-    {12, 21,  80,  2, font_title_tex1, 1}, // F
-    {18, 22,  92,  2, font_title_tex1, 1}, // G
-    {17, 21, 109,  2, font_title_tex1, 1}, // H
-    { 5, 21,   0,  2, font_title_tex2, 1}, // I
-    { 9, 22,   5,  2, font_title_tex2, 1}, // J
-    {15, 22,  14,  2, font_title_tex2, 1}, // K
-    {12, 21,  29,  2, font_title_tex2, 1}, // L
-    {24, 21,  41,  2, font_title_tex2, 1}, // M
-    {18, 22,  65,  2, font_title_tex2, 1}, // N
-    {19, 22,  83,  2, font_title_tex2, 1}, // O
-    {15, 22, 102,  2, font_title_tex2, 1}, // P
-    {22, 25,   0,  2, font_title_tex3, 1}, // Q
-    {16, 22,  22,  2, font_title_tex3, 1}, // R
-    {14, 22,  38,  2, font_title_tex3, 1}, // S
-    {16, 22,  52,  2, font_title_tex3, 1}, // T
-    {17, 22,  68,  2, font_title_tex3, 1}, // U
-    {19, 22,  85,  2, font_title_tex3, 1}, // V
-    {28, 22,   0,  2, font_title_tex4, 1}, // W
-    {17, 22,  28,  2, font_title_tex4, 1}, // X
-    {17, 22,  44,  2, font_title_tex4, 1}, // Y
-    {15, 21,  61,  2, font_title_tex4, 1}, // Z
-    {},                                    // [
-    {},                                    // \ 
-    {},                                    // ]
-    {},                                    // ^
-    {},                                    // _
-    {},                                    // `
-    {13, 16,  75,  8, font_title_tex4, 1}, // a
-    {14, 23,  88,  1, font_title_tex4, 1}, // b
-    {12, 17, 102,  7, font_title_tex4, 1}, // c
-    {14, 23, 114,  1, font_title_tex4, 1}, // d
-    {15, 17,   0,  7, font_title_tex5, 1}, // e
-    {10, 23,  15,  1, font_title_tex5, 2}, // f
-    {15, 22,  25,  7, font_title_tex5, 2}, // g
-    {14, 23,  40,  1, font_title_tex5, 1}, // h
-    { 5, 23,  54,  1, font_title_tex5, 1}, // i
-    { 8, 28,  59,  1, font_title_tex5, 1}, // j
-    {14, 23,  67,  1, font_title_tex5, 1}, // k
-    { 4, 23,  81,  1, font_title_tex5, 2}, // l
-    {23, 17,  85,  7, font_title_tex5, 1}, // m
-    {14, 17, 108,  7, font_title_tex5, 1}, // n
-    {15, 17,   0,  7, font_title_tex6, 1}, // o
-    {14, 22,  15,  7, font_title_tex6, 1}, // p
-    {15, 22,  29,  7, font_title_tex6, 1}, // q
-    { 9, 17,  44,  7, font_title_tex6, 1}, // r
-    {11, 17,  53,  7, font_title_tex6, 1}, // s
-    {10, 20,  64,  4, font_title_tex6, 1}, // t
-    {15, 16,  74,  8, font_title_tex6, 1}, // u
-    {16, 16,  89,  8, font_title_tex6, 1}, // v
-    {23, 16, 105,  8, font_title_tex6, 1}, // w
-    {12, 17, 116,  7, font_title_tex2, 1}, // x
-    {15, 22, 103,  7, font_title_tex3, 1}, // y
-    {10, 15, 118,  8, font_title_tex3, 1}, // z
-}};
+fontDef font_title = {
+    128, 32, 8, FALSE,
+    { 
+        { 5, 23, 122,  1, font_title_tex5, 1}, // !
+        EMPTYCHARDEF,                          // "
+        EMPTYCHARDEF,                          // #
+        EMPTYCHARDEF,                          // $
+        EMPTYCHARDEF,                          // %
+        EMPTYCHARDEF,                          // &
+        { 4,  9,   0,  1, font_title_tex7, 1}, // '
+        EMPTYCHARDEF,                          // (
+        EMPTYCHARDEF,                          // )
+        EMPTYCHARDEF,                          // *
+        {15, 16,  28,  5, font_title_tex7, 1}, // +
+        { 7, 10,  21, 18, font_title_tex7, 1}, // ,
+        EMPTYCHARDEF,                          // -
+        { 5,  6,  16, 18, font_title_tex7, 1}, // .
+        EMPTYCHARDEF,                          // /
+        EMPTYCHARDEF,                          // 0
+        {13, 21,  42,  2, font_title_tex7, 1}, // 1
+        EMPTYCHARDEF,                          // 2
+        EMPTYCHARDEF,                          // 3
+        EMPTYCHARDEF,                          // 4
+        EMPTYCHARDEF,                          // 5
+        EMPTYCHARDEF,                          // 6
+        EMPTYCHARDEF,                          // 7
+        EMPTYCHARDEF,                          // 8
+        EMPTYCHARDEF,                          // 9
+        { 5, 16,  43,  8, font_title_tex7, 1}, // :
+        EMPTYCHARDEF,                          // ;
+        EMPTYCHARDEF,                          // <
+        EMPTYCHARDEF,                          // =
+        EMPTYCHARDEF,                          // >
+        {12, 23,   4,  1, font_title_tex7, 1}, // ?
+        EMPTYCHARDEF,                          // @
+        {19, 22,   0,  2, font_title_tex1, 1}, // A
+        {16, 21,  19,  2, font_title_tex1, 1}, // B
+        {15, 22,  35,  2, font_title_tex1, 1}, // C
+        {17, 21,  50,  2, font_title_tex1, 1}, // D
+        {13, 21,  67,  2, font_title_tex1, 1}, // E
+        {12, 21,  80,  2, font_title_tex1, 1}, // F
+        {18, 22,  92,  2, font_title_tex1, 1}, // G
+        {17, 21, 109,  2, font_title_tex1, 1}, // H
+        { 5, 21,   0,  2, font_title_tex2, 1}, // I
+        { 9, 22,   5,  2, font_title_tex2, 1}, // J
+        {15, 22,  14,  2, font_title_tex2, 1}, // K
+        {12, 21,  29,  2, font_title_tex2, 1}, // L
+        {24, 21,  41,  2, font_title_tex2, 1}, // M
+        {18, 22,  65,  2, font_title_tex2, 1}, // N
+        {19, 22,  83,  2, font_title_tex2, 1}, // O
+        {15, 22, 102,  2, font_title_tex2, 1}, // P
+        {22, 25,   0,  2, font_title_tex3, 1}, // Q
+        {16, 22,  22,  2, font_title_tex3, 1}, // R
+        {14, 22,  38,  2, font_title_tex3, 1}, // S
+        {16, 22,  52,  2, font_title_tex3, 1}, // T
+        {17, 22,  68,  2, font_title_tex3, 1}, // U
+        {19, 22,  85,  2, font_title_tex3, 1}, // V
+        {28, 22,   0,  2, font_title_tex4, 1}, // W
+        {17, 22,  28,  2, font_title_tex4, 1}, // X
+        {17, 22,  44,  2, font_title_tex4, 1}, // Y
+        {15, 21,  61,  2, font_title_tex4, 1}, // Z
+        EMPTYCHARDEF,                          // [
+        EMPTYCHARDEF,                          // \ 
+        EMPTYCHARDEF,                          // ]
+        EMPTYCHARDEF,                          // ^
+        EMPTYCHARDEF,                          // _
+        EMPTYCHARDEF,                          // `
+        {13, 16,  75,  8, font_title_tex4, 1}, // a
+        {14, 23,  88,  1, font_title_tex4, 1}, // b
+        {12, 17, 102,  7, font_title_tex4, 1}, // c
+        {14, 23, 114,  1, font_title_tex4, 1}, // d
+        {15, 17,   0,  7, font_title_tex5, 1}, // e
+        {10, 23,  15,  1, font_title_tex5, 2}, // f
+        {15, 22,  25,  7, font_title_tex5, 2}, // g
+        {14, 23,  40,  1, font_title_tex5, 1}, // h
+        { 5, 23,  54,  1, font_title_tex5, 1}, // i
+        { 8, 28,  59,  1, font_title_tex5, 1}, // j
+        {14, 23,  67,  1, font_title_tex5, 1}, // k
+        { 4, 23,  81,  1, font_title_tex5, 2}, // l
+        {23, 17,  85,  7, font_title_tex5, 1}, // m
+        {14, 17, 108,  7, font_title_tex5, 1}, // n
+        {15, 17,   0,  7, font_title_tex6, 1}, // o
+        {14, 22,  15,  7, font_title_tex6, 1}, // p
+        {15, 22,  29,  7, font_title_tex6, 1}, // q
+        { 9, 17,  44,  7, font_title_tex6, 1}, // r
+        {11, 17,  53,  7, font_title_tex6, 1}, // s
+        {10, 20,  64,  4, font_title_tex6, 1}, // t
+        {15, 16,  74,  8, font_title_tex6, 1}, // u
+        {16, 16,  89,  8, font_title_tex6, 1}, // v
+        {23, 16, 105,  8, font_title_tex6, 1}, // w
+        {12, 17, 116,  7, font_title_tex2, 1}, // x
+        {15, 22, 103,  7, font_title_tex3, 1}, // y
+        {10, 15, 118,  8, font_title_tex3, 1}, // z
+    }
+};

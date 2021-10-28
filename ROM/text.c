@@ -10,6 +10,7 @@ Renders text using optimized texture loads
 #include "debug.h"
 #include "assets/font_title.h"
 #include "assets/font_default.h"
+#include "assets/font_small.h"
 
 #define SPACESIZE 8
 #define MAXMIMUM_FONTTEXTURES 32
@@ -48,19 +49,23 @@ void text_create(char* str, u16 x, u16 y)
         charDef* cdef;
         dictNode* node;
         
-        // Skip spaces
-        if (str[i] == ' ')
+        // Handle special characters
+        switch (str[i])
         {
-            hsize += SPACESIZE;
-            continue;
+            case ' ': hsize += textrender_font->spacesize;   continue; // Skip spaces
+            case '[': hsize += textrender_font->spacesize;   break;    // Bullet point 1
+            case ']': hsize += textrender_font->spacesize*3; break;    // Bullet point 2
+            case '^': hsize += textrender_font->spacesize*6; break;    // Bullet point 3
         }
-        charcount++;
             
         // Check if the current font's texture has been added to the dictionary (that maps font definition addresses to a key)
         cdef = &textrender_font->ch[str[i]-33];
+        if (cdef->tex == NULL)
+            continue;
         texaddr = (int)cdef->tex;
         hsize += cdef->w + cdef->xpadding;
         node = dict_get(&textrender_addressmap, texaddr);
+        charcount++;
         
         // If it hasn't been added, then do so
         if (node == NULL)
@@ -86,11 +91,13 @@ void text_create(char* str, u16 x, u16 y)
         dictNode* node;
         letterDef* letter;
         
-        // Skip spaces
-        if (str[i] == ' ')
+        // Handle special characters
+        switch (str[i])
         {
-            xreal += SPACESIZE;
-            continue;
+            case ' ': xreal += textrender_font->spacesize;   continue; // Skip spaces
+            case '[': xreal += textrender_font->spacesize;   break;    // Bullet point 1
+            case ']': xreal += textrender_font->spacesize*3; break;    // Bullet point 2
+            case '^': xreal += textrender_font->spacesize*6; break;    // Bullet point 3
         }
             
         // Get this character's info
@@ -103,9 +110,18 @@ void text_create(char* str, u16 x, u16 y)
         
         // Allocate memory for a letter, and initialize it
         letter = (letterDef*) malloc(sizeof(letterDef));
+        debug_assert(letter != NULL);
         letter->x = xreal;
-        letter->y = y+cdef->offsety;
+        if (textrender_font->packed)
+            letter->y = y + (cdef->offsety%(textrender_font->h/2));
+        else
+            letter->y = y + cdef->offsety;
+        letter->r = textrender_r;
+        letter->g = textrender_g;
+        letter->b = textrender_b;
+        letter->a = textrender_a;
         letter->cdef = cdef;
+        letter->fdef = textrender_font;
         
         // Add this letter to our hashtable
         list_append(&textrender_loadlist[texkey], letter);
@@ -123,10 +139,11 @@ void text_render(Gfx** glistp)
     gDPSetPrimColor((*glistp)++, 0, 0, 0, 0, 0, 255);
     gDPSetRenderMode((*glistp)++, G_RM_AA_ZB_XLU_SURF, G_RM_AA_ZB_XLU_SURF);
     gDPSetCombineMode((*glistp)++, G_CC_MODULATEIA_PRIM, G_CC_MODULATEIA_PRIM);
+    gDPSetTextureFilter((*glistp)++, G_TF_POINT);
     for (i=0; textrender_loadlist[i].size != 0; i++)
     {
         listNode* node = textrender_loadlist[i].head;
-        gDPLoadTextureBlock((*glistp)++, ((letterDef*)(node->data))->cdef->tex, G_IM_FMT_IA, G_IM_SIZ_8b, 128, 32, 0, G_TX_CLAMP, G_TX_CLAMP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
+        gDPLoadTextureBlock((*glistp)++, ((letterDef*)(node->data))->cdef->tex, G_IM_FMT_IA, G_IM_SIZ_8b, textrender_font->w, textrender_font->h, 0, G_TX_CLAMP, G_TX_CLAMP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
         gDPPipeSync((*glistp)++);
         for (; node != NULL; node = node->next)
         {

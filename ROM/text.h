@@ -1,5 +1,7 @@
 #ifndef _PRESENTATION_TEXT_H
 #define _PRESENTATION_TEXT_H
+
+    #define EMPTYCHARDEF {0, 0, 0, 0, NULL, 0} 
     
     typedef enum {
         ALIGN_LEFT,
@@ -17,17 +19,27 @@
     } charDef;
     
     typedef struct {
+        u8      w;
+        u8      h;
+        u8      spacesize;
+        u8      packed;
         charDef ch[128-33];
     } fontDef;
     
     typedef struct {
         u16 x;
         u16 y;
+        u8  r;
+        u8  g;
+        u8  b;
+        u8  a;
         charDef* cdef;
+        fontDef* fdef;
     } letterDef;
     
-    extern fontDef font_title;
     extern fontDef font_default;
+    extern fontDef font_small;
+    extern fontDef font_title;
     
     void text_initialize();
     void text_create(char* str, u16 x, u16 y);
