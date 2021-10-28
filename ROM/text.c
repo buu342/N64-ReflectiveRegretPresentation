@@ -9,32 +9,33 @@ Renders text using optimized texture loads
 #include "text.h"
 #include "debug.h"
 #include "assets/font_title.h"
+#include "assets/font_default.h"
 
 #define SPACESIZE 8
 #define MAXMIMUM_FONTTEXTURES 32
 
-u8        textrender_bold;
-fontDef*  textrender_font;
-textAlign textrender_align;
-u16       textrender_startx;
-u16       textrender_starty;
-u8        textrender_r;
-u8        textrender_g;
-u8        textrender_b;
-u8        textrender_a;
+static fontDef*  textrender_font;
+static textAlign textrender_align;
+static s16       textrender_startx;
+static s16       textrender_starty;
+static u8        textrender_r;
+static u8        textrender_g;
+static u8        textrender_b;
+static u8        textrender_a;
 
 static int        textrender_fontkey;
 static Dictionary textrender_addressmap;
 static linkedList textrender_loadlist[MAXMIMUM_FONTTEXTURES];
 
-void initialize_text()
+void text_initialize()
 {
     textrender_fontkey = 0;
     memset(&textrender_addressmap, 0, sizeof(Dictionary));
     memset(&textrender_loadlist, 0, sizeof(linkedList)*MAXMIMUM_FONTTEXTURES);
-    reset_text();
+    text_reset();
 }
-void create_text(char* str, u16 x, u16 y)
+
+void text_create(char* str, u16 x, u16 y)
 {
     int i;
     int charcount = 0;
@@ -114,7 +115,7 @@ void create_text(char* str, u16 x, u16 y)
     }
 }
 
-void render_text(Gfx** glistp)
+void text_render(Gfx** glistp)
 {
     int i;
     gDPSetCycleType((*glistp)++, G_CYC_1CYCLE);
@@ -142,27 +143,46 @@ void render_text(Gfx** glistp)
     }
 }
 
-void render_number(Gfx** glistp, int num, u16 x, u16 y)
+void text_rendernumber(Gfx** glistp, int num, u16 x, u16 y)
 {
 
 }
 
-void reset_text()
-{
-    textrender_bold = FALSE;
-    textrender_font = NULL;
-    textrender_align = ALIGN_LEFT;
-    textrender_startx = 0;
-    textrender_starty = 0;
-    textrender_r = 0;
-    textrender_g = 0;
-    textrender_b = 0;
-    textrender_a = 255;
-}
-
-void cleanup_text()
+void text_cleanup()
 {
     int i;
     for (i=0; i<MAXMIMUM_FONTTEXTURES; i++)
         list_destroy_deep(&textrender_loadlist[i]);
+}
+
+inline void text_setfont(fontDef* font)
+{ 
+    textrender_font = font;
+}
+
+inline void text_setalign(textAlign align)
+{
+    textrender_align = align;
+}
+
+inline void text_setpos(s16 x, s16 y)
+{
+    textrender_startx = x; 
+    textrender_startx = y; 
+}
+
+inline void text_setcolor(u8 r, u8 g, u8 b, u8 a)
+{
+    textrender_r = r;
+    textrender_g = g;
+    textrender_b = b;
+    textrender_a = a;
+}
+
+void text_reset()
+{
+    text_setfont(&font_default);
+    text_setalign(ALIGN_LEFT);
+    text_setpos(0, 0);
+    text_setcolor(0, 0, 0, 255);
 }

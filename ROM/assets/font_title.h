@@ -315,12 +315,11 @@ fontDef font_title = {{
     {17, 22,  44,  2, font_title_tex4, 1}, // Y
     {15, 21,  61,  2, font_title_tex4, 1}, // Z
     {},                                    // [
-    {},                                    // \
+    {},                                    // \ 
     {},                                    // ]
     {},                                    // ^
     {},                                    // _
     {},                                    // `
-    {},                                    // Something magical??? Doesn't line up with ASCII table...
     {13, 16,  75,  8, font_title_tex4, 1}, // a
     {14, 23,  88,  1, font_title_tex4, 1}, // b
     {12, 17, 102,  7, font_title_tex4, 1}, // c

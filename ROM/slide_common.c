@@ -16,6 +16,7 @@ Handles stuff that's common between all slides.
               Macros
 *********************************/
 
+#define RENDER_AXIS 0
 #define USB_BUFFER_SIZE 256
 
 
@@ -47,7 +48,7 @@ float camang[3] = {0, 0, -90};
 void slide_common_init()
 {
     // Reset the text rendering settings to their default values
-    reset_text();
+    text_reset();
     
     // Initialize the camera position
     campos[0] = 0;
@@ -142,13 +143,15 @@ void slide_common_draw_start()
     gDPSetTextureLUT(glistp++, G_TT_NONE);
     
     // Render a helper axis
-    gSPDisplayList(glistp++, gfx_axis);
+    #if RENDER_AXIS
+        gSPDisplayList(glistp++, gfx_axis);
+    #endif
 }
 
 void slide_common_draw_end()
 {
     // Render the text last
-    render_text(&glistp);
+    text_render(&glistp);
 
     // Syncronize the RCP and CPU and specify that our display list has ended
     gDPFullSync(glistp++);
@@ -165,5 +168,5 @@ void slide_common_draw_end()
 
 void slide_common_cleanup()
 {
-    cleanup_text();
+    text_cleanup();
 }

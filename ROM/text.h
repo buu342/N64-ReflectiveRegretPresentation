@@ -25,24 +25,19 @@
         u16 y;
         charDef* cdef;
     } letterDef;
-
-    extern u8        textrender_bold;
-    extern fontDef*  textrender_font;
-    extern textAlign textrender_align;
-    extern u16       textrender_startx;
-    extern u16       textrender_starty;
-    extern u8        textrender_r;
-    extern u8        textrender_g;
-    extern u8        textrender_b;
-    extern u8        textrender_a;
     
     extern fontDef font_title;
+    extern fontDef font_default;
     
-    void initialize_text();
-    void create_text(char* str, u16 x, u16 y);
-    void render_text(Gfx** glistp);
-    void render_number(Gfx** glistp, int num, u16 x, u16 y);
-    void reset_text();
-    void cleanup_text();
-
+    void text_initialize();
+    void text_create(char* str, u16 x, u16 y);
+    void text_render(Gfx** glistp);
+    void text_rendernumber(Gfx** glistp, int num, u16 x, u16 y);
+    void text_reset();
+    void text_cleanup();
+    void text_setfont(fontDef* font);
+    void text_setalign(textAlign align);
+    void text_setpos(s16 x, s16 y);
+    void text_setcolor(u8 r, u8 g, u8 b, u8 a);
+    
 #endif

@@ -72,7 +72,7 @@ void mainproc()
     init_highres();
     
     // Initialize the font system
-    initialize_text();
+    text_initialize();
         
     // Initialize slide 0
     slide_common_init();
