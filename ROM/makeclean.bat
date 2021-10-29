@@ -20,6 +20,9 @@ del /q *.n64 2>nul
 rmdir /s /q out 2>nul
 cd slides
 del /q *.o 2>nul
+cd..
+cd assets
+del /q *.o 2>nul
 echo Done!
 goto Finish
 

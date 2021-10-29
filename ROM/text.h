@@ -47,7 +47,7 @@
     
     void text_initialize();
     void text_create(char* str, u16 x, u16 y);
-    void text_render(Gfx** glistp);
+    void text_render();
     void text_rendernumber(Gfx** glistp, int num, u16 x, u16 y);
     void text_reset();
     void text_cleanup();
@@ -55,5 +55,7 @@
     void text_setalign(textAlign align);
     void text_setpos(s16 x, s16 y);
     void text_setcolor(u8 r, u8 g, u8 b, u8 a);
+    s16  text_getx();
+    s16  text_gety();
     
 #endif

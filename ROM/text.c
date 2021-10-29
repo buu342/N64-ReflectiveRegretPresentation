@@ -13,6 +13,7 @@ special effects:
 ***************************************************************/
 
 #include <nusys.h>
+#include "config.h"
 #include "datastructs.h"
 #include "text.h"
 #include "debug.h"
@@ -164,27 +165,30 @@ void text_create(char* str, u16 x, u16 y)
     }
 }
 
-void text_render(Gfx** glistp)
+void text_render()
 {
     int i;
-    gDPSetCycleType((*glistp)++, G_CYC_1CYCLE);
-    gDPSetTexturePersp((*glistp)++, G_TP_NONE);
-    gDPSetPrimColor((*glistp)++, 0, 0, 0, 0, 0, 255);
-    gDPSetRenderMode((*glistp)++, G_RM_AA_ZB_XLU_SURF, G_RM_AA_ZB_XLU_SURF);
-    gDPSetCombineMode((*glistp)++, G_CC_MODULATEIA_PRIM, G_CC_MODULATEIA_PRIM);
-    gDPSetTextureFilter((*glistp)++, G_TF_POINT);
-    for (i=0; textrender_loadlist[i].size != 0; i++)
+    gDPSetCycleType(glistp++, G_CYC_1CYCLE);
+    gDPSetTexturePersp(glistp++, G_TP_NONE);
+    gSPClearGeometryMode(glistp++, G_ZBUFFER);
+    gDPSetRenderMode(glistp++, G_RM_AA_XLU_SURF, G_RM_AA_XLU_SURF);
+    gDPSetCombineMode(glistp++, G_CC_MODULATEIA_PRIM, G_CC_MODULATEIA_PRIM);
+    gDPSetTextureFilter(glistp++, G_TF_POINT);
+    for (i=0; i<MAXMIMUM_FONTTEXTURES; i++)
     {
         listNode* node = textrender_loadlist[i].head;
-        gDPLoadTextureBlock((*glistp)++, ((letterDef*)(node->data))->cdef->tex, G_IM_FMT_IA, G_IM_SIZ_8b, textrender_font->w, textrender_font->h, 0, G_TX_CLAMP, G_TX_CLAMP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
-        gDPPipeSync((*glistp)++);
+        if (textrender_loadlist[i].size == 0)
+            continue;
+        gDPLoadTextureBlock(glistp++, ((letterDef*)(node->data))->cdef->tex, G_IM_FMT_IA, G_IM_SIZ_8b, textrender_font->w, textrender_font->h, 0, G_TX_CLAMP, G_TX_CLAMP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
+        gDPPipeSync(glistp++);
         for (; node != NULL; node = node->next)
         {
             letterDef* letter = (letterDef*)node->data;
             charDef* cdef = letter->cdef;
-            gSPScisTextureRectangle((*glistp)++, 
-                letter->x << 2, letter->y << 2, 
-                (letter->x+cdef->w) << 2, (letter->y+cdef->h) << 2, 
+            gDPSetPrimColor(glistp++, 0, 0, letter->r, letter->g, letter->b, letter->a);
+            gSPScisTextureRectangle(glistp++, 
+                (textrender_startx + letter->x) << 2, (textrender_starty + letter->y) << 2, 
+                (textrender_startx + letter->x + cdef->w) << 2, (textrender_starty + letter->y + cdef->h) << 2, 
                 G_TX_RENDERTILE, 
                 cdef->offsetx << 5, cdef->offsety << 5, 
                 1 << 10, 1 << 10
@@ -201,12 +205,14 @@ void text_rendernumber(Gfx** glistp, int num, u16 x, u16 y)
 void text_cleanup()
 {
     int i;
+    nuGfxTaskAllEndWait();
     for (i=0; i<MAXMIMUM_FONTTEXTURES; i++)
-        list_destroy_deep(&textrender_loadlist[i]);
+        if (textrender_loadlist[i].size != 0)
+            list_destroy_deep(&textrender_loadlist[i]);
 }
 
 inline void text_setfont(fontDef* font)
-{ 
+{
     textrender_font = font;
 }
 
@@ -218,7 +224,7 @@ inline void text_setalign(textAlign align)
 inline void text_setpos(s16 x, s16 y)
 {
     textrender_startx = x; 
-    textrender_startx = y; 
+    textrender_starty = y; 
 }
 
 inline void text_setcolor(u8 r, u8 g, u8 b, u8 a)
@@ -227,6 +233,16 @@ inline void text_setcolor(u8 r, u8 g, u8 b, u8 a)
     textrender_g = g;
     textrender_b = b;
     textrender_a = a;
+}
+
+inline s16 text_getx()
+{
+    return textrender_startx;
+}
+
+inline s16 text_gety()
+{
+    return textrender_starty;
 }
 
 void text_reset()

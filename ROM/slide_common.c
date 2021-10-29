@@ -7,9 +7,10 @@ Handles stuff that's common between all slides.
 #include <nusys.h>
 #include "config.h"
 #include "helper.h"
+#include "slides.h"
 #include "sausage64.h"
 #include "debug.h"
-#include "assets/axisMdl.h"
+#include "assets/mdl_axis.h"
 
 
 /*********************************
@@ -34,6 +35,10 @@ void draw_menu();
 // Matricies and vectors
 Mtx projection, viewing, modeling;
 u16 normal;
+
+// Lights
+static Light light_amb;
+static Light light_dir;
 
 // Camera
 float campos[3] = {0, -100, -300};
@@ -69,6 +74,7 @@ void slide_common_update()
 {   
     nuContDataGetEx(contdata, 0);
     
+    /*
     // Handle camera movement and rotation
     if (contdata[0].button & Z_TRIG)
     {
@@ -84,6 +90,7 @@ void slide_common_update()
         campos[0] += contdata->stick_x/10;
         campos[1] += contdata->stick_y/10;
     }
+    */
 }
 
 
@@ -106,9 +113,29 @@ void slide_common_draw_start()
     
     // Setup the projection matrix
     if (global_highres)
-        guPerspective(&projection, &normal, 45, (float)SCREEN_WD_HD / (float)SCREEN_HT_HD, 64, 1000, 1.0);
+        guPerspective(&projection, &normal, 45, (float)SCREEN_WD_HD / (float)SCREEN_HT_HD, 64, 1000, 0.1);
     else
-        guPerspective(&projection, &normal, 45, (float)SCREEN_WD_SD / (float)SCREEN_HT_SD, 64, 1000, 1.0);
+        guPerspective(&projection, &normal, 45, (float)SCREEN_WD_SD / (float)SCREEN_HT_SD, 64, 1000, 0.1);
+        
+    // Setup the lights
+    for (i=0; i<3; i++)
+    {
+        light_amb.l.col[i] = ambcol;
+        light_amb.l.colc[i] = ambcol;
+        light_dir.l.col[i] = 255;
+        light_dir.l.colc[i] = 255;
+    }
+    
+    // Calculate the light direction so it's always projecting from the camera's position
+    light_dir.l.dir[0] = -127*sinf(camang[0]*0.0174532925);
+    light_dir.l.dir[1] = 127*sinf(camang[2]*0.0174532925)*cosf(camang[0]*0.0174532925);
+    light_dir.l.dir[2] = 127*cosf(camang[2]*0.0174532925)*cosf(camang[0]*0.0174532925);
+    
+    // Send the light struct to the RSP
+    gSPNumLights(glistp++, NUMLIGHTS_1);
+    gSPLight(glistp++, &light_dir, 1);
+    gSPLight(glistp++, &light_amb, 2);
+    gDPPipeSync(glistp++);
     
     // Rotate and position the view
     guMtxIdentF(fmat1);
@@ -131,7 +158,7 @@ void slide_common_draw_start()
     gDPSetCycleType(glistp++, G_CYC_1CYCLE);
     gDPSetDepthSource(glistp++, G_ZS_PIXEL);
     gSPClearGeometryMode(glistp++,0xFFFFFFFF);
-    gSPSetGeometryMode(glistp++, G_SHADE | G_ZBUFFER | G_CULL_BACK | G_SHADING_SMOOTH);
+    gSPSetGeometryMode(glistp++, G_SHADE | G_ZBUFFER | G_CULL_BACK | G_SHADING_SMOOTH | G_LIGHTING);
     gSPTexture(glistp++, 0xFFFF, 0xFFFF, 0, G_TX_RENDERTILE, G_ON);
     gDPSetRenderMode(glistp++, G_RM_AA_ZB_OPA_SURF, G_RM_AA_ZB_OPA_SURF);
     gDPSetCombineMode(glistp++, G_CC_PRIMITIVE, G_CC_PRIMITIVE);
@@ -151,7 +178,7 @@ void slide_common_draw_start()
 void slide_common_draw_end()
 {
     // Render the text last
-    text_render(&glistp);
+    text_render();
 
     // Syncronize the RCP and CPU and specify that our display list has ended
     gDPFullSync(glistp++);
@@ -161,7 +188,7 @@ void slide_common_draw_end()
     osWritebackDCache(&projection, sizeof(projection));
     osWritebackDCache(&modeling, sizeof(modeling));
     
-    // Ensure we haven't gone over the display list size and start the graphics task
+    // Ensure we haven't gone over the display list size, and start the graphics task
     debug_assert((glistp-glist) < GLIST_LENGTH);
     nuGfxTaskStart(glist, (s32)(glistp - glist) * sizeof(Gfx), NU_GFX_UCODE_F3DEX, NU_SC_SWAPBUFFER);
 }
@@ -169,4 +196,18 @@ void slide_common_draw_end()
 void slide_common_cleanup()
 {
     text_cleanup();
+}
+
+void slide_change(u8 slide)
+{
+    debug_printf("Changing slide to %d\n", slide);
+    nuGfxTaskAllEndWait();
+    //nuGfxDisplayOff();
+    slidefunc[global_slide][3]();
+    slide_common_cleanup();
+    global_slide = slide;
+    slide_common_init();
+    slidefunc[global_slide][0]();
+    //nuGfxDisplayOn();
+    debug_printf("Done\n");
 }

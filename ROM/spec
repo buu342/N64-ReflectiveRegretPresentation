@@ -16,7 +16,40 @@ beginseg
 	include "$(ROOT)/usr/lib/PR/gspS2DEX2.fifo.o"
 endseg
 
-beginwave
-	name "presentation"
-	include "code"
-endwave
+
+/* ---------- SLIDE 1 ---------- */
+
+beginseg
+	name "gfx_catherine"
+	flags OBJECT
+	after "code"
+	align 32
+	include "assets/gfx_catherine.o"
+endseg
+
+/* ---------- Raw Assets ---------- */
+beginseg
+	name "spr_pyoro_walk1"
+	flags RAW
+	include "assets/spr_pyoro_walk1.bin"
+endseg
+beginseg
+	name "spr_pyoro_walk2"
+	flags RAW
+	include "assets/spr_pyoro_walk2.bin"
+endseg
+beginseg
+	name "spr_takeda"
+	flags RAW
+	include "assets/spr_takeda.bin"
+endseg
+beginseg
+	name "spr_hansei"
+	flags RAW
+	include "assets/spr_hansei.bin"
+endseg
+beginseg
+	name "spr_insanity"
+	flags RAW
+	include "assets/spr_insanity.bin"
+endseg

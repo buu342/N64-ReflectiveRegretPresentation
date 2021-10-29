@@ -56,36 +56,50 @@ goto MoveFromOut
 
 
 :MoveFromOut
-if not exist out goto make
+if not exist out goto MakeAssets
 cd out >nul 2>&1
 move *.o .. >nul 2>&1
 move *.out .. >nul 2>&1
 move *.n64 .. >nul 2>&1
 move *.cvt .. >nul 2>&1
 cd..
-goto Make
+goto MakeAssets
 
 
-:Make
+:MakeAssets
+cd assets
+call makeme.bat
+call:ErrorCheck
+cd..
+echo.
+goto MakeSlides
+
+
+:MakeSlides
 cd slides
 call makeme.bat
-if "%MAKEERROR%"=="2" (
-    echo An error occurred during compilation.
-    pause
-    exit
-)
+call:ErrorCheck
 cd..
+echo.
+goto MakeFinal
+
+
+:MakeFinal
+echo Compiling Final ROM
 make
 set MAKEERROR=%errorlevel%
+call:ErrorCheck
 echo.
-goto ErrorCheck
+goto MoveToOut
 
 
 :ErrorCheck
 if "%MAKEERROR%"=="2" (
     echo An error occurred during compilation.
+    pause
+    exit
 )
-goto MoveToOut
+goto:eof
 
 
 :MoveToOut

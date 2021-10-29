@@ -4,7 +4,10 @@
 
 CODEFILES = slides.c \
             slide00.c \
-            slide01.c
+            slide01.c \
+            slide02.c \
+            slide03.c \
+            slide04.c
             
 OBJECTNAME = slidesobj.o
 
