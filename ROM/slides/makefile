@@ -7,7 +7,23 @@ CODEFILES = slides.c \
             slide01.c \
             slide02.c \
             slide03.c \
-            slide04.c
+            slide04.c \
+            slide05.c \
+            slide06.c \
+            slide07.c \
+            slide08.c \
+            slide09.c \
+            slide10.c \
+            slide11.c \
+            slide12.c \
+            slide13.c \
+            slide14.c \
+            slide15.c \
+            slide16.c \
+            slide17.c \
+            slide18.c \
+            slide19.c \
+            slide20.c 
             
 OBJECTNAME = slidesobj.o
 

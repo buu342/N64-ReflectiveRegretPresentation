@@ -35,7 +35,7 @@ typedef struct {
 
 
 static u8 slidestate;
-void catherine_predraw(u16 part);
+static void catherine_predraw(u16 part);
 
 
 catherineObj* catherine;
@@ -248,7 +248,7 @@ void slide01_cleanup()
     free(pyoro);
 }
 
-void catherine_predraw(u16 part)
+static void catherine_predraw(u16 part)
 {
     // Handle face drawing
     switch (part)

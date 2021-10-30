@@ -260,8 +260,8 @@ fontDef font_default = {
     { 
         { 3, 18,  97,  1, font_default_tex5, 1}, // !
         { 7,  7,  36,  1, font_default_tex6, 1}, // "
-        { 7,  7,  36,  1, font_default_tex6, 1}, // #
-        {12, 17,  64,  2, font_default_tex6, 1}, // $
+        {12, 17,  64,  2, font_default_tex6, 1}, // #
+        {10, 21,  77,  0, font_default_tex6, 1}, // $
         {16, 17,  87,  2, font_default_tex6, 1}, // %
         {14, 17, 103,  2, font_default_tex6, 1}, // &
         { 3,  7,  40,  1, font_default_tex6, 1}, // '
@@ -272,7 +272,7 @@ fontDef font_default = {
         { 5,  7, 113, 15, font_default_tex5, 1}, // ,
         { 7,  2,  11, 11, font_default_tex6, 1}, // -
         { 3,  4, 110, 15, font_default_tex5, 1}, // .
-        { 9, 22,  27,  0, font_default_tex5, 1}, // /
+        { 9, 22,  27,  0, font_default_tex6, 1}, // /
         {11, 17,  93,  2, font_default_tex7, 1}, // 0
         { 9, 16,   0,  2, font_default_tex7, 1}, // 1
         {10, 16,   9,  2, font_default_tex7, 1}, // 2

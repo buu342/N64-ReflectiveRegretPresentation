@@ -305,7 +305,7 @@ fontDef font_title = {
         {24, 21,  41,  2, font_title_tex2, 1}, // M
         {18, 22,  65,  2, font_title_tex2, 1}, // N
         {19, 22,  83,  2, font_title_tex2, 1}, // O
-        {15, 22, 102,  2, font_title_tex2, 1}, // P
+        {14, 22, 102,  2, font_title_tex2, 1}, // P
         {22, 25,   0,  2, font_title_tex3, 1}, // Q
         {16, 22,  22,  2, font_title_tex3, 1}, // R
         {14, 22,  38,  2, font_title_tex3, 1}, // S

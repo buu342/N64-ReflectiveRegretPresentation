@@ -17,7 +17,7 @@ beginseg
 endseg
 
 
-/* ---------- SLIDE 1 ---------- */
+/* ---------- Asset Overlays ---------- */
 
 beginseg
 	name "gfx_catherine"
@@ -26,6 +26,23 @@ beginseg
 	align 32
 	include "assets/gfx_catherine.o"
 endseg
+
+beginseg
+	name "gfx_n64"
+	flags OBJECT
+	after "code"
+	align 32
+	include "assets/gfx_n64.o"
+endseg
+
+beginseg
+	name "gfx_usb"
+	flags OBJECT
+	after "gfx_n64"
+	align 32
+	include "assets/gfx_usb.o"
+endseg
+
 
 /* ---------- Raw Assets ---------- */
 beginseg
@@ -52,4 +69,19 @@ beginseg
 	name "spr_insanity"
 	flags RAW
 	include "assets/spr_insanity.bin"
+endseg
+beginseg
+	name "spr_hardwaremap"
+	flags RAW
+	include "assets/spr_hardwaremap.bin"
+endseg
+beginseg
+	name "spr_slide14"
+	flags RAW
+	include "assets/spr_slide14.bin"
+endseg
+beginseg
+	name "spr_slide15"
+	flags RAW
+	include "assets/spr_slide15.bin"
 endseg

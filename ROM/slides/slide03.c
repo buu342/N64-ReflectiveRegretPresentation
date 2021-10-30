@@ -42,7 +42,7 @@ void slide03_draw()
     gDPSetTextureFilter(glistp++, G_TF_POINT);
     for (i=0; i<268; i+=4)
     {
-        gDPLoadTextureBlock(glistp++, spr_insanity+i*400, G_IM_FMT_RGBA, G_IM_SIZ_16b, 400, 268, 0, G_TX_CLAMP, G_TX_CLAMP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
+        gDPLoadTextureBlock(glistp++, spr_insanity+i*400, G_IM_FMT_RGBA, G_IM_SIZ_16b, 400, 4, 0, G_TX_CLAMP, G_TX_CLAMP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
         gDPPipeSync(glistp++);
         gSPTextureRectangle(glistp++, 
             (SCREEN_WD_HD/2-200) << 2, (SCREEN_HT_HD/2 - 80+i) << 2, 

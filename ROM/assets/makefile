@@ -2,7 +2,9 @@
 #                  Code files and Object name                  #
 ################################################################
 
-CODEFILES = gfx_catherine.c
+CODEFILES = gfx_catherine.c \
+            gfx_n64.c \
+            gfx_usb.c
 
 
 ############################################################################

@@ -20,5 +20,20 @@
     extern u8 _spr_hanseiSegmentRomEnd[];
     extern u8 _spr_insanitySegmentRomStart[];
     extern u8 _spr_insanitySegmentRomEnd[];
+    extern u8 _gfx_n64SegmentStart[];
+    extern u8 _gfx_n64SegmentRomStart[];
+    extern u8 _gfx_n64SegmentRomEnd[];
+    extern u8 _gfx_n64SegmentTextStart[];
+    extern u8 _gfx_n64SegmentTextEnd[];
+    extern u8 _gfx_n64SegmentDataStart[];
+    extern u8 _gfx_n64SegmentDataEnd[];
+    extern u8 _gfx_n64SegmentBssStart[];
+    extern u8 _gfx_n64SegmentBssEnd[];
+    extern u8 _spr_hardwaremapSegmentRomStart[];
+    extern u8 _spr_hardwaremapSegmentRomEnd[];
+    extern u8 _spr_slide14SegmentRomStart[];
+    extern u8 _spr_slide14SegmentRomEnd[];
+    extern u8 _spr_slide15SegmentRomStart[];
+    extern u8 _spr_slide15SegmentRomEnd[];
     
 #endif

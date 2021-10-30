@@ -11,13 +11,15 @@ Handles stuff that's common between all slides.
 #include "sausage64.h"
 #include "debug.h"
 #include "assets/mdl_axis.h"
+#include "assets/spr_laser.h"
 
 
 /*********************************
               Macros
 *********************************/
 
-#define RENDER_AXIS 0
+#define RENDER_AXIS FALSE
+#define ALLOW_CAMERA FALSE
 #define USB_BUFFER_SIZE 256
 
 
@@ -43,6 +45,10 @@ static Light light_dir;
 // Camera
 float campos[3] = {0, -100, -300};
 float camang[3] = {0, 0, -90};
+
+static u8 laser = FALSE;
+static s32 laserx = 0;
+static s32 lasery = 0;
 
 
 /*==============================
@@ -73,24 +79,51 @@ void slide_common_init()
 void slide_common_update()
 {   
     nuContDataGetEx(contdata, 0);
+
+    // Handle the laser pointer
+    if (contdata[0].button & L_TRIG)
+    {
+        if (!laser)
+        {
+            laser = TRUE;
+            laserx = SCREEN_WD_HD/2;
+            lasery = SCREEN_HT_HD/2;
+        }
+        laserx += contdata->stick_x/10;
+        lasery -= contdata->stick_y/10;
+    }
+    else if (laser)
+        laser = FALSE;
+
+    // Force slide changes
+    if (contdata[0].trigger & R_CBUTTONS)
+    {
+        slide_change(global_slide+1);
+        return;
+    }
+    else if (contdata[0].trigger & L_CBUTTONS && global_slide != 0)
+    {
+        slide_change(global_slide-1);
+        return;
+    }
     
-    /*
     // Handle camera movement and rotation
-    if (contdata[0].button & Z_TRIG)
-    {
-        campos[2] += contdata->stick_y/10;
-    }
-    else if (contdata[0].button & R_TRIG)
-    {
-        camang[0] += contdata->stick_x/10;
-        camang[2] -= contdata->stick_y/10;
-    }
-    else
-    {
-        campos[0] += contdata->stick_x/10;
-        campos[1] += contdata->stick_y/10;
-    }
-    */
+    #if ALLOW_CAMERA
+        if (contdata[0].button & Z_TRIG)
+        {
+            campos[2] += contdata->stick_y/10;
+        }
+        else if (contdata[0].button & R_TRIG)
+        {
+            camang[0] += contdata->stick_x/10;
+            camang[2] -= contdata->stick_y/10;
+        }
+        else
+        {
+            campos[0] += contdata->stick_x/10;
+            campos[1] += contdata->stick_y/10;
+        }
+    #endif
 }
 
 
@@ -179,6 +212,22 @@ void slide_common_draw_end()
 {
     // Render the text last
     text_render();
+
+    // Show a laser pointer
+    if (laser)
+    {
+        gDPSetTextureFilter(glistp++, G_TF_BILERP);
+        gDPSetPrimColor(glistp++, 0, 0, 255, 255, 255, 255);
+        gDPLoadTextureBlock(glistp++, spr_laser, G_IM_FMT_RGBA, G_IM_SIZ_32b, 32, 32, 0, G_TX_CLAMP, G_TX_CLAMP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
+        gDPPipeSync(glistp++);
+        gSPScisTextureRectangle(glistp++, 
+            (laserx-16) << 2, (lasery-16) << 2, 
+            (laserx+16) << 2, (lasery+16) << 2, 
+            G_TX_RENDERTILE, 
+            0 << 5, 0 << 5, 
+            1 << 10, 1 << 10
+        );
+    }
 
     // Syncronize the RCP and CPU and specify that our display list has ended
     gDPFullSync(glistp++);

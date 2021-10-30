@@ -39,7 +39,7 @@ u16* framebuffers_lowres[3] = {
 
 // Global variables
 u8 global_highres = TRUE;
-volatile u8 global_slide = 2;
+volatile u8 global_slide = 16;
 
 
 /*==============================

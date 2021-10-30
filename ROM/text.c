@@ -66,7 +66,7 @@ void text_create(char* str, u16 x, u16 y)
             case ' ':  hsize += textrender_font->spacesize;   continue; // Skip spaces
             case '[':  hsize += textrender_font->spacesize;   break;    // Bullet point 1
             case ']':  hsize += textrender_font->spacesize*3; break;    // Bullet point 2
-            case '^':  hsize += textrender_font->spacesize*6; break;    // Bullet point 3
+            case '^':  hsize += textrender_font->spacesize*7; break;    // Bullet point 3
             case '\\': 
                 bold = !bold;
                 if (bold)
@@ -119,7 +119,7 @@ void text_create(char* str, u16 x, u16 y)
             case ' ':  xreal += textrender_font->spacesize;   continue; // Skip spaces
             case '[':  xreal += textrender_font->spacesize;   break;    // Bullet point 1
             case ']':  xreal += textrender_font->spacesize*3; break;    // Bullet point 2
-            case '^':  xreal += textrender_font->spacesize*6; break;    // Bullet point 3
+            case '^':  xreal += textrender_font->spacesize*7; break;    // Bullet point 3
             case '\\': 
                 bold = !bold;
                 if (bold)

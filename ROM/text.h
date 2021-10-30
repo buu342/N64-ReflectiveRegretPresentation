@@ -2,10 +2,13 @@
 #define _PRESENTATION_TEXT_H
 
     #define EMPTYCHARDEF {0, 0, 0, 0, NULL, 0} 
-    #define BULLET1 "["
-    #define BULLET2 "]"
-    #define BULLET3 "^"
+    #define BULLET1 "[ "
+    #define BULLET2 "] "
+    #define BULLET3 "^ "
     #define BOLD    "\\"
+    #define BULLET1SIZE 13
+    #define BULLET2SIZE 37
+    #define BULLET3SIZE 56
     
     typedef enum {
         ALIGN_LEFT,

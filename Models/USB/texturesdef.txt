@@ -1,0 +1,6 @@
+tex_usb_front TEXTURE 64 32
+tex_usb_top TEXTURE 32 32
+tex_usb_bottom TEXTURE 32 32
+tex_usb_slot TEXTURE 32 32
+mat_usb_metal PRIMCOL 231 231 231
+mat_usb_plastic PRIMCOL 71 71 71
