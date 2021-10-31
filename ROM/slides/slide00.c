@@ -4,6 +4,7 @@
 #include "../text.h"
 #include "../helper.h"
 #include "../debug.h"
+#include "../assets/segments.h"
 #include "../assets/mdl_the_n.h"
 
 static u8  slidestate;
@@ -17,9 +18,15 @@ void slide00_init()
     Mtx helper;
     slidestate = 0;
     
+    // Initialize the N
+    load_overlay(_gfx_the_nSegmentStart,
+        (u8*)_gfx_the_nSegmentRomStart,  (u8*)_gfx_the_nSegmentRomEnd, 
+        (u8*)_gfx_the_nSegmentTextStart, (u8*)_gfx_the_nSegmentTextEnd, 
+        (u8*)_gfx_the_nSegmentDataStart, (u8*)_gfx_the_nSegmentDataEnd, 
+        (u8*)_gfx_the_nSegmentBssStart,  (u8*)_gfx_the_nSegmentBssEnd 
+    );
+    
     // Setup the N on the screen
-    guMtxIdent(&helper);
-    guMtxIdent(&n_matrix);
     guScale(&helper, 0.075, 0.075, 0.075);
     guRotateRPY(&n_matrix, 100, -10, 45);
     guMtxCatL(&n_matrix, &helper, &n_matrix);
@@ -66,11 +73,12 @@ void slide00_update()
         if (text_gety() > -140)
             text_setpos(text_getx(), lerp(text_gety(), -160, 0.05));
         else
+        {
             slide_change(global_slide+1);
+            return;
+        }
         
     // Make the N do stuff
-    guMtxIdent(&rotmatrix);
-    guMtxIdent(&transmatrix);
     #if (TV_TYPE == NTSC)
         angle += 1.5;
     #else
@@ -88,7 +96,7 @@ void slide00_draw()
     gSPMatrix(glistp++, OS_K0_TO_PHYSICAL(&n_matrix), G_MTX_MODELVIEW | G_MTX_LOAD | G_MTX_NOPUSH);
     gSPMatrix(glistp++, OS_K0_TO_PHYSICAL(&transmatrix), G_MTX_MODELVIEW | G_MTX_MUL | G_MTX_NOPUSH);
     gSPMatrix(glistp++, OS_K0_TO_PHYSICAL(&rotmatrix), G_MTX_MODELVIEW | G_MTX_MUL | G_MTX_NOPUSH);
-    gSPDisplayList(glistp++, mdl_the_n_gfx);
+    gSPDisplayList(glistp++, gfx_mdl_the_n);
 }
 
 void slide00_cleanup()

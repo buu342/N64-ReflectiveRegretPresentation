@@ -21,8 +21,9 @@ void slide19_init()
     text_create(BULLET2"Textures conversion", 64, 122+26*(texty++));
     text_create(BULLET2"Modeling and Animating", 64, 122+26*(texty++));
     text_create(BULLET2"Sound and Music", 64, 122+26*(texty++));
+    text_create(BULLET1, 64, 122+26*texty);
     text_setcolor(44, 44, 255, 255);
-    text_create(BULLET1"https://n64.dev", 64, 122+26*(texty++));
+    text_create(" https://n64.dev", 64+BULLET1SIZE, 122+26*(texty++));
     text_setcolor(0, 0, 0, 255);
     text_create(BULLET1"There is no generic game engine for N64 (IE Unity).", 64, 122+26*(texty++));
     text_create(BULLET1"If you want to hack or mod games, you're asking the", 64, 122+26*(texty++));

@@ -1,0 +1,3 @@
+tex_cease_side TEXTURE 128 16
+tex_cease_top TEXTURE 64 32
+mat_cease PRIMCOL 56 56 56

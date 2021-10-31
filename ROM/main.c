@@ -15,31 +15,15 @@ Program entrypoint.
         Function Prototypes
 *********************************/
 
-static void init_highres();
-static void init_lowres();
 static void callback_prenmi();
 static void callback_vsync(int tasksleft);
 
 // Controller data
 NUContData contdata[1];
 
-// High resolution framebuffers array
-u16* framebuffers_hires[3] = {
-    ADDR_FB1_HD,
-    ADDR_FB2_HD,
-    ADDR_FB3_HD,
-};
-
-// Low resolution framebuffers array
-u16* framebuffers_lowres[3] = {
-    ADDR_FB1_SD,
-    ADDR_FB2_SD,
-    ADDR_FB3_SD,
-};
-
 // Global variables
 u8 global_highres = TRUE;
-volatile u8 global_slide = 16;
+volatile u8 global_slide = 29;
 
 
 /*==============================
@@ -106,56 +90,4 @@ static void callback_vsync(int tasksleft)
         (slidefunc[global_slide][2])();
         slide_common_draw_end();
     }
-}
-
-void init_highres()
-{
-    global_highres = TRUE;
-    
-    // Wait for graphic tasks to end
-    nuGfxTaskAllEndWait();
-    
-    // Set the VI mode based on the region
-    switch (TV_TYPE)
-    {
-        case NTSC: osViSetMode(&osViModeTable[OS_VI_NTSC_HAN1]); break;
-        case PAL : osViSetMode(&osViModeTable[OS_VI_FPAL_HAN1]); break;
-        case MPAL: osViSetMode(&osViModeTable[OS_VI_MPAL_HAN1]); break;
-    }
-
-    // Turn the screen off
-    nuGfxDisplayOff();
-
-    // Set the framebuffer and z-buffer addresses
-    nuGfxSetCfb(framebuffers_hires, sizeof(framebuffers_hires)/sizeof(framebuffers_hires[0]));
-    nuGfxSetZBuffer(ADDR_ZB_HD);
-    
-    // Turn the display back on
-    nuGfxDisplayOn();
-}
-
-void init_lowres()
-{
-    global_highres = FALSE;
-    
-    // Wait for graphic tasks to end
-    nuGfxTaskAllEndWait();
-
-    // Set the VI mode based on the region
-    switch (TV_TYPE)
-    {
-        case NTSC: osViSetMode(&osViModeTable[OS_VI_NTSC_LAN1]); break;
-        case PAL : osViSetMode(&osViModeTable[OS_VI_FPAL_LAN1]); break;
-        case MPAL: osViSetMode(&osViModeTable[OS_VI_MPAL_LAN1]); break;
-    }
-
-    // Turn the screen off
-    nuGfxDisplayOff();
-
-    // Set the framebuffer and z-buffer addresses
-    nuGfxSetCfb(framebuffers_lowres, sizeof(framebuffers_lowres)/sizeof(framebuffers_lowres[0]));
-    nuGfxSetZBuffer(ADDR_ZB_SD);
-    
-    // Turn the display back on
-    nuGfxDisplayOn();
 }

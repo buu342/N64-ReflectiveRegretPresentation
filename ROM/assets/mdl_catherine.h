@@ -36,8 +36,9 @@
     #define MESH_Catherine_LeftHand     18
     
     // Animation data
-    #define ANIMATION_Catherine_Run  0
-    #define ANIMATION_Catherine_Idle 1
+    #define ANIMATION_Catherine_Run    0
+    #define ANIMATION_Catherine_Idle   1
+    #define ANIMATION_Catherine_Broken 2
     
     extern s64ModelData mdl_Catherine;
     extern FaceAnim catherine_faces[TOTALFACES];

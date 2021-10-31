@@ -7,16 +7,6 @@
 #include "../assets/segments.h"
 #include "../assets/mdl_n64.h"
 
-typedef struct {
-    float x;
-    float y;
-    float z;
-    int rotz;
-    float* correctpos;
-    Gfx* dl;
-    Mtx matrix;
-} modelHelper;
-
 static u8 texty;
 static OSTime timer;
 static int slidestate;
@@ -89,40 +79,40 @@ void slide08_update()
         switch (slidestate)
         {
             case 2:
-                text_create(BULLET1"Reality Co-Processor", 64, 92+32*(texty++));
+                text_create(BULLET1"Reality Co-Processor", 64, 100+28*(texty++));
                 break;
             case 3:
-                text_create(BULLET2"???", 64, 92+32*(texty++));
+                text_create(BULLET2"???", 64, 100+28*(texty++));
                 break;
             case 4:
-                text_create(BULLET2"Created by Silicon Graphics", 64, 92+32*(texty++));
+                text_create(BULLET2"Created by Silicon Graphics", 64, 100+28*(texty++));
                 break;
             case 5:
-                text_create(BULLET2"Does everything that comes out of your TV, and", 64, 92+32*(texty++));
+                text_create(BULLET2"Does everything that comes out of your TV, and", 64, 100+28*(texty++));
                 break;
             case 6:
-                text_create("then some (audio, graphics, I/O, etc...)", 64+BULLET2SIZE, 92+32*(texty++));
+                text_create("then some (audio, graphics, I/O, etc...)", 64+BULLET2SIZE, 100+28*(texty++));
                 break;
             case 7:
-                text_create(BULLET2"Runs parallel to the CPU, at 62.5 MHz", 64, 92+32*(texty++));
+                text_create(BULLET2"Runs parallel to the CPU, at 62.5 MHz", 64, 100+28*(texty++));
                 break;
             case 8:
-                text_create(BULLET2"Acts like a whiny brat", 64, 92+32*(texty++));
+                text_create(BULLET2"Acts like a whiny brat", 64, 100+28*(texty++));
                 break;
             case 9:
-                text_create(BULLET2"Literally magic. No official documentation.", 64, 92+32*(texty++));
+                text_create(BULLET2"Literally magic. No official documentation.", 64, 100+28*(texty++));
                 break;
             case 10:
-                text_create(BULLET2"Split into three parts:", 64, 92+32*(texty++));
+                text_create(BULLET2"Split into three parts:", 64, 100+28*(texty++));
                 break;
             case 11:
-                text_create(BULLET3"Reality Display Processor", 64, 92+32*(texty++));
+                text_create(BULLET3"Reality Display Processor", 64, 100+28*(texty++));
                 break;
             case 12:
-                text_create(BULLET3"Reality Signal Processor", 64, 92+32*(texty++));
+                text_create(BULLET3"Reality Signal Processor", 64, 100+28*(texty++));
                 break;
             case 13:
-                text_create(BULLET3"IO Interfaces", 64, 92+32*(texty++));
+                text_create(BULLET3"IO Interfaces", 64, 100+28*(texty++));
                 break;
         }
     }
@@ -139,7 +129,10 @@ void slide08_update()
     {
         model->x = lerp(model->x, 150, 0.1);
         if (model->x > 140)
+        {
             slide_change(global_slide+1);
+            return;
+        }
     }
 
     // Setup the model matrix
@@ -164,5 +157,5 @@ void slide08_draw()
 
 void slide08_cleanup()
 {
-    //free(model); // Freeing this causes a floating point exception!?
+    free(model);
 }

@@ -189,7 +189,10 @@ void slide05_update()
             guTranslate(&n64parts[7].matrix, n64parts[7].x, n64parts[7].y, n64parts[7].z);
             guMtxCatL(&n64parts[7].matrix, &helper, &n64parts[7].matrix);
             if (n64parts[7].rotz < -89.9)
+            {
                 slide_change(global_slide+1);
+                return;
+            }
             break;
     }
     

@@ -15,7 +15,7 @@ void slide13_init()
     text_setalign(ALIGN_LEFT);
     text_create(BULLET1"Direct support line to Nintendo.", 64, 122+32*(texty++));
     text_create(BULLET1"All compatible with that Silicon Graphics Indy", 64, 122+32*(texty++));
-    text_create("or Onyx you have lying around.", 64+BULLET2SIZE, 122+32*(texty++));
+    text_create("or Onyx you have lying around.", 64+BULLET1SIZE, 122+32*(texty++));
     text_create(BULLET1"Lots of cool hardware.", 64, 122+32*(texty++));
     text_create(BULLET1"Very cheap, lets go over it!", 64, 122+32*(texty++));
 }

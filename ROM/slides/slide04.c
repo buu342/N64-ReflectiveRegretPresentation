@@ -56,7 +56,7 @@ void slide04_update()
                 break;
             case 5:
                 slide_change(global_slide+1);
-                break;
+                return;
         }
     }
 }

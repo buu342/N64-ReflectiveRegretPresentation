@@ -34,10 +34,9 @@ typedef struct {
 } pyoroObj;
 
 
-static u8 slidestate;
 static void catherine_predraw(u16 part);
 
-
+static u8 slidestate;
 catherineObj* catherine;
 pyoroObj*     pyoro;
 u16* spr_pyoro_walk1;
@@ -205,7 +204,7 @@ void slide01_update()
                 pyoro->state = 0;
                 break;
             case 2: catherine->state = 0; break;
-            case 3: slide_change(global_slide+1); break;
+            case 3: slide_change(global_slide+1); return;
         }
     }
 }
@@ -254,7 +253,7 @@ static void catherine_predraw(u16 part)
     switch (part)
     {
         case MESH_Catherine_Head:
-            gDPLoadTextureBlock(glistp++, catherine->face->faces[catherine->faceindex], G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, 64, 0, G_TX_CLAMP, G_TX_CLAMP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
+            gDPLoadTextureBlock(glistp++, catherine->face->faces[catherine->faceindex], G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, 64, 0, G_TX_MIRROR, G_TX_CLAMP, 5, 6, G_TX_NOLOD, G_TX_NOLOD);
             break;
     }
 }

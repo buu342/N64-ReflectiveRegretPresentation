@@ -19,7 +19,7 @@ Handles stuff that's common between all slides.
 *********************************/
 
 #define RENDER_AXIS FALSE
-#define ALLOW_CAMERA FALSE
+#define ALLOW_CAMERA TRUE
 #define USB_BUFFER_SIZE 256
 
 
@@ -96,7 +96,7 @@ void slide_common_update()
         laser = FALSE;
 
     // Force slide changes
-    if (contdata[0].trigger & R_CBUTTONS)
+    if (contdata[0].trigger & R_CBUTTONS && global_slide != 39)
     {
         slide_change(global_slide+1);
         return;

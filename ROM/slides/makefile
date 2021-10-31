@@ -23,7 +23,26 @@ CODEFILES = slides.c \
             slide17.c \
             slide18.c \
             slide19.c \
-            slide20.c 
+            slide20.c \
+            slide21.c \
+            slide22.c \
+            slide23.c \
+            slide24.c \
+            slide25.c \
+            slide26.c \
+            slide27.c \
+            slide28.c \
+            slide29.c \
+            slide30.c \
+            slide31.c \
+            slide32.c \
+            slide33.c \
+            slide34.c \
+            slide35.c \
+            slide36.c \
+            slide37.c \
+            slide38.c \
+            slide39.c 
             
 OBJECTNAME = slidesobj.o
 

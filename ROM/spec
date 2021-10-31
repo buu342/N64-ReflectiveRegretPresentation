@@ -20,6 +20,14 @@ endseg
 /* ---------- Asset Overlays ---------- */
 
 beginseg
+	name "gfx_the_n"
+	flags OBJECT
+	after "code"
+	align 32
+	include "assets/gfx_the_n.o"
+endseg
+
+beginseg
 	name "gfx_catherine"
 	flags OBJECT
 	after "code"
@@ -41,6 +49,30 @@ beginseg
 	after "gfx_n64"
 	align 32
 	include "assets/gfx_usb.o"
+endseg
+
+beginseg
+	name "gfx_cease"
+	flags OBJECT
+	after "code"
+	align 32
+	include "assets/gfx_cease.o"
+endseg
+
+beginseg
+	name "gfx_skinned"
+	flags OBJECT
+	after "gfx_catherine"
+	align 32
+	include "assets/gfx_skinned.o"
+endseg
+
+beginseg
+	name "gfx_hack"
+	flags OBJECT
+	after "gfx_skinned"
+	align 32
+	include "assets/gfx_hack.o"
 endseg
 
 
@@ -84,4 +116,19 @@ beginseg
 	name "spr_slide15"
 	flags RAW
 	include "assets/spr_slide15.bin"
+endseg
+beginseg
+	name "spr_noise"
+	flags RAW
+	include "assets/spr_noise.bin"
+endseg
+beginseg
+	name "spr_grass"
+	flags RAW
+	include "assets/spr_grass.bin"
+endseg
+beginseg
+	name "spr_graph"
+	flags RAW
+	include "assets/spr_graph.bin"
 endseg

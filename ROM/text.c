@@ -197,9 +197,33 @@ void text_render()
     }
 }
 
-void text_rendernumber(Gfx** glistp, int num, u16 x, u16 y)
+void text_rendernumber(int num, u16 x, u16 y)
 {
-
+    int i;
+    char str[32];
+    int xoffset = 0;
+    sprintf(str, "%d", num);
+    gDPSetCycleType(glistp++, G_CYC_1CYCLE);
+    gDPSetTexturePersp(glistp++, G_TP_NONE);
+    gSPClearGeometryMode(glistp++, G_ZBUFFER);
+    gDPSetRenderMode(glistp++, G_RM_AA_XLU_SURF, G_RM_AA_XLU_SURF);
+    gDPSetCombineMode(glistp++, G_CC_MODULATEIA_PRIM, G_CC_MODULATEIA_PRIM);
+    gDPSetTextureFilter(glistp++, G_TF_POINT);
+    gDPLoadTextureBlock(glistp++, font_default_tex7, G_IM_FMT_IA, G_IM_SIZ_8b, textrender_font->w, textrender_font->h, 0, G_TX_CLAMP, G_TX_CLAMP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
+    gDPSetPrimColor(glistp++, 0, 0, 0, 0, 0, 255);
+    gDPPipeSync(glistp++);
+    for (i=0; str[i] != '\0'; i++)
+    {
+        charDef* cdef = &font_default.ch[str[i]-'!'];
+        gSPScisTextureRectangle(glistp++, 
+            (x + xoffset) << 2, y << 2, 
+            (x + xoffset + cdef->w) << 2, (y + cdef->h) << 2, 
+            G_TX_RENDERTILE, 
+            cdef->offsetx << 5, cdef->offsety << 5, 
+            1 << 10, 1 << 10
+        );
+        xoffset += cdef->w;
+    }
 }
 
 void text_cleanup()

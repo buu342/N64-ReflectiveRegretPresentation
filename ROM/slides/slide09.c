@@ -16,7 +16,7 @@ void slide09_init()
     text_create(BULLET1"Fixed-pipeline rasterizer + shader", 64, 122+32*(texty++));
     text_create(BULLET2"Supports Z-buffering, mip-mapping, anti-aliasing,", 64, 122+32*(texty++));
     text_create("lots of other futuristic stuff,", 64+BULLET2SIZE, 122+32*(texty++));
-    text_create(BULLET2"Tiny texture cache (4KB!?)", 64, 122+32*(texty++));
+    text_create(BULLET2"Tiny texture cache (4KB!?). Manual syncing.", 64, 122+32*(texty++));
     text_create(BULLET2"HD 640x480 experience (though usually 320x240)", 64, 122+32*(texty++));
     text_create(BULLET2"90% chance your game is fill rate limited, not", 64, 122+32*(texty++));
     text_create("geometry limited", 64+BULLET2SIZE, 122+32*(texty++));

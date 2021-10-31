@@ -85,6 +85,82 @@ extern void slide20_init();
 extern void slide20_update();
 extern void slide20_draw();
 extern void slide20_cleanup();
+extern void slide21_init();
+extern void slide21_update();
+extern void slide21_draw();
+extern void slide21_cleanup();
+extern void slide22_init();
+extern void slide22_update();
+extern void slide22_draw();
+extern void slide22_cleanup();
+extern void slide23_init();
+extern void slide23_update();
+extern void slide23_draw();
+extern void slide23_cleanup();
+extern void slide24_init();
+extern void slide24_update();
+extern void slide24_draw();
+extern void slide24_cleanup();
+extern void slide25_init();
+extern void slide25_update();
+extern void slide25_draw();
+extern void slide25_cleanup();
+extern void slide26_init();
+extern void slide26_update();
+extern void slide26_draw();
+extern void slide26_cleanup();
+extern void slide27_init();
+extern void slide27_update();
+extern void slide27_draw();
+extern void slide27_cleanup();
+extern void slide28_init();
+extern void slide28_update();
+extern void slide28_draw();
+extern void slide28_cleanup();
+extern void slide29_init();
+extern void slide29_update();
+extern void slide29_draw();
+extern void slide29_cleanup();
+extern void slide30_init();
+extern void slide30_update();
+extern void slide30_draw();
+extern void slide30_cleanup();
+extern void slide31_init();
+extern void slide31_update();
+extern void slide31_draw();
+extern void slide31_cleanup();
+extern void slide32_init();
+extern void slide32_update();
+extern void slide32_draw();
+extern void slide32_cleanup();
+extern void slide33_init();
+extern void slide33_update();
+extern void slide33_draw();
+extern void slide33_cleanup();
+extern void slide34_init();
+extern void slide34_update();
+extern void slide34_draw();
+extern void slide34_cleanup();
+extern void slide35_init();
+extern void slide35_update();
+extern void slide35_draw();
+extern void slide35_cleanup();
+extern void slide36_init();
+extern void slide36_update();
+extern void slide36_draw();
+extern void slide36_cleanup();
+extern void slide37_init();
+extern void slide37_update();
+extern void slide37_draw();
+extern void slide37_cleanup();
+extern void slide38_init();
+extern void slide38_update();
+extern void slide38_draw();
+extern void slide38_cleanup();
+extern void slide39_init();
+extern void slide39_update();
+extern void slide39_draw();
+extern void slide39_cleanup();
 
 void (*slidefunc[][4])() = {
     {slide00_init, slide00_update, slide00_draw, slide00_cleanup}, 
@@ -108,4 +184,23 @@ void (*slidefunc[][4])() = {
     {slide18_init, slide18_update, slide18_draw, slide18_cleanup},
     {slide19_init, slide19_update, slide19_draw, slide19_cleanup},
     {slide20_init, slide20_update, slide20_draw, slide20_cleanup},
+    {slide21_init, slide21_update, slide21_draw, slide21_cleanup},
+    {slide22_init, slide22_update, slide22_draw, slide22_cleanup},
+    {slide23_init, slide23_update, slide23_draw, slide23_cleanup},
+    {slide24_init, slide24_update, slide24_draw, slide24_cleanup},
+    {slide25_init, slide25_update, slide25_draw, slide25_cleanup},
+    {slide26_init, slide26_update, slide26_draw, slide26_cleanup},
+    {slide27_init, slide27_update, slide27_draw, slide27_cleanup},
+    {slide28_init, slide28_update, slide28_draw, slide28_cleanup},
+    {slide29_init, slide29_update, slide29_draw, slide29_cleanup},
+    {slide30_init, slide30_update, slide30_draw, slide30_cleanup},
+    {slide31_init, slide31_update, slide31_draw, slide31_cleanup},
+    {slide32_init, slide32_update, slide32_draw, slide32_cleanup},
+    {slide33_init, slide33_update, slide33_draw, slide33_cleanup},
+    {slide34_init, slide34_update, slide34_draw, slide34_cleanup},
+    {slide35_init, slide35_update, slide35_draw, slide35_cleanup},
+    {slide36_init, slide36_update, slide36_draw, slide36_cleanup},
+    {slide37_init, slide37_update, slide37_draw, slide37_cleanup},
+    {slide38_init, slide38_update, slide38_draw, slide38_cleanup},
+    {slide39_init, slide39_update, slide39_draw, slide39_cleanup},
 };

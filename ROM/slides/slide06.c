@@ -7,16 +7,6 @@
 #include "../assets/segments.h"
 #include "../assets/mdl_n64.h"
 
-typedef struct {
-    float x;
-    float y;
-    float z;
-    int rotz;
-    float* correctpos;
-    Gfx* dl;
-    Mtx matrix;
-} modelHelper;
-
 static u8 texty;
 static OSTime timer;
 static int slidestate;
@@ -124,7 +114,10 @@ void slide06_update()
     {
         model->x = lerp(model->x, 150, 0.1);
         if (model->x > 140)
+        {
             slide_change(global_slide+1);
+            return;
+        }
     }
 
     // Setup the model matrix

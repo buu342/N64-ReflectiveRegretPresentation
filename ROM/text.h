@@ -6,6 +6,7 @@
     #define BULLET2 "] "
     #define BULLET3 "^ "
     #define BOLD    "\\"
+    #define BIGDASH " ` "
     #define BULLET1SIZE 13
     #define BULLET2SIZE 37
     #define BULLET3SIZE 56
@@ -51,7 +52,7 @@
     void text_initialize();
     void text_create(char* str, u16 x, u16 y);
     void text_render();
-    void text_rendernumber(Gfx** glistp, int num, u16 x, u16 y);
+    void text_rendernumber(int num, u16 x, u16 y);
     void text_reset();
     void text_cleanup();
     void text_setfont(fontDef* font);
