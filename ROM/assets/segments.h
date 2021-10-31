@@ -102,4 +102,7 @@
     extern u8 _gfx_hackSegmentBssStart[];
     extern u8 _gfx_hackSegmentBssEnd[];
     
+    extern u8 _tex_inerciaSegmentRomStart[];
+    extern u8 _tex_inerciaSegmentRomEnd[];
+    
 #endif

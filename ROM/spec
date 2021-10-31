@@ -132,3 +132,8 @@ beginseg
 	flags RAW
 	include "assets/spr_graph.bin"
 endseg
+beginseg
+	name "tex_inercia"
+	flags RAW
+	include "assets/tex_inercia.bin"
+endseg

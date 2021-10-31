@@ -67,7 +67,11 @@ void slide01_init()
     catherine->y = 400;
     catherine->z = -100;
     catherine->rot = -90;
-    catherine->speed = -7;
+    #if EMULATOR
+        catherine->speed = -10;
+    #else
+        catherine->speed = -7;
+    #endif
     catherine->state = -1;
     catherine->face = &catherine_faces[FACE_Catherine_neutral];
     catherine->facetick = 60;
@@ -201,10 +205,10 @@ void slide01_update()
                 text_setfont(&font_default);
                 text_setalign(ALIGN_CENTER);
                 text_create("Buu342", SCREEN_WD_HD/2, SCREEN_HT_HD/2);
-                pyoro->state = 0;
                 break;
-            case 2: catherine->state = 0; break;
-            case 3: slide_change(global_slide+1); return;
+            case 2: pyoro->state = 0; break;
+            case 3: catherine->state = 0; break;
+            case 4: slide_change(global_slide+1); return;
         }
     }
 }

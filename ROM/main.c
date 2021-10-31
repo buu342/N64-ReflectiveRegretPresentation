@@ -23,7 +23,7 @@ NUContData contdata[1];
 
 // Global variables
 u8 global_highres = TRUE;
-volatile u8 global_slide = 29;
+volatile u8 global_slide = 0;
 
 
 /*==============================

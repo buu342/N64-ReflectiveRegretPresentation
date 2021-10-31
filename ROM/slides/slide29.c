@@ -19,6 +19,7 @@ static Vtx* frames[5];
 static Vtx* skinnedmodelcopy;
 static u32 frametime;
 static u8 animtime;
+Mtx* rotation;
 
 static void makeslide29text()
 {
@@ -42,8 +43,10 @@ static void makeslide29text()
         (u8*)_gfx_catherineSegmentBssStart,  (u8*)_gfx_catherineSegmentBssEnd 
     );
     modelmatrix = (Mtx*)malloc(sizeof(Mtx));
+    rotation = (Mtx*)malloc(sizeof(Mtx));
     catherine = (s64ModelHelper*)malloc(sizeof(s64ModelHelper));
     debug_assert(modelmatrix != NULL);
+    debug_assert(rotation != NULL);
     debug_assert(catherine != NULL);
     catherine->matrix = (Mtx*)malloc(sizeof(Mtx)*MESHCOUNT_Catherine);
     debug_assert(catherine->matrix != NULL);
@@ -111,6 +114,8 @@ void slide29_update()
                 break;
             case 6:
                 text_cleanup();
+                frametime = 0;
+                guTranslate(modelmatrix, 0, 0, 75);
                 break;
             case 9:
                 slide_change(global_slide+1);
@@ -184,16 +189,17 @@ void slide29_draw()
         gSPClearGeometryMode(glistp++, G_LIGHTING);
         gDPSetCombineMode(glistp++, G_CC_SHADE, G_CC_SHADE);
         gDPPipeSync(glistp++);
-        switch(slidestate)
+        gSPMatrix(glistp++, modelmatrix, G_MTX_MODELVIEW | G_MTX_LOAD | G_MTX_NOPUSH);
+        if (slidestate >= 6)
+            gSPDisplayList(glistp++, gfx_hack_blue);
+        if (slidestate >= 7)
         {
-            case 8:
-                gSPDisplayList(glistp++, gfx_hack_red);
-            case 7:
-                gSPDisplayList(glistp++, gfx_hack_green);
-            case 6:
-                gSPDisplayList(glistp++, gfx_hack_blue);
-                break;
+            guRotateRPY(rotation, 0, 45*sinf(((float)(frametime++))/10), 0);
+            gSPMatrix(glistp++, OS_K0_TO_PHYSICAL(rotation), G_MTX_MODELVIEW | G_MTX_MUL | G_MTX_NOPUSH);
+            gSPDisplayList(glistp++, gfx_hack_green);
         }
+        if (slidestate >= 8)
+            gSPDisplayList(glistp++, gfx_hack_red);
     }
 }
 
@@ -207,6 +213,7 @@ void slide29_cleanup()
     }
     free(skinnedmodelcopy);
     free(modelmatrix);
+    free(rotation);
 }
 
 
