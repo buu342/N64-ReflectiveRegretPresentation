@@ -54,7 +54,7 @@ void slide00_update()
                 text_setfont(&font_title);
                 text_create("Reflective Regret", SCREEN_WD_HD/2, 64);
                 text_setfont(&font_default);
-                text_create("Adventures in Nintendo 64 homebrew development", SCREEN_WD_HD/2, 64+32);
+                text_create("Adventures in Nintendo 64 Homebrew Development", SCREEN_WD_HD/2, 64+32);
                 slidestate++; 
                 break;
             case 1: // Slide the text away
