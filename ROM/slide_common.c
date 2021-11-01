@@ -19,7 +19,7 @@ Handles stuff that's common between all slides.
 *********************************/
 
 #define RENDER_AXIS FALSE
-#define ALLOW_CAMERA TRUE
+#define ALLOW_CAMERA FALSE
 #define USB_BUFFER_SIZE 256
 
 
