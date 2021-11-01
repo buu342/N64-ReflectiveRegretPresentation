@@ -20,7 +20,7 @@ void slide37_init()
     text_create(BULLET1"N64brew @ Discord", 64, 122+32*(texty++));
     text_create(BULLET1"Discord64, iQueBrew, Hack64", 64, 122+32*(texty++));
     text_create(BULLET2"Lots of dedicated hacking and decompilation", 64, 122+32*(texty++));
-    text_create(BULLET2"servers", 64+BULLET2SIZE, 122+32*(texty++));
+    text_create("servers", 64+BULLET2SIZE, 122+32*(texty++));
     text_create(BULLET1"/r/N64Homebrew", 64, 122+32*(texty++));
 }
 
