@@ -23,7 +23,7 @@
 
     void init_highres();
     void init_lowres();
-    void init_highresbad();
+    void init_lowresbad();
     void rcp_init();
     void fb_clear(u8 r, u8 g, u8 b);
     f32  lerp(f32 a, f32 b, f32 f);

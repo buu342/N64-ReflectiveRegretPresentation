@@ -65,7 +65,7 @@ ifeq ($(DEBUG_MODE), 0)
     CODEOBJECTS     = $(CODECFILES:.c=.o) $(OBJECTINC) $(NUOBJ)
     OPTIMIZER       = -O2
     LCDEFS          = -D_FINALROM -DNDEBUG -DF3DEX_GBI_2 -DNOT_SPEC
-    N64LIB          = -lnusys -lnustd -lgultra_rom
+    N64LIB          = -lnusys_d -lnustd -lgultra_rom
     MAKEROMFLAGS    = 
 else
     CODEOBJECTS     = $(CODECFILES:.c=.o) $(OBJECTINC) $(NUOBJ) $(DEBUGFILES:.c=.o)

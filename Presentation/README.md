@@ -15,7 +15,6 @@ Here is a list of addendums or notes to clarify or correct things said or writte
 * 00:21:16 - **Heckling:** A member of the audience asked about the legalities of the Super Mario 64 reverse engineering project.
 * 00:25:09 - **Note:** If you're seeing this message, the kernel rewrite PR has not yet been merged.
 * 00:28:28 - **Heckling:** A member of the audience asked "Has someone ported Bad Apple to the N64 yet?".
-* 00:31:20 - **Note:** The framebuffer position test is currently not very good and is being corrected (I'm not calculating the frame times correctly). This is because this demonstration was written a few hours before the actual presentation... I will update the repository and this comment when that is done.
 * 00:31:51 - **Clarfication:** I called it bootcode for simplifcation reasons, but it's a bit more complicated than that... The community is trying to step away from that terminology.
 * 00:38:34 - **Clarfication:** The texture memory isn't for the entire scene (like in the PS1), you can swap out textures as you're rendering triangles. The problem is that the texture cache is super small so its hard to get good looking textures without increasing your poly count.
 * 00:38:52 - **Heckling:** Member of the audience asked "Why did they make it so small?".

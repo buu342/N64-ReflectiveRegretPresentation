@@ -16,18 +16,18 @@ u16* framebuffers_hires[] = {
     ADDR_FB3_HD,
 };
 
-// High resolution framebuffers array
-u16* framebuffers_hiresbad[] = {
-    ADDR_FB1_HDBAD,
-    ADDR_FB2_HDBAD,
-    ADDR_FB3_HDBAD,
-};
-
 // Low resolution framebuffers array
 u16* framebuffers_lowres[] = {
     ADDR_FB1_SD,
     ADDR_FB2_SD,
     ADDR_FB3_SD,
+};
+
+// (badly aligned) Low resolution framebuffers array
+u16* framebuffers_lowresbad[] = {
+    ADDR_FB1_SDBAD,
+    ADDR_FB2_SDBAD,
+    ADDR_FB3_SDBAD,
 };
 
 void init_highres()
@@ -56,33 +56,6 @@ void init_highres()
     nuGfxDisplayOn();
 }
 
-void init_highresbad()
-{
-    global_highres = TRUE;
-    
-    // Wait for graphic tasks to end
-    nuGfxTaskAllEndWait();
-    
-    // Set the VI mode based on the region
-    switch (TV_TYPE)
-    {
-        case NTSC: osViSetMode(&osViModeTable[OS_VI_NTSC_HAN1]); break;
-        case PAL : osViSetMode(&osViModeTable[OS_VI_FPAL_HAN1]); break;
-        case MPAL: osViSetMode(&osViModeTable[OS_VI_MPAL_HAN1]); break;
-    }
-
-    // Turn the screen off
-    nuGfxDisplayOff();
-
-    // Set the framebuffer and z-buffer addresses
-    nuGfxSetCfb(framebuffers_hiresbad, sizeof(framebuffers_hiresbad)/sizeof(framebuffers_hiresbad[0]));
-    nuGfxSetZBuffer(ADDR_ZB_HDBAD);
-    
-    // Turn the display back on
-    nuGfxDisplayOn();
-}
-
-
 void init_lowres()
 {
     global_highres = FALSE;
@@ -104,6 +77,32 @@ void init_lowres()
     // Set the framebuffer and z-buffer addresses
     nuGfxSetCfb(framebuffers_lowres, sizeof(framebuffers_lowres)/sizeof(framebuffers_lowres[0]));
     nuGfxSetZBuffer(ADDR_ZB_SD);
+    
+    // Turn the display back on
+    nuGfxDisplayOn();
+}
+
+void init_lowresbad()
+{
+    global_highres = FALSE;
+    
+    // Wait for graphic tasks to end
+    nuGfxTaskAllEndWait();
+    
+    // Set the VI mode based on the region
+    switch (TV_TYPE)
+    {
+        case NTSC: osViSetMode(&osViModeTable[OS_VI_NTSC_LAN1]); break;
+        case PAL : osViSetMode(&osViModeTable[OS_VI_FPAL_LAN1]); break;
+        case MPAL: osViSetMode(&osViModeTable[OS_VI_MPAL_LAN1]); break;
+    }
+
+    // Turn the screen off
+    nuGfxDisplayOff();
+
+    // Set the framebuffer and z-buffer addresses
+    nuGfxSetCfb(framebuffers_lowresbad, sizeof(framebuffers_lowresbad)/sizeof(framebuffers_lowresbad[0]));
+    nuGfxSetZBuffer(ADDR_ZB_SDBAD);
     
     // Turn the display back on
     nuGfxDisplayOn();

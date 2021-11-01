@@ -9,14 +9,14 @@
 
 static modelHelper* the_n;
 static u8 slidestate;
-static OSTime lastframetime;
+
+extern NUDebTaskPerf* nuDebTaskPerfPtr;
 
 void slide23_init()
 {
     int texty = 0;
     slidestate = 0;
     the_n = NULL;
-    lastframetime = 0;
     
     // Initialize the N
     load_overlay(_gfx_the_nSegmentStart,
@@ -52,13 +52,14 @@ void slide23_update()
         {
             case 1:
                 text_cleanup();
+                init_lowres();
                 the_n = (modelHelper*) malloc(sizeof(modelHelper));
                 debug_assert(the_n != NULL);
                 the_n->dl = gfx_mdl_the_n;
                 the_n->rotz = 0;
                 break;
             case 2:
-                init_highresbad();
+                init_lowresbad();
                 break;
             case 3:
                 slide_change(global_slide+1);
@@ -86,12 +87,12 @@ void slide23_draw()
     if (the_n != NULL)
     {
         int i;
-        u32 frametime = OS_CYCLES_TO_USEC(osGetTime() - lastframetime)/1000;
-        lastframetime = osGetTime();
+        s64 StartTime = nuDebTaskPerfPtr->gfxTaskTime[0].rspStart;
+        s64 EndTime =  nuDebTaskPerfPtr->gfxTaskTime[0].rdpEnd;
         gSPMatrix(glistp++, OS_K0_TO_PHYSICAL(&the_n->matrix), G_MTX_MODELVIEW | G_MTX_LOAD | G_MTX_NOPUSH);
         for (i=0; i<20; i++)
             gSPDisplayList(glistp++, the_n->dl);
-        text_rendernumber(frametime, 64, 64);
+        text_rendernumber((EndTime - StartTime)/1000, 64, 64);
     }
 }
 
