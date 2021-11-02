@@ -1,11 +1,6 @@
 #ifndef _PRESENTATION_SLIDESS_H
 #define _PRESENTATION_SLIDESS_H
 
-    extern Mtx projection, viewing, modeling;
-    extern u16 normal;
-    extern float campos[3];
-    extern float camang[3];
-
     
     /*********************************
             Function Prototypes
@@ -20,5 +15,15 @@
     void slide_change(u8 slide);
     
     extern void (*slidefunc[][4])();
-    
+
+
+    /*********************************
+                 Globals
+    *********************************/
+
+    extern Mtx projection, viewing, modeling;
+    extern u16 normal;
+    extern float campos[3];
+    extern float camang[3];
+
 #endif

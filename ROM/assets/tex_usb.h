@@ -1,3 +1,10 @@
+/***************************************************************
+                           tex_usb.h
+                               
+USB stick texture data
+Generated with Buu342's N64 Texture Converter
+***************************************************************/
+
 static Gfx tex_usb_bottom_C_dummy_aligner1[] = { gsSPEndDisplayList() };
 u16 tex_usb_bottom[] = {
     0xE739, 0xE739, 0xE739, 0xE739, 0xE739, 0xE739, 0xE739, 0xE739, 0xE739, 0xE739, 0xE739, 0xE739, 0xE739, 0xE739, 0xE739, 0xE739, 0xE739, 0xE739, 0xE739, 0xE739, 0xE739, 0xE739, 0xE739, 0xE739, 0xE739, 0xE739, 0xE739, 0xE739, 0xE739, 0xE739, 0xE739, 0xE739, 

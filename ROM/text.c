@@ -22,9 +22,20 @@ special effects:
 #include "assets/font_default_bold.h"
 #include "assets/font_small.h"
 
+
+/*********************************
+              Macros
+*********************************/
+
 #define SPACESIZE 8
 #define MAXMIMUM_FONTTEXTURES 32
 
+
+/*********************************
+             Globals
+*********************************/
+
+// Text settings
 static fontDef*  textrender_font;
 static textAlign textrender_align;
 static s16       textrender_startx;
@@ -34,9 +45,16 @@ static u8        textrender_g;
 static u8        textrender_b;
 static u8        textrender_a;
 
+// Text rendering order globals
 static int        textrender_fontkey;
 static Dictionary textrender_addressmap;
 static linkedList textrender_loadlist[MAXMIMUM_FONTTEXTURES];
+
+
+/*==============================
+    text_initialize
+    Initializes the text globals
+==============================*/
 
 void text_initialize()
 {
@@ -45,6 +63,30 @@ void text_initialize()
     memset(&textrender_loadlist, 0, sizeof(linkedList)*MAXMIMUM_FONTTEXTURES);
     text_reset();
 }
+
+
+/*==============================
+    text_reset
+    Sets the text settings ot their
+    default values
+==============================*/
+
+void text_reset()
+{
+    text_setfont(&font_default);
+    text_setalign(ALIGN_LEFT);
+    text_setpos(0, 0);
+    text_setcolor(0, 0, 0, 255);
+}
+
+
+/*==============================
+    text_create
+    Creates text on the screen
+    @param The string to draw
+    @param The screen X position to draw the text
+    @param The screen Y position to draw the text
+==============================*/
 
 void text_create(char* str, u16 x, u16 y)
 {
@@ -165,22 +207,38 @@ void text_create(char* str, u16 x, u16 y)
     }
 }
 
+
+/*==============================
+    text_render
+    Actually renders the text
+==============================*/
+
 void text_render()
 {
     int i;
+    
+    // Initialize the text drawing settings
     gDPSetCycleType(glistp++, G_CYC_1CYCLE);
     gDPSetTexturePersp(glistp++, G_TP_NONE);
     gSPClearGeometryMode(glistp++, G_ZBUFFER);
     gDPSetRenderMode(glistp++, G_RM_AA_XLU_SURF, G_RM_AA_XLU_SURF);
     gDPSetCombineMode(glistp++, G_CC_MODULATEIA_PRIM, G_CC_MODULATEIA_PRIM);
     gDPSetTextureFilter(glistp++, G_TF_POINT);
+    
+    // Iterate through the hash table
     for (i=0; i<MAXMIMUM_FONTTEXTURES; i++)
     {
         listNode* node = textrender_loadlist[i].head;
+        
+        // Skip this table if its empty
         if (textrender_loadlist[i].size == 0)
             continue;
+            
+        // Load the texture
         gDPLoadTextureBlock(glistp++, ((letterDef*)(node->data))->cdef->tex, G_IM_FMT_IA, G_IM_SIZ_8b, textrender_font->w, textrender_font->h, 0, G_TX_CLAMP, G_TX_CLAMP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
         gDPPipeSync(glistp++);
+        
+        // Render all the letters that use this texture
         for (; node != NULL; node = node->next)
         {
             letterDef* letter = (letterDef*)node->data;
@@ -197,12 +255,26 @@ void text_render()
     }
 }
 
+
+/*==============================
+    text_rendernumber
+    Render a number on the screen
+    for a single frame
+    @param The number to render
+    @param The screen X position to draw the number
+    @param The screen Y position to draw the number
+==============================*/
+
 void text_rendernumber(int num, u16 x, u16 y)
 {
     int i;
     char str[32];
     int xoffset = 0;
+    
+    // Convert the number to a string
     sprintf(str, "%d", num);
+    
+    // Initialize the text drawing settings
     gDPSetCycleType(glistp++, G_CYC_1CYCLE);
     gDPSetTexturePersp(glistp++, G_TP_NONE);
     gSPClearGeometryMode(glistp++, G_ZBUFFER);
@@ -212,6 +284,8 @@ void text_rendernumber(int num, u16 x, u16 y)
     gDPLoadTextureBlock(glistp++, font_default_tex7, G_IM_FMT_IA, G_IM_SIZ_8b, textrender_font->w, textrender_font->h, 0, G_TX_CLAMP, G_TX_CLAMP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
     gDPSetPrimColor(glistp++, 0, 0, 0, 0, 0, 255);
     gDPPipeSync(glistp++);
+    
+    // Draw each character in the string
     for (i=0; str[i] != '\0'; i++)
     {
         charDef* cdef = &font_default.ch[str[i]-'!'];
@@ -226,6 +300,13 @@ void text_rendernumber(int num, u16 x, u16 y)
     }
 }
 
+
+/*==============================
+    text_cleanup
+    Frees all the memory used by the 
+    text hashtable
+==============================*/
+
 void text_cleanup()
 {
     int i;
@@ -235,21 +316,54 @@ void text_cleanup()
             list_destroy_deep(&textrender_loadlist[i]);
 }
 
+
+/*==============================
+    text_setfont
+    Change the global text font setting
+    @param The font definition to use
+==============================*/
+
 inline void text_setfont(fontDef* font)
 {
     textrender_font = font;
 }
+
+
+/*==============================
+    text_setalign
+    Change the global text alignment setting
+    @param The alignment to use
+==============================*/
 
 inline void text_setalign(textAlign align)
 {
     textrender_align = align;
 }
 
+
+/*==============================
+    text_setalign
+    Change the global text starting coordinate
+    setting
+    @param The starting X screen coordinate
+    @param The starting Y screen coordinate
+==============================*/
+
 inline void text_setpos(s16 x, s16 y)
 {
     textrender_startx = x; 
     textrender_starty = y; 
 }
+
+
+/*==============================
+    text_setcolor
+    Change the global text color setting
+    @param The red amount
+    @param The green amount
+    @param The blue amount
+    @param The alpha
+==============================*/
 
 inline void text_setcolor(u8 r, u8 g, u8 b, u8 a)
 {
@@ -259,20 +373,28 @@ inline void text_setcolor(u8 r, u8 g, u8 b, u8 a)
     textrender_a = a;
 }
 
+
+/*==============================
+    text_getx
+    Returns the current global starting X
+    coordinate for text rendering
+    @returns The starting X coordinate
+==============================*/
+
 inline s16 text_getx()
 {
     return textrender_startx;
 }
 
+
+/*==============================
+    text_gety
+    Returns the current global starting Y
+    coordinate for text rendering
+    @returns The starting Y coordinate
+==============================*/
+
 inline s16 text_gety()
 {
     return textrender_starty;
-}
-
-void text_reset()
-{
-    text_setfont(&font_default);
-    text_setalign(ALIGN_LEFT);
-    text_setpos(0, 0);
-    text_setcolor(0, 0, 0, 255);
 }

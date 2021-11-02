@@ -1,3 +1,10 @@
+/***************************************************************
+                        tex_catherine.h
+                               
+Catherine texture data
+Generated with Buu342's N64 Texture Converter
+***************************************************************/
+
 static Gfx tex_catherine_back_C_dummy_aligner1[] = { gsSPEndDisplayList() };
 u16 tex_catherine_back[] = {
     0x321B, 0x321B, 0x321B, 0x321B, 0x321B, 0x321B, 0x321B, 0x321B, 0x321B, 0x321B, 0x321B, 0x321B, 0x3A1B, 0x321B, 0x620B, 0x728D, 0x620B, 0x321B, 0x3A5D, 0x29D7, 0x29D7, 0x29D7, 0x29D7, 0x29D7, 0x29D7, 0x29D7, 0x29D7, 0x29D7, 0x29D7, 0x29D7, 0x29D7, 0x29D7, 

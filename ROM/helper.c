@@ -9,6 +9,11 @@ Contains some convenience functions
 #include "helper.h"
 #include "debug.h"
 
+
+/*********************************
+             Globals
+*********************************/
+
 // High resolution framebuffers array
 u16* framebuffers_hires[] = {
     ADDR_FB1_HD,
@@ -29,6 +34,13 @@ u16* framebuffers_lowresbad[] = {
     ADDR_FB2_SDBAD,
     ADDR_FB3_SDBAD,
 };
+
+
+/*==============================
+    init_highres
+    Sets the game into high resolution
+    mode
+==============================*/
 
 void init_highres()
 {
@@ -56,6 +68,13 @@ void init_highres()
     nuGfxDisplayOn();
 }
 
+
+/*==============================
+    init_lowres
+    Sets the game into low resolution
+    mode
+==============================*/
+
 void init_lowres()
 {
     global_highres = FALSE;
@@ -81,6 +100,13 @@ void init_lowres()
     // Turn the display back on
     nuGfxDisplayOn();
 }
+
+
+/*==============================
+    init_lowresbad
+    Sets the game into low resolution
+    mode, with bad framebuffer alignment
+==============================*/
 
 void init_lowresbad()
 {
@@ -179,15 +205,45 @@ void fb_clear(u8 r, u8 g, u8 b)
     lerp
     Returns the linear interpolation of 
     two values given a fraction
-    @param The first value
-    @param The target value
-    @param The fraction
+    @param   The first value
+    @param   The target value
+    @param   The fraction
+    @returns The calculated value
 ==============================*/
 
 inline f32 lerp(f32 a, f32 b, f32 f)
 {
     return a + f*(b - a);
 }
+
+
+/*==============================
+    fabs
+    Returns the absolute value of a 
+    floating point number
+    @param The number to absolute value
+    @param The absolute value
+==============================*/
+
+inline double fabs(double x)
+{
+    return (x < 0) ? -x : x;
+}
+
+
+/*==============================
+    load_overlay
+    Loads an overlay into memory
+    @param The starting position in RAM to load the overlay
+    @param The starting position of the code in ROM
+    @param The ending position of the code in ROM
+    @param The starting position of the text segment in ROM
+    @param The ending position of the text segment in ROM
+    @param The starting position of the data segment in ROM
+    @param The ending position of the data segment in ROM
+    @param The starting position of the BSS segment in ROM
+    @param The ending position of the BSS segment in ROM
+==============================*/
 
 void load_overlay(u8* ramstart, u8* romstart, u8* romend, u8* textstart, u8* textend, u8* datastart, u8* dataend, u8* bssstart, u8* bssend)
 {
@@ -204,9 +260,4 @@ void load_overlay(u8* ramstart, u8* romstart, u8* romend, u8* textstart, u8* tex
 	segment.bssStart	= bssstart;
 	segment.bssEnd		= bssend;
     nuPiReadRomOverlay(&segment);
-}
-
-double fabs(double x)
-{
-    return (x < 0) ? -x : x;
 }

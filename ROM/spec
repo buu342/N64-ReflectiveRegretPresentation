@@ -1,3 +1,35 @@
+/***************************************************************
+                         ROM Memory Map
+
+0x80000000 +=========+  Bank 1
+           | System  |
+0x80000400 +---------+
+           |  Free   |
+0x80025A00 +---------+
+           |         |
+           |Code/Data|
+0x80100000 +=       =+  Bank 2
+0x80125A00 +---------+
+           | Overlay |
+0x80200000 +=========+  Bank 3
+           |  Heap   |
+0x80300000 +=========+  Bank 4
+           |  Free   |
+0x80380000 +---------+
+           | Audio-  |
+           |  Heap   |
+0x80400000 +=========+  Bank 5 (Expansion Pak)
+           |Framebuff|
+0x80500000 +=========+  Bank 6 (Expansion Pak)
+           |Framebuff|
+0x80600000 +=========+  Bank 7 (Expansion Pak)
+           |Framebuff|
+0x80700000 +=========+  Bank 8 (Expansion Pak)
+           |Z-Buffer |
+0x807FFFFF +=========+
+
+***************************************************************/
+
 #include <nusys.h>
 
 beginseg
@@ -82,56 +114,67 @@ beginseg
 	flags RAW
 	include "assets/spr_pyoro_walk1.bin"
 endseg
+
 beginseg
 	name "spr_pyoro_walk2"
 	flags RAW
 	include "assets/spr_pyoro_walk2.bin"
 endseg
+
 beginseg
 	name "spr_takeda"
 	flags RAW
 	include "assets/spr_takeda.bin"
 endseg
+
 beginseg
 	name "spr_hansei"
 	flags RAW
 	include "assets/spr_hansei.bin"
 endseg
+
 beginseg
 	name "spr_insanity"
 	flags RAW
 	include "assets/spr_insanity.bin"
 endseg
+
 beginseg
 	name "spr_hardwaremap"
 	flags RAW
 	include "assets/spr_hardwaremap.bin"
 endseg
+
 beginseg
 	name "spr_slide14"
 	flags RAW
 	include "assets/spr_slide14.bin"
 endseg
+
 beginseg
 	name "spr_slide15"
 	flags RAW
 	include "assets/spr_slide15.bin"
 endseg
+
 beginseg
 	name "spr_noise"
 	flags RAW
 	include "assets/spr_noise.bin"
 endseg
+
 beginseg
 	name "spr_grass"
 	flags RAW
 	include "assets/spr_grass.bin"
 endseg
+
 beginseg
 	name "spr_graph"
 	flags RAW
 	include "assets/spr_graph.bin"
 endseg
+
 beginseg
 	name "tex_inercia"
 	flags RAW

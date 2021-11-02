@@ -1,3 +1,9 @@
+/***************************************************************
+                           gfx_usb.c
+
+Contains the model data and display list for the USB stick model
+***************************************************************/
+
 #include <nusys.h>
 #include "tex_usb.h"
 
@@ -5,6 +11,11 @@
 #ifndef G_CC_PRIMLITE
     #define G_CC_PRIMLITE SHADE,0,PRIMITIVE,0,0,0,0,PRIMITIVE
 #endif
+
+
+/*********************************
+              Models
+*********************************/
 
 static Vtx vtx_mdl_usb[] = {
     {-65, -6, -19, 0, 0, 0, 0, 0, -127, 255}, /* 0 */

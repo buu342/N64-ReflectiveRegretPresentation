@@ -2,13 +2,17 @@
 #define _PRESENTATION_MDL_CATHERINE_H
 
     #include "../helper.h"
+    
+
+    /*********************************
+                  Macros
+    *********************************/
 
     // Face macros
     #define TOTALFACES 3
     #define FACE_Catherine_default 0
     #define FACE_Catherine_neutral 1
     #define FACE_Catherine_gasp    2
-    
     
     // Model convenience macro
     #define MODEL_Catherine (&mdl_Catherine)
@@ -39,6 +43,11 @@
     #define ANIMATION_Catherine_Run    0
     #define ANIMATION_Catherine_Idle   1
     #define ANIMATION_Catherine_Broken 2
+        
+    
+    /*********************************
+                 Globals
+    *********************************/
     
     extern s64ModelData mdl_Catherine;
     extern FaceAnim catherine_faces[TOTALFACES];

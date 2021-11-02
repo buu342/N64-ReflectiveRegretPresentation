@@ -1,3 +1,10 @@
+/***************************************************************
+                          gfx_cease.c
+
+Contains the model data and display list for the Nintendo Cease 
+& Desist Classic box
+***************************************************************/
+
 #include <nusys.h>
 #include "tex_cease.h"
 
@@ -5,6 +12,11 @@
 #ifndef G_CC_PRIMLITE
     #define G_CC_PRIMLITE SHADE,0,PRIMITIVE,0,0,0,0,PRIMITIVE
 #endif
+
+
+/*********************************
+              Models
+*********************************/
 
 static Vtx vtx_mdl_cease[] = {
     {395, 344, 0, 0, 0, 0, 73, 73, -73, 255}, /* 0 */

@@ -1,3 +1,10 @@
+/***************************************************************
+                           gfx_n64.c
+
+Contains the model data and display lists for the Nintendo 64 
+model and its guts
+***************************************************************/
+
 #include <nusys.h>
 #include "tex_n64.h"
 
@@ -765,33 +772,37 @@ Gfx gfx_mdl_n64_motherboard[] = {
     gsDPSetCombineMode(G_CC_MODULATEIDECALA, G_CC_MODULATEIDECALA),
     gsSPClearGeometryMode(0xFFFFFFFF),
     gsSPSetGeometryMode(G_SHADE | G_ZBUFFER | G_CULL_BACK | G_SHADING_SMOOTH | G_LIGHTING),
-    gsDPLoadTextureBlock(tex_n64_pcb_1, G_IM_FMT_RGBA, G_IM_SIZ_16b, 128, 100, 0, G_TX_MIRROR, G_TX_MIRROR, 7, 7, G_TX_NOLOD, G_TX_NOLOD),
+    gsDPLoadTextureBlock(tex_n64_pcb+128*10*0, G_IM_FMT_RGBA, G_IM_SIZ_16b, 128, 10, 0, G_TX_MIRROR, G_TX_MIRROR, 7, 4, G_TX_NOLOD, G_TX_NOLOD),
     gsDPPipeSync(),
     gsSP2Triangles(0, 1, 2, 0, 0, 2, 3, 0),
-    gsDPLoadTextureBlock(tex_n64_pcb_2, G_IM_FMT_RGBA, G_IM_SIZ_16b, 128, 100, 0, G_TX_MIRROR, G_TX_MIRROR, 7, 7, G_TX_NOLOD, G_TX_NOLOD),
+    gsDPLoadTextureBlock(tex_n64_pcb+128*10*1, G_IM_FMT_RGBA, G_IM_SIZ_16b, 128, 10, 0, G_TX_MIRROR, G_TX_MIRROR, 7, 4, G_TX_NOLOD, G_TX_NOLOD),
     gsDPPipeSync(),
     gsSP2Triangles(4, 5, 6, 0, 4, 6, 7, 0),
-    gsDPLoadTextureBlock(tex_n64_pcb_3, G_IM_FMT_RGBA, G_IM_SIZ_16b, 128, 100, 0, G_TX_MIRROR, G_TX_MIRROR, 7, 7, G_TX_NOLOD, G_TX_NOLOD),
+    gsDPLoadTextureBlock(tex_n64_pcb+128*10*2, G_IM_FMT_RGBA, G_IM_SIZ_16b, 128, 10, 0, G_TX_MIRROR, G_TX_MIRROR, 7, 4, G_TX_NOLOD, G_TX_NOLOD),
     gsDPPipeSync(),
     gsSP2Triangles(8, 9, 10, 0, 8, 10, 11, 0),
-    gsDPLoadTextureBlock(tex_n64_pcb_4, G_IM_FMT_RGBA, G_IM_SIZ_16b, 128, 100, 0, G_TX_MIRROR, G_TX_MIRROR, 7, 7, G_TX_NOLOD, G_TX_NOLOD),
+    gsDPLoadTextureBlock(tex_n64_pcb+128*10*3, G_IM_FMT_RGBA, G_IM_SIZ_16b, 128, 10, 0, G_TX_MIRROR, G_TX_MIRROR, 7, 4, G_TX_NOLOD, G_TX_NOLOD),
     gsDPPipeSync(),
     gsSP2Triangles(12, 13, 14, 0, 12, 14, 15, 0),
-    gsDPLoadTextureBlock(tex_n64_pcb_5, G_IM_FMT_RGBA, G_IM_SIZ_16b, 128, 100, 0, G_TX_MIRROR, G_TX_MIRROR, 7, 7, G_TX_NOLOD, G_TX_NOLOD),
+    gsDPLoadTextureBlock(tex_n64_pcb+128*10*4, G_IM_FMT_RGBA, G_IM_SIZ_16b, 128, 10, 0, G_TX_MIRROR, G_TX_MIRROR, 7, 4, G_TX_NOLOD, G_TX_NOLOD),
     gsDPPipeSync(),
     gsSP2Triangles(16, 17, 18, 0, 16, 18, 19, 0),
-    gsDPLoadTextureBlock(tex_n64_pcb_6, G_IM_FMT_RGBA, G_IM_SIZ_16b, 128, 100, 0, G_TX_MIRROR, G_TX_MIRROR, 7, 7, G_TX_NOLOD, G_TX_NOLOD),
+    gsDPLoadTextureBlock(tex_n64_pcb+128*10*5, G_IM_FMT_RGBA, G_IM_SIZ_16b, 128, 10, 0, G_TX_MIRROR, G_TX_MIRROR, 7, 4, G_TX_NOLOD, G_TX_NOLOD),
     gsDPPipeSync(),
     gsSP2Triangles(20, 21, 22, 0, 20, 22, 23, 0),
-    gsDPLoadTextureBlock(tex_n64_pcb_7, G_IM_FMT_RGBA, G_IM_SIZ_16b, 128, 100, 0, G_TX_MIRROR, G_TX_MIRROR, 7, 7, G_TX_NOLOD, G_TX_NOLOD),
+    gsDPLoadTextureBlock(tex_n64_pcb+128*10*6, G_IM_FMT_RGBA, G_IM_SIZ_16b, 128, 10, 0, G_TX_MIRROR, G_TX_MIRROR, 7, 4, G_TX_NOLOD, G_TX_NOLOD),
     gsDPPipeSync(),
     gsSP2Triangles(24, 25, 26, 0, 24, 26, 27, 0),
-    gsDPLoadTextureBlock(tex_n64_pcb_8, G_IM_FMT_RGBA, G_IM_SIZ_16b, 128, 100, 0, G_TX_MIRROR, G_TX_MIRROR, 7, 7, G_TX_NOLOD, G_TX_NOLOD),
+    gsDPLoadTextureBlock(tex_n64_pcb+128*10*7, G_IM_FMT_RGBA, G_IM_SIZ_16b, 128, 10, 0, G_TX_MIRROR, G_TX_MIRROR, 7, 4, G_TX_NOLOD, G_TX_NOLOD),
     gsDPPipeSync(),
     gsSP2Triangles(28, 29, 30, 0, 28, 30, 31, 0),
     
     gsSPVertex(vtx_mdl_n64_motherboard+218, 8, 0),
+    gsDPLoadTextureBlock(tex_n64_pcb+128*10*8, G_IM_FMT_RGBA, G_IM_SIZ_16b, 128, 10, 0, G_TX_MIRROR, G_TX_MIRROR, 7, 4, G_TX_NOLOD, G_TX_NOLOD),
+    gsDPPipeSync(),
     gsSP2Triangles(0, 1, 2, 0, 0, 2, 3, 0),
+    gsDPLoadTextureBlock(tex_n64_pcb+128*10*9, G_IM_FMT_RGBA, G_IM_SIZ_16b, 128, 10, 0, G_TX_MIRROR, G_TX_MIRROR, 7, 4, G_TX_NOLOD, G_TX_NOLOD),
+    gsDPPipeSync(),
     gsSP2Triangles(4, 5, 6, 0, 4, 6, 7, 0),
 
     gsSPVertex(vtx_mdl_n64_motherboard+226, 32, 0),
@@ -1375,4 +1386,3 @@ Gfx gfx_mdl_n64_shelltop[] = {
     gsSP2Triangles(20, 24, 25, 0, 20, 25, 21, 0),
     gsSPEndDisplayList(),
 };
-

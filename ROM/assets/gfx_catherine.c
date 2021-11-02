@@ -1,3 +1,10 @@
+/***************************************************************
+                        gfx_catherine.c
+
+Contains the model, display lists, and animation data for 
+Catherine
+***************************************************************/
+
 #include <nusys.h>
 #include "../sausage64.h"
 #include "mdl_catherine.h"

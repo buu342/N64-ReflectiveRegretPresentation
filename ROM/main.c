@@ -1,6 +1,6 @@
 /***************************************************************
                             main.c
-                               
+
 Program entrypoint.
 ***************************************************************/
 
@@ -17,6 +17,11 @@ Program entrypoint.
 
 static void callback_prenmi();
 static void callback_vsync(int tasksleft);
+
+
+/*********************************
+             Globals
+*********************************/
 
 // Controller data
 NUContData contdata[1];
@@ -43,25 +48,25 @@ void mainproc()
     debug_initialize();
     
     // Check for expansion PAK
-    if (osMemSize < RAMBANK_SIZE*8)
+    if (osMemSize < RAMBANK_SIZE*5)
     {
         debug_printf("Expansion pak missing! Stopping.\n");
         return;
     }
     
     // Initialize the heap, give it an entire RAM bank to itself
-    InitHeap(RAMBANK_3, RAMBANK_SIZE);
+    InitHeap(HEAP_START, HEAP_LENGTH);
     
     // Start in high resolution mode
     init_highres();
     
     // Initialize the font system
     text_initialize();
-        
-    // Initialize slide 0
+    
+    // Initialize the first slide
     slide_common_init();
     (slidefunc[global_slide][0])();
-        
+    
     // Set callback functions for reset and graphics
     nuGfxFuncSet((NUGfxFunc)callback_vsync);
     
@@ -74,16 +79,18 @@ void mainproc()
 
 /*==============================
     callback_vsync
-    Code that runs on on the graphics
+    Code that runs on the graphics
     thread
     @param The number of tasks left to execute
 ==============================*/
 
 static void callback_vsync(int tasksleft)
 {
-    // Update the slide, then draw it when the RDP is ready
+    // Update the current slide
     slide_common_update();
     (slidefunc[global_slide][1])();
+    
+    // Draw the slide when we have no more tasks
     if (tasksleft < 1)
     {
         slide_common_draw_start();

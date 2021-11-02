@@ -7,9 +7,19 @@ Graphic related display lists, need to be in their own object.
 #include <nusys.h>
 #include "config.h"
 
+
+/*********************************
+             Globals
+*********************************/
+
 // Display list
 Gfx glist[GLIST_LENGTH];
 Gfx* glistp;
+
+
+/*********************************
+          Display Lists
+*********************************/
 
 // Initializes the game camera in low res mode
 static Vp viewport_low = {

@@ -20,7 +20,6 @@ Handles stuff that's common between all slides.
 
 #define RENDER_AXIS FALSE
 #define ALLOW_CAMERA FALSE
-#define USB_BUFFER_SIZE 256
 
 
 /*********************************
@@ -46,6 +45,7 @@ static Light light_dir;
 float campos[3] = {0, -100, -300};
 float camang[3] = {0, 0, -90};
 
+// Laser pointer
 static u8 laser = FALSE;
 static s32 laserx = 0;
 static s32 lasery = 0;
@@ -128,8 +128,9 @@ void slide_common_update()
 
 
 /*==============================
-    slide_common_draw
-    Draw the slide
+    slide_common_draw_start
+    Draws stuff before the actual slide
+    is rendered.
 ==============================*/
 
 void slide_common_draw_start()
@@ -208,6 +209,13 @@ void slide_common_draw_start()
     #endif
 }
 
+
+/*==============================
+    slide_common_draw_end
+    Draws stuff after a slide has been 
+    rendered.
+==============================*/
+
 void slide_common_draw_end()
 {
     // Render the text last
@@ -242,19 +250,37 @@ void slide_common_draw_end()
     nuGfxTaskStart(glist, (s32)(glistp - glist) * sizeof(Gfx), NU_GFX_UCODE_F3DEX, NU_SC_SWAPBUFFER);
 }
 
+
+/*==============================
+    slide_common_cleanup
+    Cleans up a slide when its changed
+==============================*/
+
 void slide_common_cleanup()
 {
     text_cleanup();
 }
+
+
+/*==============================
+    slide_change
+    Changes the current slide
+==============================*/
 
 void slide_change(u8 slide)
 {
     debug_printf("Changing slide to %d\n", slide);
     nuGfxTaskAllEndWait();
     //nuGfxDisplayOff();
+    
+    // Cleanup the slides
     slidefunc[global_slide][3]();
     slide_common_cleanup();
+    
+    // Change the global slide variable
     global_slide = slide;
+    
+    // Initialize the next slide
     slide_common_init();
     slidefunc[global_slide][0]();
     //nuGfxDisplayOn();

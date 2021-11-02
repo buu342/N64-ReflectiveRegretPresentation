@@ -41,7 +41,7 @@
     #define RAMBANK_7 (RAMBANK_START + RAMBANK_SIZE*6)
     #define RAMBANK_8 (RAMBANK_START + RAMBANK_SIZE*7)
     
-    // Address calculations
+    // Frambuffer address calculations
     #define ADDR_FB1_HD ((u16*)(RAMBANK_5))
     #define ADDR_FB2_HD ((u16*)(RAMBANK_6))
     #define ADDR_FB3_HD ((u16*)(RAMBANK_7))
@@ -60,10 +60,11 @@
 
     // Array sizes
     #define GLIST_LENGTH 4096
-    #define HEAP_LENGTH  1024
+    #define HEAP_START   RAMBANK_3
+    #define HEAP_LENGTH  RAMBANK_SIZE
     
     // Emergency last minute presentation emulator check
-    #define EMULATOR 1
+    #define EMULATOR 0
     
     
     /*********************************

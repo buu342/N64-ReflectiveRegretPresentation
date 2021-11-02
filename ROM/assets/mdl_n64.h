@@ -10,6 +10,7 @@
     extern Gfx gfx_mdl_n64_shellbot[];
     extern Gfx gfx_mdl_n64_shelltop[];
     
+    // Coordinates to translate parts of the model to 0, 0, 0
     static float mdl_n64_correctpos_cpu[3] = {-163.5134735, -46.4031792, 60.3453064};
     static float mdl_n64_correctpos_ram[3] = {-25.9087715, -121.1300812, 60.9575996};
     static float mdl_n64_correctpos_rcp[3] = {-27.0962296, -17.6602592, 60.345295};

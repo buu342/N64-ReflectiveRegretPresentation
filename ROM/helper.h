@@ -1,5 +1,10 @@
 #ifndef PRESENTATION_HELPER_H
 #define PRESENTATION_HELPER_H
+
+    
+    /*********************************
+                Structures
+    *********************************/
     
     typedef struct {
         u8 hasblink;
@@ -27,8 +32,8 @@
     void rcp_init();
     void fb_clear(u8 r, u8 g, u8 b);
     f32  lerp(f32 a, f32 b, f32 f);
-    void load_overlay(u8* ramstart, u8* romstart, u8* romend, u8* textstart, u8* textend, u8* datastart, u8* dataend, u8* bssstart, u8* bssend);
     double fabs(double x);
+    void load_overlay(u8* ramstart, u8* romstart, u8* romend, u8* textstart, u8* textend, u8* datastart, u8* dataend, u8* bssstart, u8* bssend);
     
     
     /*********************************
