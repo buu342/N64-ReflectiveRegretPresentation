@@ -1,3 +1,9 @@
+/***************************************************************
+                           slide32.c
+
+Chapter 3 - The History and Future of the N64 Homebrew Scene
+***************************************************************/
+
 #include <nusys.h>
 #include "../config.h"
 #include "../slides.h"
@@ -7,17 +13,30 @@
 #include "../assets/segments.h"
 #include "../assets/mdl_cease.h"
 
+
+/*********************************
+             Globals
+*********************************/
+
+// The slide's state
 static u8 slidestate;
 
+// Model globals
 static Mtx modelmatrix;
 static modelHelper* ceasemodel;
+
+
+/*==============================
+    slide32_init
+    Initializes the slide
+==============================*/
 
 void slide32_init()
 {
     Mtx helper;
     slidestate = 0;
     
-    // Load the N64 model overlay
+    // Load the Cease & Desist Classic Box model
     load_overlay(_gfx_ceaseSegmentStart,
         (u8*)_gfx_ceaseSegmentRomStart,  (u8*)_gfx_ceaseSegmentRomEnd, 
         (u8*)_gfx_ceaseSegmentTextStart, (u8*)_gfx_ceaseSegmentTextEnd, 
@@ -25,9 +44,11 @@ void slide32_init()
         (u8*)_gfx_ceaseSegmentBssStart,  (u8*)_gfx_ceaseSegmentBssEnd 
     );
     
-    // Model memory allocation
+    // Allocate memory for the model helper
     ceasemodel = (modelHelper*) malloc(sizeof(modelHelper));
     debug_assert(ceasemodel != NULL);
+    
+    // Initialize the model helper
     ceasemodel->x = 0;
     ceasemodel->y = 0;
     ceasemodel->z = 0;
@@ -41,7 +62,7 @@ void slide32_init()
     guScale(&helper, 0.25, 0.25, 0.25);
     guMtxCatL(&ceasemodel->matrix, &helper, &ceasemodel->matrix);
 
-    // Create the text
+    // Create the title text
     text_setalign(ALIGN_CENTER);
     text_setpos(0, -256);
     text_setfont(&font_title);
@@ -50,6 +71,13 @@ void slide32_init()
     text_setfont(&font_default);
     text_create("History lesson time!", SCREEN_WD_HD/2, 64+64);
 }
+
+
+/*==============================
+    slide32_update
+    Update slide logic every
+    frame.
+==============================*/
 
 void slide32_update()
 {
@@ -81,16 +109,30 @@ void slide32_update()
     guScale(&helper, 0.25, 0.25, 0.25);
     guMtxCatL(&ceasemodel->matrix, &helper, &ceasemodel->matrix);
     
-    // Exit the slide when start is pressed
+    // Begin exiting the slide when START is pressed
     if (contdata[0].trigger & START_BUTTON)
         slidestate++;
 }
+
+
+/*==============================
+    slide32_draw
+    Draws extra stuff regarding
+    this slide
+==============================*/
 
 void slide32_draw()
 {
     gSPMatrix(glistp++, OS_K0_TO_PHYSICAL(&ceasemodel->matrix), G_MTX_MODELVIEW | G_MTX_LOAD | G_MTX_NOPUSH)
     gSPDisplayList(glistp++, ceasemodel->dl);
 }
+
+
+/*==============================
+    slide32_cleanup
+    Cleans up dynamic memory 
+    allocated during this slide
+==============================*/
 
 void slide32_cleanup()
 {

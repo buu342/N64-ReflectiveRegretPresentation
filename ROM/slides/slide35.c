@@ -1,3 +1,9 @@
+/***************************************************************
+                           slide35.c
+
+The N64 homebrew scene's rise from the ashes
+***************************************************************/
+
 #include <nusys.h>
 #include "../config.h"
 #include "../slides.h"
@@ -6,12 +12,21 @@
 #include "../debug.h"
 
 
+/*==============================
+    slide35_init
+    Initializes the slide
+==============================*/
+
 void slide35_init()
 {
     int texty = 0;
+    
+    // Create the slide's title text
     text_setfont(&font_title);
     text_setalign(ALIGN_CENTER);
     text_create("The Renaissance", SCREEN_WD_HD/2, 64);
+    
+    // Create the text for the slide's body
     text_setfont(&font_default);
     text_setalign(ALIGN_LEFT);
     text_create(BULLET1"Collectors get ahold of the original disks and hardware", 64, 122+26*(texty++));
@@ -29,17 +44,40 @@ void slide35_init()
     text_create(" https://n64brew.dev", 64+BULLET2SIZE, 122+26*(texty++));   
 }
 
+
+/*==============================
+    slide35_update
+    Update slide logic every
+    frame.
+==============================*/
+
 void slide35_update()
 {
+    // Change slide when START is pressed
     if (contdata[0].trigger & START_BUTTON)
         slide_change(global_slide+1);
 }
+
+
+/*==============================
+    slide35_draw
+    Draws extra stuff regarding
+    this slide
+==============================*/
+
 void slide35_draw()
 {
-
+    // Nothing extra to draw besides text
 }
+
+
+/*==============================
+    slide35_cleanup
+    Cleans up dynamic memory 
+    allocated during this slide
+==============================*/
 
 void slide35_cleanup()
 {
-
+    // Nothing extra to cleanup
 }

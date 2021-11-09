@@ -1,3 +1,10 @@
+/***************************************************************
+                           slide23.c
+
+An explanation of the framebuffer and a demonstration of the
+importance of memory alignment
+***************************************************************/
+
 #include <nusys.h>
 #include "../config.h"
 #include "../slides.h"
@@ -7,10 +14,25 @@
 #include "../assets/segments.h"
 #include "../assets/mdl_the_n.h"
 
-static modelHelper* the_n;
+
+/*********************************
+             Globals
+*********************************/
+
+// The slide's state
 static u8 slidestate;
 
+// The model helper
+static modelHelper* the_n;
+
+// Nusys performance global variable
 extern NUDebTaskPerf* nuDebTaskPerfPtr;
+
+
+/*==============================
+    slide23_init
+    Initializes the slide
+==============================*/
 
 void slide23_init()
 {
@@ -18,7 +40,7 @@ void slide23_init()
     slidestate = 0;
     the_n = NULL;
     
-    // Initialize the N
+    // Load the N's overlay
     load_overlay(_gfx_the_nSegmentStart,
         (u8*)_gfx_the_nSegmentRomStart,  (u8*)_gfx_the_nSegmentRomEnd, 
         (u8*)_gfx_the_nSegmentTextStart, (u8*)_gfx_the_nSegmentTextEnd, 
@@ -26,9 +48,12 @@ void slide23_init()
         (u8*)_gfx_the_nSegmentBssStart,  (u8*)_gfx_the_nSegmentBssEnd 
     );
     
+    // Create the slide's title text
     text_setfont(&font_title);
     text_setalign(ALIGN_CENTER);
     text_create("Framebuffer", SCREEN_WD_HD/2, 64);
+    
+    // Create the text for the slide's body
     text_setfont(&font_default);
     text_setalign(ALIGN_LEFT);
     text_create(BULLET1"No VRAM, Framebuffer and whatnot must be", 64, 122+30*(texty++));
@@ -43,8 +68,16 @@ void slide23_init()
     text_create(BULLET1"Position in RAM is important!!!", 64, 122+30*(texty++));
 }
 
+
+/*==============================
+    slide23_update
+    Update slide logic every
+    frame.
+==============================*/
+
 void slide23_update()
 {
+    // Advance the slide state when START is pressed
     if (contdata[0].trigger & START_BUTTON)
     {
         slidestate++;
@@ -82,8 +115,16 @@ void slide23_update()
     }
 }
 
+
+/*==============================
+    slide23_draw
+    Draws extra stuff regarding
+    this slide
+==============================*/
+
 void slide23_draw()
 {
+    // Draw the N model
     if (the_n != NULL)
     {
         int i;
@@ -95,6 +136,13 @@ void slide23_draw()
         text_rendernumber((EndTime - StartTime)/1000, 64, 64);
     }
 }
+
+
+/*==============================
+    slide23_cleanup
+    Cleans up dynamic memory 
+    allocated during this slide
+==============================*/
 
 void slide23_cleanup()
 {

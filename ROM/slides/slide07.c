@@ -1,3 +1,9 @@
+/***************************************************************
+                           slide07.c
+
+A description of the RAM
+***************************************************************/
+
 #include <nusys.h>
 #include "../config.h"
 #include "../slides.h"
@@ -7,10 +13,26 @@
 #include "../assets/segments.h"
 #include "../assets/mdl_n64.h"
 
-static u8 texty;
-static OSTime timer;
+
+/*********************************
+             Globals
+*********************************/
+
+// The slide's state
 static int slidestate;
+static OSTime timer;
+
+// Text position globals
+static u8 texty;
+
+// CPU model
 static modelHelper* model;
+
+
+/*==============================
+    slide07_init
+    Initializes the slide
+==============================*/
 
 void slide07_init()
 {   
@@ -19,7 +41,7 @@ void slide07_init()
     timer = osGetTime() + OS_USEC_TO_CYCLES(1000000);
     texty = 0;
 
-    // Load the N64 model overlay
+    // Load the N64 model overlay (even though we'll only use the RAM)
     load_overlay(_gfx_n64SegmentStart,
         (u8*)_gfx_n64SegmentRomStart,  (u8*)_gfx_n64SegmentRomEnd, 
         (u8*)_gfx_n64SegmentTextStart, (u8*)_gfx_n64SegmentTextEnd, 
@@ -36,8 +58,6 @@ void slide07_init()
     model->correctpos = mdl_n64_correctpos_ram;
 
     // Initialize the model matrix
-    guMtxIdent(&model->matrix);
-    guMtxIdent(&helper);
     guTranslate(&model->matrix, -model->correctpos[0], -model->correctpos[1], -model->correctpos[2]);
     guRotateRPY(&helper, 90, 0, model->rotz);
     guMtxCatL(&model->matrix, &helper, &model->matrix);
@@ -54,10 +74,18 @@ void slide07_init()
     text_setalign(ALIGN_LEFT);
 }
 
+
+/*==============================
+    slide07_update
+    Update slide logic every
+    frame.
+==============================*/
+
 void slide07_update()
 {
     Mtx helper;
 
+    // Move the RAM to the center, or to the bottom corner, depending on the slide state
     if (slidestate == 0)
     {
         model->z = lerp(model->z, 100, 0.1);
@@ -71,7 +99,7 @@ void slide07_update()
         model->z = lerp(model->z, 75, 0.1);
     }
 
-    // Create the bullet points
+    // Create the bullet points, one at a time
     if (slidestate < 11 && timer < osGetTime())
     {
         timer = osGetTime() + OS_USEC_TO_CYCLES(50000);
@@ -111,27 +139,25 @@ void slide07_update()
         }
     }
 
-    // Go to the next slide
+    // Begin transitioning to the next slide when the animation finishes and START is pressed
     if (slidestate == 11 && contdata[0].trigger & START_BUTTON)
     {
         slidestate++;
         text_cleanup();
     }
 
-    // Finish the slide
+    // Finish the slide by moving the RAM aside
     if (slidestate == 12)
     {
         model->x = lerp(model->x, 150, 0.1);
         if (model->x > 140)
         {
             slide_change(global_slide+1);
-            return;
+            return; // Important! Return to prevent the rest of this code from being executed or we get null pointers!
         }
     }
 
     // Setup the model matrix
-    guMtxIdent(&model->matrix);
-    guMtxIdent(&helper);
     guTranslate(&model->matrix, -model->correctpos[0], -model->correctpos[1], -model->correctpos[2]);
     guRotateRPY(&helper, 90, 0, model->rotz);
     guMtxCatL(&model->matrix, &helper, &model->matrix);
@@ -139,15 +165,31 @@ void slide07_update()
     guMtxCatL(&model->matrix, &helper, &model->matrix);
     guTranslate(&helper, model->x, model->y, model->z);
     guMtxCatL(&model->matrix, &helper, &model->matrix);
+    
+    // Only begin rotating after a second into the slide has passed
     if (slidestate != 0)
         model->rotz = (model->rotz+1)%360;
 }
+
+
+/*==============================
+    slide07_draw
+    Draws extra stuff regarding
+    this slide
+==============================*/
 
 void slide07_draw()
 {
     gSPMatrix(glistp++, OS_K0_TO_PHYSICAL(&model->matrix), G_MTX_MODELVIEW | G_MTX_LOAD | G_MTX_NOPUSH);
     gSPDisplayList(glistp++, model->dl);
 }
+
+
+/*==============================
+    slide07_cleanup
+    Cleans up dynamic memory 
+    allocated during this slide
+==============================*/
 
 void slide07_cleanup()
 {

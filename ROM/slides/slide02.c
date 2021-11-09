@@ -1,3 +1,9 @@
+/***************************************************************
+                           slide02.c
+
+Hansei
+***************************************************************/
+
 #include <nusys.h>
 #include "../config.h"
 #include "../slides.h"
@@ -6,11 +12,24 @@
 #include "../debug.h"
 #include "../assets/segments.h"
 
-u16* spr_takeda;
-u8*  spr_hansei;
+
+/*********************************
+             Globals
+*********************************/
+
+// Globals to store the textures we grab from ROM
+static u16* spr_takeda;
+static u8*  spr_hansei;
+
+
+/*==============================
+    slide02_init
+    Initializes the slide
+==============================*/
 
 void slide02_init()
 {
+    // Grab the images from ROM
     spr_takeda = (u16*)malloc(_spr_takedaSegmentRomEnd-_spr_takedaSegmentRomStart);
     spr_hansei = (u8*)malloc(_spr_hanseiSegmentRomEnd-_spr_hanseiSegmentRomStart);
     debug_assert(spr_takeda != NULL);
@@ -18,18 +37,33 @@ void slide02_init()
     nuPiReadRom((u32)_spr_takedaSegmentRomStart, spr_takeda, _spr_takedaSegmentRomEnd-_spr_takedaSegmentRomStart);
     nuPiReadRom((u32)_spr_hanseiSegmentRomStart, spr_hansei, _spr_hanseiSegmentRomEnd-_spr_hanseiSegmentRomStart);
     
-    // Put the image source
+    // Put the image source since I didn't take the photo myself
     text_setalign(ALIGN_CENTER);
     text_setfont(&font_small);
     text_setcolor(44, 44, 255, 255);
     text_create("https://nintendowire.com/news/2017/04/27/genyo-takeda-announces-retirement-nintendo/", SCREEN_WD_HD/2, SCREEN_HT_HD/2+148);
 }
 
+
+/*==============================
+    slide02_update
+    Update slide logic every
+    frame.
+==============================*/
+
 void slide02_update()
 {
+    // Go to the next slide when START is pressed
     if (contdata[0].trigger & START_BUTTON)
         slide_change(global_slide+1);
 }
+
+
+/*==============================
+    slide02_draw
+    Draws extra stuff regarding
+    this slide
+==============================*/
 
 void slide02_draw()
 {
@@ -52,7 +86,7 @@ void slide02_draw()
         1 << 10, 1 << 10
     );
     
-    // Draw Genyo Takeda
+    // Draw Genyo Takeda in 256x8 blocks, since it's too big to fit in TMEM
     for (i=0; i<208; i+=8)
     {
         gDPLoadTextureBlock(glistp++, spr_takeda+i*256, G_IM_FMT_RGBA, G_IM_SIZ_16b, 256, 8, 0, G_TX_CLAMP, G_TX_CLAMP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
@@ -66,6 +100,13 @@ void slide02_draw()
         );
     }
 }
+
+
+/*==============================
+    slide02_cleanup
+    Cleans up dynamic memory 
+    allocated during this slide
+==============================*/
 
 void slide02_cleanup()
 {

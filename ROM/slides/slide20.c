@@ -1,3 +1,9 @@
+/***************************************************************
+                           slide20.c
+
+Chapter 2 - Game Development Process
+***************************************************************/
+
 #include <nusys.h>
 #include "../config.h"
 #include "../slides.h"
@@ -8,18 +14,31 @@
 #include "../assets/mdl_n64.h"
 #include "../assets/mdl_usb.h"
 
+
+/*********************************
+             Globals
+*********************************/
+
+// The slide's state
 static u8 slidestate;
 
+// Model globals
 static Mtx modelmatrix;
 static modelHelper* cartmodel;
 static modelHelper* usbmodel;
+
+
+/*==============================
+    slide20_init
+    Initializes the slide
+==============================*/
 
 void slide20_init()
 {
     Mtx helper;
     slidestate = 0;
     
-    // Load the N64 model overlay
+    // Load the N64 model overlay (even though we'll only be using the cart)
     load_overlay(_gfx_n64SegmentStart,
         (u8*)_gfx_n64SegmentRomStart,  (u8*)_gfx_n64SegmentRomEnd, 
         (u8*)_gfx_n64SegmentTextStart, (u8*)_gfx_n64SegmentTextEnd, 
@@ -40,6 +59,8 @@ void slide20_init()
     usbmodel = (modelHelper*) malloc(sizeof(modelHelper));
     debug_assert(cartmodel != NULL);
     debug_assert(usbmodel != NULL);
+    
+    // Initialize the model structures
     usbmodel->x = 0;
     usbmodel->y = 0;
     usbmodel->z = 0;
@@ -60,7 +81,7 @@ void slide20_init()
     guTranslate(&modelmatrix, 4, 100, -256);
     guMtxCatL(&modelmatrix, &helper, &modelmatrix);
 
-    // Create the text
+    // Create the title text
     text_setalign(ALIGN_CENTER);
     text_setpos(0, -256);
     text_setfont(&font_title);
@@ -68,6 +89,13 @@ void slide20_init()
     text_setfont(&font_default);
     text_create("The boring stuff is out of the way, let's get to the fun part!", SCREEN_WD_HD/2, 64+32);
 }
+
+
+/*==============================
+    slide19_update
+    Update slide logic every
+    frame.
+==============================*/
 
 void slide20_update()
 {
@@ -144,21 +172,40 @@ void slide20_update()
     guTranslate(&helper, 150+usbmodel->x, 0, 300+text_gety()*2.171875);
     guMtxCatL(&usbmodel->matrix, &helper, &usbmodel->matrix);
     
-    // Exit the slide when start is pressed
+    // Begin exiting the slide when start is pressed
     if (contdata[0].trigger & START_BUTTON)
         slidestate++;
 }
 
+
+/*==============================
+    slide20_draw
+    Draws extra stuff regarding
+    this slide
+==============================*/
+
 void slide20_draw()
 {
+    // Setup the matrix stack
     gSPMatrix(glistp++, OS_K0_TO_PHYSICAL(&modelmatrix), G_MTX_MODELVIEW | G_MTX_LOAD | G_MTX_NOPUSH);
+    
+    // Draw the cart model
     gSPMatrix(glistp++, OS_K0_TO_PHYSICAL(&cartmodel->matrix), G_MTX_MODELVIEW | G_MTX_MUL | G_MTX_PUSH);
     gSPDisplayList(glistp++, cartmodel->dl);
     gSPPopMatrix(glistp++, G_MTX_MODELVIEW);
+    
+    // Draw the USB model
     gSPMatrix(glistp++, OS_K0_TO_PHYSICAL(&usbmodel->matrix), G_MTX_MODELVIEW | G_MTX_MUL | G_MTX_PUSH);
     gSPDisplayList(glistp++, usbmodel->dl);
     gSPPopMatrix(glistp++, G_MTX_MODELVIEW);
 }
+
+
+/*==============================
+    slide20_cleanup
+    Cleans up dynamic memory 
+    allocated during this slide
+==============================*/
 
 void slide20_cleanup()
 {

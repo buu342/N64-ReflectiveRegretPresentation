@@ -1,3 +1,9 @@
+/***************************************************************
+                           slide04.c
+
+Reasons to take up N64 homebrew development
+***************************************************************/
+
 #include <nusys.h>
 #include "../config.h"
 #include "../slides.h"
@@ -6,24 +12,46 @@
 #include "../debug.h"
 #include "../assets/segments.h"
 
-static u8 slide_state;
+
+/*********************************
+             Globals
+*********************************/
+
+// The slide's state and the last text block's Y position
+static u8 slidestate;
 static u8 texty;
+
+
+/*==============================
+    slide04_init
+    Initializes the slide
+==============================*/
 
 void slide04_init()
 {
-    slide_state = 0;
+    slidestate = 0;
     texty = 0;
+    
+    // Create the title
     text_setalign(ALIGN_CENTER);
     text_setfont(&font_title);
     text_create("Why do this to yourself?", SCREEN_WD_HD/2, 64);
 }
 
+
+/*==============================
+    slide04_update
+    Update slide logic every
+    frame.
+==============================*/
+
 void slide04_update()
 {
+    // Advance the slide's state when START is pressed
     if (contdata[0].trigger & START_BUTTON)
     {
-        slide_state++;
-        switch (slide_state)
+        slidestate++;
+        switch (slidestate)
         {
             case 1:
                 text_setfont(&font_default);
@@ -61,12 +89,26 @@ void slide04_update()
     }
 }
 
+
+/*==============================
+    slide04_draw
+    Draws extra stuff regarding
+    this slide
+==============================*/
+
 void slide04_draw()
 {
-
+    // Nothing extra to draw besides text
 }
+
+
+/*==============================
+    slide04_cleanup
+    Cleans up dynamic memory 
+    allocated during this slide
+==============================*/
 
 void slide04_cleanup()
 {
-
+    // Nothing extra to cleanup
 }

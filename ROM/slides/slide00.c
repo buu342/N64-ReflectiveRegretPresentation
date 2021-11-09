@@ -1,3 +1,9 @@
+/***************************************************************
+                           slide00.c
+
+The introductory slide
+***************************************************************/
+
 #include <nusys.h>
 #include "../config.h"
 #include "../slides.h"
@@ -7,11 +13,25 @@
 #include "../assets/segments.h"
 #include "../assets/mdl_the_n.h"
 
+
+/*********************************
+             Globals
+*********************************/
+
+// The slide state
 static u8  slidestate;
+
+// Globals regarding the N model's transformation
 static Mtx n_matrix;
 static Mtx rotmatrix;
 static Mtx transmatrix;
 static float angle;
+
+
+/*==============================
+    slide00_init
+    Initializes the slide
+==============================*/
 
 void slide00_init()
 {
@@ -40,6 +60,13 @@ void slide00_init()
     text_setalign(ALIGN_CENTER);
     text_create("Press START to begin the presentation", SCREEN_WD_HD/2, SCREEN_HT_HD/2);
 }
+
+
+/*==============================
+    slide00_update
+    Update slide logic every
+    frame.
+==============================*/
 
 void slide00_update()
 {
@@ -91,6 +118,13 @@ void slide00_update()
         guTranslate(&transmatrix, 0, -10000, 0);
 }
 
+
+/*==============================
+    slide00_draw
+    Draws extra stuff regarding
+    this slide
+==============================*/
+
 void slide00_draw()
 {
     gSPMatrix(glistp++, OS_K0_TO_PHYSICAL(&n_matrix), G_MTX_MODELVIEW | G_MTX_LOAD | G_MTX_NOPUSH);
@@ -99,7 +133,14 @@ void slide00_draw()
     gSPDisplayList(glistp++, gfx_mdl_the_n);
 }
 
+
+/*==============================
+    slide00_cleanup
+    Cleans up dynamic memory 
+    allocated during this slide
+==============================*/
+
 void slide00_cleanup()
 {
-
+    // Nothing to clean up
 }

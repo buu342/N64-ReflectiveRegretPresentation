@@ -1,3 +1,9 @@
+/***************************************************************
+                           slide06.c
+
+A description of the CPU
+***************************************************************/
+
 #include <nusys.h>
 #include "../config.h"
 #include "../slides.h"
@@ -7,10 +13,26 @@
 #include "../assets/segments.h"
 #include "../assets/mdl_n64.h"
 
-static u8 texty;
-static OSTime timer;
+
+/*********************************
+             Globals
+*********************************/
+
+// The slide's state
 static int slidestate;
+static OSTime timer;
+
+// Text position globals
+static u8 texty;
+
+// CPU model
 static modelHelper* model;
+
+
+/*==============================
+    slide06_init
+    Initializes the slide
+==============================*/
 
 void slide06_init()
 {   
@@ -19,7 +41,7 @@ void slide06_init()
     timer = osGetTime() + OS_USEC_TO_CYCLES(500000);
     texty = 0;
 
-    // Load the N64 model overlay
+    // Load the N64 model overlay (even though we'll only use the CPU)
     load_overlay(_gfx_n64SegmentStart,
         (u8*)_gfx_n64SegmentRomStart,  (u8*)_gfx_n64SegmentRomEnd, 
         (u8*)_gfx_n64SegmentTextStart, (u8*)_gfx_n64SegmentTextEnd, 
@@ -35,9 +57,7 @@ void slide06_init()
     model->rotz = 0;
     model->correctpos = mdl_n64_correctpos_cpu;
 
-    // Initialize the model matrix
-    guMtxIdent(&model->matrix);
-    guMtxIdent(&helper);
+    // Initialize the CPU's model matrix
     guTranslate(&model->matrix, -model->correctpos[0], -model->correctpos[1], -model->correctpos[2]);
     guRotateRPY(&helper, -model->rotz, 90, -90);
     guMtxCatL(&model->matrix, &helper, &model->matrix);
@@ -54,10 +74,18 @@ void slide06_init()
     text_setalign(ALIGN_LEFT);
 }
 
+
+/*==============================
+    slide06_update
+    Update slide logic every
+    frame.
+==============================*/
+
 void slide06_update()
 {
     Mtx helper;
 
+    // Move the CPU to the correct spot in the slide
     if (slidestate < 10)
     {
         model->x = lerp(model->x, 40, 0.1);
@@ -65,7 +93,7 @@ void slide06_update()
         model->z = lerp(model->z, 125, 0.1);
     }
 
-    // Create the bullet points
+    // Create the bullet points, one at a time
     if (slidestate < 9 && timer < osGetTime())
     {
         timer = osGetTime() + OS_USEC_TO_CYCLES(50000);
@@ -102,27 +130,25 @@ void slide06_update()
         }
     }
 
-    // Go to the next slide
+    // Begin transitioning to the next slide when the animation finishes and START is pressed
     if (slidestate == 9 && contdata[0].trigger & START_BUTTON)
     {
         slidestate++;
         text_cleanup();
     }
 
-    // Finish the slide
+    // Finish the slide by moving the CPU aside
     if (slidestate == 10)
     {
         model->x = lerp(model->x, 150, 0.1);
         if (model->x > 140)
         {
             slide_change(global_slide+1);
-            return;
+            return; // Important! Return to prevent the rest of this code from being executed or we get null pointers!
         }
     }
 
-    // Setup the model matrix
-    guMtxIdent(&model->matrix);
-    guMtxIdent(&helper);
+    // Setup the CPU's model matrix
     guTranslate(&model->matrix, -model->correctpos[0], -model->correctpos[1], -model->correctpos[2]);
     guRotateRPY(&helper, -model->rotz, 90, -90);
     guMtxCatL(&model->matrix, &helper, &model->matrix);
@@ -133,11 +159,25 @@ void slide06_update()
     model->rotz = (model->rotz+1)%360;
 }
 
+
+/*==============================
+    slide06_draw
+    Draws extra stuff regarding
+    this slide
+==============================*/
+
 void slide06_draw()
 {
     gSPMatrix(glistp++, OS_K0_TO_PHYSICAL(&model->matrix), G_MTX_MODELVIEW | G_MTX_LOAD | G_MTX_NOPUSH);
     gSPDisplayList(glistp++, model->dl);
 }
+
+
+/*==============================
+    slide06_cleanup
+    Cleans up dynamic memory 
+    allocated during this slide
+==============================*/
 
 void slide06_cleanup()
 {

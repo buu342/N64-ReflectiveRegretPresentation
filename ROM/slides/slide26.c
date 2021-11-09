@@ -1,3 +1,9 @@
+/***************************************************************
+                           slide26.c
+
+A basic coverage of graphics programming
+***************************************************************/
+
 #include <nusys.h>
 #include "../config.h"
 #include "../slides.h"
@@ -6,16 +12,34 @@
 #include "../debug.h"
 #include "../assets/segments.h"
 
+
+/*********************************
+             Globals
+*********************************/
+
+// The slide state
 static u8 slidestate;
+
+// A pointer for the grass texture
 static u32* spr_grass;
+
+
+/*==============================
+    slide26_init
+    Initializes the slide
+==============================*/
 
 void slide26_init()
 {
     int texty = 0;
     slidestate = 0;
+    
+    // Create the slide's title text
     text_setfont(&font_title);
     text_setalign(ALIGN_CENTER);
     text_create("Basic Graphics Programming", SCREEN_WD_HD/2, 64);
+    
+    // Create the text for the slide's body
     text_setfont(&font_default);
     text_setalign(ALIGN_LEFT);
     text_create(BULLET1"Does N64 use OpenGL?", 64, 122+32*(texty++));
@@ -27,13 +51,23 @@ void slide26_init()
     text_create(BULLET1"Texture memory", 64, 122+32*(texty++));
     text_create(BULLET2"4 Kilobytes!?", 64, 122+32*(texty++));
     text_create(BULLET3"Half if using Mip-Mapping", 64, 122+32*(texty++));
+    
+    // Load the SM64 grass texture from ROM
     spr_grass = (u32*)malloc(_spr_grassSegmentRomEnd-_spr_grassSegmentRomStart);
     debug_assert(spr_grass != NULL);
     nuPiReadRom((u32)_spr_grassSegmentRomStart, spr_grass, _spr_grassSegmentRomEnd-_spr_grassSegmentRomStart);
 }
 
+
+/*==============================
+    slide26_update
+    Update slide logic every
+    frame.
+==============================*/
+
 void slide26_update()
 {
+    // Advance the slide state when START is pressed
     if (contdata[0].trigger & START_BUTTON)
     {
         slidestate++;
@@ -49,8 +83,16 @@ void slide26_update()
     }
 }
 
+
+/*==============================
+    slide26_draw
+    Draws extra stuff regarding
+    this slide
+==============================*/
+
 void slide26_draw()
 {
+    // Draw the grass texture
     if (slidestate == 1)
     {
         gDPSetCycleType(glistp++, G_CYC_1CYCLE);
@@ -70,6 +112,13 @@ void slide26_draw()
         );
     }
 }
+
+
+/*==============================
+    slide26_cleanup
+    Cleans up dynamic memory 
+    allocated during this slide
+==============================*/
 
 void slide26_cleanup()
 {

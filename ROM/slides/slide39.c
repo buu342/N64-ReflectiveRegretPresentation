@@ -1,3 +1,9 @@
+/***************************************************************
+                           slide39.c
+
+A collection of sources used in this presentation
+***************************************************************/
+
 #include <nusys.h>
 #include "../config.h"
 #include "../slides.h"
@@ -7,12 +13,21 @@
 #include "../assets/segments.h"
 
 
+/*==============================
+    slide39_init
+    Initializes the slide
+==============================*/
+
 void slide39_init()
 {
     int texty = 0;
+    
+    // Create the slide's title text
     text_setfont(&font_title);
     text_setalign(ALIGN_CENTER);
     text_create("Sources", SCREEN_WD_HD/2, 64);
+    
+    // Create the text for the slide's body
     text_setfont(&font_default);
     text_setalign(ALIGN_LEFT);
     text_create(BULLET1"N64 Programming Manual", 64, 122+26*(texty++));
@@ -50,16 +65,38 @@ void slide39_init()
     text_setcolor(0, 0, 0, 255);
 }
 
+
+/*==============================
+    slide39_update
+    Update slide logic every
+    frame.
+==============================*/
+
 void slide39_update()
 {
-
+    // Nothing to update
 }
+
+
+/*==============================
+    slide39_draw
+    Draws extra stuff regarding
+    this slide
+==============================*/
+
 void slide39_draw()
 {
-
+    // Nothing extra to draw besides text
 }
+
+
+/*==============================
+    slide39_cleanup
+    Cleans up dynamic memory 
+    allocated during this slide
+==============================*/
 
 void slide39_cleanup()
 {
-
+    // Nothing extra to cleanup
 }

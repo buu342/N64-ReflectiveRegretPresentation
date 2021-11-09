@@ -1,3 +1,9 @@
+/***************************************************************
+                           slide29.c
+
+An overview of different implementable animation formats
+***************************************************************/
+
 #include <nusys.h>
 #include "../config.h"
 #include "../slides.h"
@@ -10,23 +16,53 @@
 #include "../assets/mdl_skinned.h"
 #include "../assets/mdl_hack.h"
 
+
+/*********************************
+        Function Prototypes
+*********************************/
+
 static void catherine_predraw(u16 part);
 
+
+/*********************************
+             Globals
+*********************************/
+
+// The slide's state
 static u8 slidestate;
+
+// Global model data
 static Mtx* modelmatrix;
-static s64ModelHelper* catherine;
-static Vtx* frames[5];
-static Vtx* skinnedmodelcopy;
 static u32 frametime;
 static u8 animtime;
 Mtx* rotation;
 
+// Catherine
+static s64ModelHelper* catherine;
+
+// Skinned model
+static Vtx* frames[5];
+static Vtx* skinnedmodelcopy;
+
+
+/*==============================
+    makeslide29text
+    Create the slide's text, 
+    and allocate memory for
+    assets depending on the 
+    slide state
+==============================*/
+
 static void makeslide29text()
 {
     int texty = 0;
+    
+    // Create the slide's title text
     text_setfont(&font_title);
     text_setalign(ALIGN_CENTER);
     text_create("Model Animation", SCREEN_WD_HD/2, 64);
+    
+    // Create the text for the slide's body
     text_setfont(&font_default);
     text_setalign(ALIGN_LEFT);
     text_create(BULLET1"Sausage links", 64, 122+32*(texty++));
@@ -34,14 +70,28 @@ static void makeslide29text()
     text_create(BULLET2"Hybrid", 64, 122+32*(texty++));
     text_create(BULLET2"Skeleton system", 64, 122+32*(texty++));
     text_create(BULLET1"Vertex cache hack", 64, 122+32*(texty++));
+}
+
+
+/*==============================
+    slide29_init
+    Initializes the slide
+==============================*/
+
+void slide29_init()
+{
+    slidestate = 0;
+    makeslide29text();
     
-    // Initialize catherine
+    // Load Catherine's overlay
     load_overlay(_gfx_catherineSegmentStart,
         (u8*)_gfx_catherineSegmentRomStart,  (u8*)_gfx_catherineSegmentRomEnd, 
         (u8*)_gfx_catherineSegmentTextStart, (u8*)_gfx_catherineSegmentTextEnd, 
         (u8*)_gfx_catherineSegmentDataStart, (u8*)_gfx_catherineSegmentDataEnd, 
         (u8*)_gfx_catherineSegmentBssStart,  (u8*)_gfx_catherineSegmentBssEnd 
     );
+    
+    // Allocate memory
     modelmatrix = (Mtx*)malloc(sizeof(Mtx));
     rotation = (Mtx*)malloc(sizeof(Mtx));
     catherine = (s64ModelHelper*)malloc(sizeof(s64ModelHelper));
@@ -50,10 +100,12 @@ static void makeslide29text()
     debug_assert(catherine != NULL);
     catherine->matrix = (Mtx*)malloc(sizeof(Mtx)*MESHCOUNT_Catherine);
     debug_assert(catherine->matrix != NULL);
+    
+    // Initialize catherine
     sausage64_initmodel(catherine, MODEL_Catherine, catherine->matrix);
     sausage64_set_predrawfunc(catherine, catherine_predraw);
     
-    // Initialize skinned model
+    // Load the skinned model overlay
     load_overlay(_gfx_skinnedSegmentStart,
         (u8*)_gfx_skinnedSegmentRomStart,  (u8*)_gfx_skinnedSegmentRomEnd, 
         (u8*)_gfx_skinnedSegmentTextStart, (u8*)_gfx_skinnedSegmentTextEnd, 
@@ -76,15 +128,18 @@ static void makeslide29text()
     );
 }
 
-void slide29_init()
-{
-    slidestate = 0;
-    makeslide29text();
-}
+
+/*==============================
+    slide29_update
+    Update slide logic every
+    frame.
+==============================*/
 
 void slide29_update()
 {
     Mtx helper;
+    
+    // Advance the slide state when START is pressed
     if (contdata[0].trigger & START_BUTTON)
     {
         slidestate++;
@@ -123,9 +178,11 @@ void slide29_update()
         }
     }
     
+    // Advance Catherine's animation if we're demonstrating sausage link models.
     if (slidestate == 1 && catherine->animtick < 29)
         sausage64_advance_anim(catherine);
         
+    // Advance the skinned cube animation if we're demonstrating skinned meshes
     if (slidestate == 3 || slidestate == 4)
     {
         frametime = (frametime+1)%40;
@@ -138,6 +195,8 @@ void slide29_update()
             case 40: animtime = 4; break;
         }
         memcpy(skinnedmodelcopy, frames[animtime], 12*sizeof(Vtx));
+        
+        // Lerp the vertices if we want to show how it's done on the CPU
         if (slidestate == 4)
         {
             int i;
@@ -151,14 +210,23 @@ void slide29_update()
     }
 }
 
+
+/*==============================
+    slide29_draw
+    Draws extra stuff regarding
+    this slide
+==============================*/
+
 void slide29_draw()
 {
+    // If we're demonstrating sausage link models, draw Catherine
     if (slidestate == 1)
     {
         gSPMatrix(glistp++, modelmatrix, G_MTX_MODELVIEW | G_MTX_MUL | G_MTX_NOPUSH);
         sausage64_drawmodel(&glistp, catherine);
     }
 
+    // If we're demonstrating skinned models, draw the skinned cube
     if (slidestate == 3 || slidestate == 4)
     {
         #define G_CC_PRIMLITE SHADE,0,PRIMITIVE,0,0,0,0,PRIMITIVE
@@ -184,39 +252,55 @@ void slide29_draw()
         gSP2Triangles(glistp++, 0, 8, 9, 0, 0, 9, 1, 0);
     }
     
+    // If we're demonstrating the vertex cache hack, draw some rectangles
     if (slidestate > 5)
     {
         gSPClearGeometryMode(glistp++, G_LIGHTING);
         gDPSetCombineMode(glistp++, G_CC_SHADE, G_CC_SHADE);
         gDPPipeSync(glistp++);
         gSPMatrix(glistp++, modelmatrix, G_MTX_MODELVIEW | G_MTX_LOAD | G_MTX_NOPUSH);
+        
+        // Draw the first rectangle
         if (slidestate >= 6)
             gSPDisplayList(glistp++, gfx_hack_blue);
+            
+        // Draw the second, rotating rectangle
         if (slidestate >= 7)
         {
             guRotateRPY(rotation, 0, 45*sinf(((float)(frametime++))/10), 0);
             gSPMatrix(glistp++, OS_K0_TO_PHYSICAL(rotation), G_MTX_MODELVIEW | G_MTX_MUL | G_MTX_NOPUSH);
             gSPDisplayList(glistp++, gfx_hack_green);
         }
+        
+        // Draw the connecting triangle
         if (slidestate >= 8)
             gSPDisplayList(glistp++, gfx_hack_red);
     }
 }
 
+
+/*==============================
+    slide29_cleanup
+    Cleans up dynamic memory 
+    allocated during this slide
+==============================*/
+
 void slide29_cleanup()
 {
-    if (catherine != NULL)
-    {
-        free(catherine->matrix);
-        free(catherine);
-        catherine = NULL;
-    }
+    free(catherine->matrix);
+    free(catherine);
     free(skinnedmodelcopy);
     free(modelmatrix);
     free(rotation);
 }
 
 
+/*==============================
+    catherine_predraw
+    Change Catherine's face 
+    texture before we start 
+    drawing it
+==============================*/
 
 static void catherine_predraw(u16 part)
 {

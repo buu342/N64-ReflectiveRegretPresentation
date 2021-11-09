@@ -1,3 +1,9 @@
+/***************************************************************
+                           slide08.c
+
+A description of the RCP
+***************************************************************/
+
 #include <nusys.h>
 #include "../config.h"
 #include "../slides.h"
@@ -7,10 +13,26 @@
 #include "../assets/segments.h"
 #include "../assets/mdl_n64.h"
 
-static u8 texty;
-static OSTime timer;
+
+/*********************************
+             Globals
+*********************************/
+
+// The slide's state
 static int slidestate;
+static OSTime timer;
+
+// Text position globals
+static u8 texty;
+
+// CPU model
 static modelHelper* model;
+
+
+/*==============================
+    slide08_init
+    Initializes the slide
+==============================*/
 
 void slide08_init()
 {   
@@ -54,10 +76,18 @@ void slide08_init()
     text_setalign(ALIGN_LEFT);
 }
 
+
+/*==============================
+    slide08_update
+    Update slide logic every
+    frame.
+==============================*/
+
 void slide08_update()
 {
     Mtx helper;
 
+    // Move the RCP to the center, or to the top corner, depending on the slide state
     if (slidestate == 0)
     {
         model->z = lerp(model->z, 100, 0.1);
@@ -71,7 +101,7 @@ void slide08_update()
         model->z = lerp(model->z, 135, 0.1);
     }
 
-    // Create the bullet points
+    // Create the bullet points, one at a time
     if (slidestate < 13 && timer < osGetTime())
     {
         timer = osGetTime() + OS_USEC_TO_CYCLES(50000);
@@ -117,14 +147,14 @@ void slide08_update()
         }
     }
 
-    // Go to the next slide
+    // Begin transitioning to the next slide when the animation finishes and START is pressed
     if (slidestate == 13 && contdata[0].trigger & START_BUTTON)
     {
         slidestate++;
         text_cleanup();
     }
 
-    // Finish the slide
+    // Finish the slide by moving the RCP aside
     if (slidestate == 14)
     {
         model->x = lerp(model->x, 150, 0.1);
@@ -136,8 +166,6 @@ void slide08_update()
     }
 
     // Setup the model matrix
-    guMtxIdent(&model->matrix);
-    guMtxIdent(&helper);
     guTranslate(&model->matrix, -model->correctpos[0], -model->correctpos[1], -model->correctpos[2]);
     guRotateRPY(&helper, -model->rotz, 90, -90);
     guMtxCatL(&model->matrix, &helper, &model->matrix);
@@ -145,15 +173,31 @@ void slide08_update()
     guMtxCatL(&model->matrix, &helper, &model->matrix);
     guTranslate(&helper, model->x, model->y, model->z);
     guMtxCatL(&model->matrix, &helper, &model->matrix);
+    
+    // Only begin rotating after a second into the slide has passed
     if (slidestate != 0)
         model->rotz = (model->rotz+1)%360;
 }
+
+
+/*==============================
+    slide08_draw
+    Draws extra stuff regarding
+    this slide
+==============================*/
 
 void slide08_draw()
 {
     gSPMatrix(glistp++, OS_K0_TO_PHYSICAL(&model->matrix), G_MTX_MODELVIEW | G_MTX_LOAD | G_MTX_NOPUSH);
     gSPDisplayList(glistp++, model->dl);
 }
+
+
+/*==============================
+    slide08_cleanup
+    Cleans up dynamic memory 
+    allocated during this slide
+==============================*/
 
 void slide08_cleanup()
 {

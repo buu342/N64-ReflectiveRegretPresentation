@@ -1,5 +1,25 @@
+/***************************************************************
+                            slides.c
+                             
+This file contains a sort of vtable that allows for easy hopping
+between function pointers for different slides. When I call 
+slide_change function, it changes the pointers via the global
+array here, as opposed to modifying pointers one by one. This 
+approach was taken as I could easily just punch a number into 
+the function and quickly hop between specific slides during the
+development of the game. This is not an approach I would take 
+with a large scale project, it was simply faster for this one.
+For an actual game, I would either modify the pointer manually
+or create something like this automatically with a tool.
+***************************************************************/
+
 #include <nusys.h>
 #include "../slides.h"
+
+
+/*********************************
+        Function Prototypes
+*********************************/
 
 extern void slide00_init();
 extern void slide00_update();
@@ -161,6 +181,11 @@ extern void slide39_init();
 extern void slide39_update();
 extern void slide39_draw();
 extern void slide39_cleanup();
+
+
+/*********************************
+             Globals
+*********************************/
 
 void (*slidefunc[][4])() = {
     {slide00_init, slide00_update, slide00_draw, slide00_cleanup}, 

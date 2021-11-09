@@ -1,3 +1,9 @@
+/***************************************************************
+                           slide01.c
+
+A brief explanation of who I am.
+***************************************************************/
+
 #include <nusys.h>
 #include "../config.h"
 #include "../helper.h"
@@ -9,6 +15,11 @@
 #include "../assets/mdl_catherine.h"
 
 
+/*********************************
+             Structs
+*********************************/
+
+// Catherine object
 typedef struct {
     float x;
     float y;
@@ -25,6 +36,7 @@ typedef struct {
     s64ModelHelper* mdl;
 } catherineObj;
 
+// Pyoro object
 typedef struct {
     int x;
     int y;
@@ -34,24 +46,47 @@ typedef struct {
 } pyoroObj;
 
 
+/*********************************
+        Function Prototypes
+*********************************/
+
 static void catherine_predraw(u16 part);
 
-static u8 slidestate;
-catherineObj* catherine;
-pyoroObj*     pyoro;
-u16* spr_pyoro_walk1;
-u16* spr_pyoro_walk2;
 
+/*********************************
+             Globals
+*********************************/
+
+// The slide's state
+static u8 slidestate;
+
+// Catherine object
+static catherineObj* catherine;
+
+// Pyoro data
+static pyoroObj*     pyoro;
+static u16* spr_pyoro_walk1;
+static u16* spr_pyoro_walk2;
+
+
+/*==============================
+    slide01_init
+    Initializes the slide
+==============================*/
 
 void slide01_init()
 {
-    // Initialize catherine
+    slidestate = 0;
+    
+    // Load Catherine's data from ROM
     load_overlay(_gfx_catherineSegmentStart,
         (u8*)_gfx_catherineSegmentRomStart,  (u8*)_gfx_catherineSegmentRomEnd, 
         (u8*)_gfx_catherineSegmentTextStart, (u8*)_gfx_catherineSegmentTextEnd, 
         (u8*)_gfx_catherineSegmentDataStart, (u8*)_gfx_catherineSegmentDataEnd, 
         (u8*)_gfx_catherineSegmentBssStart,  (u8*)_gfx_catherineSegmentBssEnd 
     );
+    
+    // Allocate memory for Catherine
     catherine = (catherineObj*)malloc(sizeof(catherineObj));
     debug_assert(catherine != NULL);
     catherine->worldmtx = (Mtx*)malloc(sizeof(Mtx));
@@ -60,6 +95,8 @@ void slide01_init()
     debug_assert(catherine->worldmtx != NULL);
     debug_assert(catherine->meshesmtx != NULL);
     debug_assert(catherine->mdl != NULL);
+    
+    // Initialize Catherine
     sausage64_initmodel(catherine->mdl, MODEL_Catherine, catherine->meshesmtx);
     sausage64_set_predrawfunc(catherine->mdl, catherine_predraw);
     sausage64_set_anim(catherine->mdl, ANIMATION_Catherine_Run);
@@ -77,10 +114,9 @@ void slide01_init()
     catherine->facetick = 60;
     catherine->faceindex = 0;
     catherine->facetime = osGetTime() + OS_USEC_TO_CYCLES(22222);
-    guMtxIdent(catherine->worldmtx);
     guTranslate(catherine->worldmtx, catherine->x, catherine->y, catherine->z);
     
-    // Initialize Pyoro
+    // Allocate memory for Pyoro and grab his data from ROM
     pyoro = (pyoroObj*)malloc(sizeof(pyoroObj));
     spr_pyoro_walk1 = (u16*)malloc(_spr_pyoro_walk1SegmentRomEnd-_spr_pyoro_walk1SegmentRomStart);
     spr_pyoro_walk2 = (u16*)malloc(_spr_pyoro_walk2SegmentRomEnd-_spr_pyoro_walk2SegmentRomStart);
@@ -89,6 +125,8 @@ void slide01_init()
     debug_assert(spr_pyoro_walk2 != NULL);
     nuPiReadRom((u32)_spr_pyoro_walk1SegmentRomStart, spr_pyoro_walk1, _spr_pyoro_walk1SegmentRomEnd-_spr_pyoro_walk1SegmentRomStart);
     nuPiReadRom((u32)_spr_pyoro_walk2SegmentRomStart, spr_pyoro_walk2, _spr_pyoro_walk2SegmentRomEnd-_spr_pyoro_walk2SegmentRomStart);
+    
+    // Initialize Pyoro
     pyoro->sprite = spr_pyoro_walk1;
     pyoro->x = SCREEN_WD_HD+32;
     pyoro->y = 350;
@@ -96,11 +134,17 @@ void slide01_init()
     pyoro->frametime = osGetTime() + OS_USEC_TO_CYCLES(22222);
     
     // Print text on the slide
-    slidestate = 0;
     text_setfont(&font_title);
     text_setalign(ALIGN_CENTER);
     text_create("Who are you, and why should I care?", SCREEN_WD_HD/2, 64);
 }
+
+
+/*==============================
+    slide01_update
+    Update slide logic every
+    frame.
+==============================*/
 
 void slide01_update()
 {
@@ -110,6 +154,8 @@ void slide01_update()
     if (catherine->state != -1)
     {
         sausage64_advance_anim(catherine->mdl);
+        
+        // Change her animation or speed based on her current state
         switch (catherine->state)
         {
             case 0:
@@ -140,11 +186,13 @@ void slide01_update()
         }
         catherine->x += catherine->speed;
         
-        // Catherine face blinking
+        // Catherine face blinking animation
         if (catherine->facetime < osGetTime())
         {
             catherine->facetick--;
             catherine->facetime = osGetTime() + OS_USEC_TO_CYCLES(22222);
+            
+            // Change the face array index based on the animation state
             if (catherine->face->hasblink)
             {
                 switch (catherine->facetick)
@@ -165,8 +213,6 @@ void slide01_update()
         }
     
         // Create Catherine's world matrix
-        guMtxIdent(&helper);
-        guMtxIdent(catherine->worldmtx);
         guRotateRPY(catherine->worldmtx, 0, 0, catherine->rot);
         guTranslate(&helper, catherine->x, catherine->y, catherine->z);
         guMtxCatL(catherine->worldmtx, &helper, catherine->worldmtx);
@@ -175,6 +221,7 @@ void slide01_update()
     // Advance Pyoro's animation
     if (pyoro->state != -1)
     {
+        // Move pyoro depending on his state
         switch (pyoro->state)
         {
             case 0:
@@ -195,7 +242,7 @@ void slide01_update()
         }
     }
     
-    // Handle pressing start
+    // Handle pressing start to advance the slide's state
     if (contdata[0].trigger & START_BUTTON)
     {
         slidestate++;
@@ -212,6 +259,13 @@ void slide01_update()
         }
     }
 }
+
+
+/*==============================
+    slide01_draw
+    Draws extra stuff regarding
+    this slide
+==============================*/
 
 void slide01_draw()
 {
@@ -240,6 +294,13 @@ void slide01_draw()
     );
 }
 
+
+/*==============================
+    slide01_cleanup
+    Cleans up dynamic memory 
+    allocated during this slide
+==============================*/
+
 void slide01_cleanup()
 {
     free(catherine->mdl);
@@ -250,6 +311,14 @@ void slide01_cleanup()
     free(spr_pyoro_walk1);
     free(pyoro);
 }
+
+
+/*==============================
+    catherine_predraw
+    Change Catherine's face 
+    texture before we start 
+    drawing it
+==============================*/
 
 static void catherine_predraw(u16 part)
 {

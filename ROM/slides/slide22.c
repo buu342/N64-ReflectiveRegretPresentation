@@ -1,3 +1,9 @@
+/***************************************************************
+                           slide22.c
+
+An explanation of Microcode
+***************************************************************/
+
 #include <nusys.h>
 #include "../config.h"
 #include "../slides.h"
@@ -5,12 +11,22 @@
 #include "../helper.h"
 #include "../debug.h"
 
+
+/*==============================
+    slide22_init
+    Initializes the slide
+==============================*/
+
 void slide22_init()
 {
     int texty = 0;
+    
+    // Create the slide's title text
     text_setfont(&font_title);
     text_setalign(ALIGN_CENTER);
     text_create("Microcode", SCREEN_WD_HD/2, 56);
+    
+    // Create the text for the slide's body
     text_setfont(&font_default);
     text_setalign(ALIGN_LEFT);
     text_create(BULLET1"When generating tasks for the RCP, the CPU chooses", 64, 102+28*(texty++));
@@ -27,18 +43,40 @@ void slide22_init()
     text_create(BULLET2"r64emu", 64, 102+28*(texty++));
 }
 
+
+/*==============================
+    slide22_update
+    Update slide logic every
+    frame.
+==============================*/
+
 void slide22_update()
 {
+    // Change slide when START is pressed
     if (contdata[0].trigger & START_BUTTON)
         slide_change(global_slide+1);
 }
 
+
+/*==============================
+    slide22_draw
+    Draws extra stuff regarding
+    this slide
+==============================*/
+
 void slide22_draw()
 {
-
+    // Nothing extra to draw besides text
 }
+
+
+/*==============================
+    slide22_cleanup
+    Cleans up dynamic memory 
+    allocated during this slide
+==============================*/
 
 void slide22_cleanup()
 {
-
+    // Nothing extra to cleanup
 }

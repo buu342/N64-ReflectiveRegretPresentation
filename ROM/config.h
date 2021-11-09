@@ -45,18 +45,18 @@
     #define ADDR_FB1_HD ((u16*)(RAMBANK_5))
     #define ADDR_FB2_HD ((u16*)(RAMBANK_6))
     #define ADDR_FB3_HD ((u16*)(RAMBANK_7))
-    #define	ADDR_ZB_HD  ((u16*)(RAMBANK_8))
+    #define ADDR_ZB_HD  ((u16*)(RAMBANK_8))
     #define ADDR_FB1_SD ((u16*)(RAMBANK_5))
     #define ADDR_FB2_SD ((u16*)(RAMBANK_6))
     #define ADDR_FB3_SD ((u16*)(RAMBANK_7))
-    #define	ADDR_ZB_SD  ((u16*)(RAMBANK_8))
+    #define ADDR_ZB_SD  ((u16*)(RAMBANK_8))
     
     // Bad framebuffer addresses
     #define SIZE_FB_SD     SCREEN_WD_SD*SCREEN_HT_SD*2
     #define ADDR_FB1_SDBAD ((u16*)(RAMBANK_5+SIZE_FB_SD*0))
     #define ADDR_FB2_SDBAD ((u16*)(RAMBANK_5+SIZE_FB_SD*2))
     #define ADDR_FB3_SDBAD ((u16*)(RAMBANK_5+SIZE_FB_SD*3))
-    #define	ADDR_ZB_SDBAD  ((u16*)(RAMBANK_5+SIZE_FB_SD*1))
+    #define ADDR_ZB_SDBAD  ((u16*)(RAMBANK_5+SIZE_FB_SD*1))
 
     // Array sizes
     #define GLIST_LENGTH 4096
