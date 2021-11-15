@@ -12,6 +12,8 @@ TARGETS = presentation.n64
 
 REGISTRATION = "REGRET" B RR I
 
+PADDING = 32
+
 
 ################################################################
 #                         NuSys Config                         #
@@ -96,7 +98,7 @@ $(CODESEGMENT): $(CODEOBJECTS)
     $(LD) -o $(CODESEGMENT) -r $(CODEOBJECTS) $(LDFLAGS)
 
 $(TARGETS): $(OBJECTS)
-    $(MAKEROM) spec $(MAKEROMFLAGS) -I$(NUSYSINC) -r $(TARGETS) -e $(APP) 
+    $(MAKEROM) spec $(MAKEROMFLAGS) -I$(NUSYSINC) -r $(TARGETS) -e $(APP) -s $(PADDING)
     @makemask $(TARGETS)
 ifeq ($(ALLOWREGISTER), 1)
     @nrdc $(TARGETS) $(REGISTRATION)

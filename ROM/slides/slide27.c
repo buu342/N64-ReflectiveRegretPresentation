@@ -36,7 +36,7 @@ An explanation of the Color Combiner
 static u8 slidestate;
 
 // A pointer to store our texture
-static u32* tex_inercia __attribute__ ((aligned (32)));
+static u8* tex_inercia __attribute__ ((aligned (64)));
 
 // Color Combiner settings
 static u8 selectedmode;
@@ -123,6 +123,7 @@ void rerender_menu()
 
 void slide27_init()
 {
+    int i;
     int texty = 0;
     selectedmode = 0;
     slidestate = 0;
@@ -143,7 +144,7 @@ void slide27_init()
     text_create(BULLET1"Can be done in two passes", 64, 122+32*(texty++));
     
     // Grab the Inercia logo texture from ROM
-    tex_inercia = (u32*)memalign(32, _tex_inerciaSegmentRomEnd-_tex_inerciaSegmentRomStart);
+    tex_inercia = (u8*)memalign(64, _tex_inerciaSegmentRomEnd-_tex_inerciaSegmentRomStart);
     debug_assert(tex_inercia != NULL);
     nuPiReadRom((u32)_tex_inerciaSegmentRomStart, tex_inercia, _tex_inerciaSegmentRomEnd-_tex_inerciaSegmentRomStart);
 }
