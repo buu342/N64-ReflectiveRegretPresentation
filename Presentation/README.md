@@ -18,6 +18,7 @@ Here is a list of addendums or notes to clarify or correct things said or writte
 * 00:28:28 - **Heckling:** A member of the audience asked "Has someone ported Bad Apple to the N64 yet?".
 * 00:31:51 - **Clarfication:** I called it bootcode for simplifcation reasons, but it's a bit more complicated than that... The community is trying to step away from that terminology.
 * 00:38:34 - **Clarfication:** The texture memory isn't for the entire scene (like in the PS1), you can swap out textures as you're rendering triangles. The problem is that the texture cache is super small so its hard to get good looking textures without increasing your poly count.
+* 00:38:44 - **Addendum:** I meant "32-Bit color image" (I was thinking 8 bits per component (R, G, B, A) but accidentally blurted out "8-Bit color").
 * 00:38:52 - **Heckling:** Member of the audience asked "Why did they make it so small?".
 * 00:41:54 - **Note:** This texture displays incorrectly on the console. This is on me as it's not being properly aligned in memory, but I didn't fix it because at this point in time I already knew that the presentation was not going to be done on the console, but rather the emulator. I will fix this in the near future and update this comment accordingly.
 * 00:42:32 - **Note:** The model appears brighter now because the texture color is being added to its vertex color. Ideally I would have multiplied them all together (requiring 2 passes), but this swap was needed to show the noise effect instead being done in a single pass.
@@ -26,5 +27,6 @@ Here is a list of addendums or notes to clarify or correct things said or writte
 * 00:58:53 - **Heckling:** A member of the audience asked "What sort of fighting?".
 * 00:59:15 - **Heckling:** A member of the audience asked "What about high level emulation? Did that die off?".
 * 00:59:25 - **Addendum:** It did not use Oman details (it was released before). It was discontinued because Nintendo put a stop to it as the console was still being commercially sold.
+* 00:59:58 - **Addendum:** alt-libn64 merged with Libdragon in 2010, the slides is correct, I just had a verbal slip up. 
 * 01:04:04 - **Note:** If you're seeing this message, there is still no single pitstop for homebrew releases.
 * 01:04:20 - **Addendum:** I meant to say "NES World", not "NES Dev".
