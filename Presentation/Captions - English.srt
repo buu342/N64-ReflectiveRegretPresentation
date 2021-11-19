@@ -73,7 +73,7 @@ wonderful world
 
 17
 00:00:55,034 --> 00:00:58,455
-of nintendo 64 homebrew development.
+of Nintendo 64 homebrew development.
 
 18
 00:00:58,693 --> 00:01:00,394
@@ -81,11 +81,11 @@ First, a very brief introduction.
 
 19
 00:01:01,124 --> 00:01:03,059
-My name is Lourenço Soares
+My name is Lourenço Soares,
 
 20
 00:01:03,084 --> 00:01:06,808
-Although you might know me more
+although you might know me more
 by the name: Buu342
 
 21
@@ -99,7 +99,7 @@ B U U three four two,
 
 23
 00:01:10,242 --> 00:01:11,969
-Buu three hundred fourty two...
+Buu three hundred forty two...
 
 24
 00:01:11,993 --> 00:01:13,887
@@ -111,7 +111,7 @@ I'm a computer science student,
 
 26
 00:01:15,218 --> 00:01:20,543
-I started nintendo 64 development
+I started Nintendo 64 development
 more or less around early 2018.
 
 27
@@ -274,7 +274,7 @@ you, if you're interested in N64
 
 61
 00:03:12,045 --> 00:03:13,655
- development) will have to face,
+development) will have to face,
 
 62
 00:03:13,680 --> 00:03:15,821
@@ -296,7 +296,7 @@ but is also actively helping produce it.
 
 66
 00:03:25,489 --> 00:03:28,396
-So after that little intro, 
+So after that little intro,
 you're kinda wondering
 
 67
@@ -517,7 +517,7 @@ so he doesn't need to worry about it.
 
 112
 00:06:09,987 --> 00:06:13,646
-The databus is 8 bits
+The data bus is 8 bits
 (9 bits, obviously).
 
 113
@@ -976,7 +976,7 @@ it's extra hardware so, y'know?
 207
 00:12:04,448 --> 00:12:08,625
 The SNES, they had extra sound chips
-on some of their crartridges,
+on some of their cartridges,
 
 208
 00:12:08,650 --> 00:12:12,444
@@ -1010,7 +1010,7 @@ news, so you can stay updated on
 
 214
 00:12:34,826 --> 00:12:37,134
-all the nintendo 64 things.
+all the Nintendo 64 things.
 
 215
 00:12:37,158 --> 00:12:37,970
@@ -1339,7 +1339,7 @@ called marshallh. He is a great guy,
 283
 00:16:49,506 --> 00:16:53,987
 and he's done *a lot* for the Nintendo 64
-communuity, so I really recommend
+community, so I really recommend
 
 284
 00:16:54,012 --> 00:16:55,456
@@ -2349,12 +2349,12 @@ run a little bit worse.
 
 492
 00:31:37,355 --> 00:31:41,536
-The time up there is in miliseconds.
+The time up there is in milliseconds.
 
 493
 00:31:41,561 --> 00:31:43,403
 [Audience Member]
-That's in miliseconds?
+That's in milliseconds?
 
 494
 00:31:43,428 --> 00:31:46,967
@@ -2511,7 +2511,7 @@ from ROM, the data is held in the cache
 525
 00:34:10,829 --> 00:34:16,572
 until the cache line is written back,
-usually because a cache miss occurrs
+usually because a cache miss occurs
 
 526
 00:34:16,597 --> 00:34:21,569
@@ -3817,7 +3817,7 @@ mode, and the performance is pretty
 
 794
 00:54:57,320 --> 00:55:00,421
-noticable, especially in the CPU
+noticeable, especially in the CPU
 bottlenecked areas.
 
 795
@@ -4436,7 +4436,7 @@ the CPU could only address 250 megabytes,
 
 923
 01:03:09,070 --> 01:03:12,498
-turns out it can potentially adress
+turns out it can potentially address
 more than that. But no one bothers
 
 924
@@ -4726,7 +4726,7 @@ instead of the Nintendo64
 983
 01:06:44,414 --> 01:06:49,312
 And you also have a bunch of hacking
-communities for very spcific titles,
+communities for very specific titles,
 
 984
 01:06:49,337 --> 01:06:56,294
