@@ -26,6 +26,6 @@ Here is a list of addendums or notes to clarify or correct things said or writte
 * 00:58:53 - **Heckling:** A member of the audience asked "What sort of fighting?".
 * 00:59:15 - **Heckling:** A member of the audience asked "What about high level emulation? Did that die off?".
 * 00:59:25 - **Addendum:** It did not use Oman details (it was released before). It was discontinued because Nintendo put a stop to it as the console was still being commercially sold.
-* 00:59:58 - **Addendum:** alt-libn64 merged with Libdragon in 2010, the slides is correct, I just had a verbal slip up. 
+* 00:59:58 - **Addendum:** alt-libn64 merged with Libdragon in 2010, the slides are correct, I just had a verbal slip up. 
 * 01:04:04 - **Note:** If you're seeing this message, there is still no single pitstop for homebrew releases.
 * 01:04:20 - **Addendum:** I meant to say "NES World", not "NES Dev".
